@@ -1,0 +1,20 @@
+- SOURCE CONTROL!!!!!
+- Selection of brushes
+  - component for showing brush and name
+  - click to select
+  - get current brush
+- Continuity of drawing
+  - connecting mouse drag events
+  - Moving applying brushes to background thread
+- Lim/Griffin:
+  - Clean up last window stuff
+  - Verify implementation
+  - Clean out slider junk (move to settings menu?)
+- Look and feel
+- Clean up all the dimensions in MainComponent
+- Clean up all header comments in source files
+- Clean up includes
+- Waveform view
+- Save/load
+
+

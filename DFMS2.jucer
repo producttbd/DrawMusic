@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="juga0a" name="DFMS2" projectType="guiapp" version="1.0.0"
+              bundleIdentifier="com.yourcompany.DFMS2" includeBinaryInAppConfig="1"
+              jucerVersion="3.2.0">
+  <MAINGROUP id="BvMvtA" name="DFMS2">
+    <GROUP id="{157F435B-C817-59C4-B8EE-094D6D6F9F9C}" name="Source">
+      <FILE id="SnX5RN" name="GridColourScheme.cpp" compile="1" resource="0"
+            file="Source/GridColourScheme.cpp"/>
+      <FILE id="QvzCgi" name="GridColourScheme.h" compile="0" resource="0"
+            file="Source/GridColourScheme.h"/>
+      <FILE id="qpqOpz" name="BrushFactory.cpp" compile="1" resource="0"
+            file="Source/BrushFactory.cpp"/>
+      <FILE id="sl07iy" name="BrushFactory.h" compile="0" resource="0" file="Source/BrushFactory.h"/>
+      <FILE id="oHjjCo" name="ToDo.txt" compile="0" resource="1" file="Source/ToDo.txt"/>
+      <FILE id="IOqWyB" name="BrushPalette.cpp" compile="1" resource="0"
+            file="Source/BrushPalette.cpp"/>
+      <FILE id="hoqts4" name="BrushPalette.h" compile="0" resource="0" file="Source/BrushPalette.h"/>
+      <FILE id="SszaTR" name="LimGriffinReconstructor.cpp" compile="1" resource="0"
+            file="Source/LimGriffinReconstructor.cpp"/>
+      <FILE id="tjoYTS" name="LimGriffinReconstructor.h" compile="0" resource="0"
+            file="Source/LimGriffinReconstructor.h"/>
+      <FILE id="wH9E94" name="SimpleSpectrumReconstructor.cpp" compile="1"
+            resource="0" file="Source/SimpleSpectrumReconstructor.cpp"/>
+      <FILE id="qa4ysO" name="SimpleSpectrumReconstructor.h" compile="0"
+            resource="0" file="Source/SimpleSpectrumReconstructor.h"/>
+      <FILE id="AXA7kk" name="MainComponent.cpp" compile="1" resource="0"
+            file="Source/MainComponent.cpp"/>
+      <FILE id="GOq5mL" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
+      <FILE id="Cb5ZWw" name="DFMSLookAndFeel.cpp" compile="1" resource="0"
+            file="Source/DFMSLookAndFeel.cpp"/>
+      <FILE id="MIMY9z" name="DFMSLookAndFeel.h" compile="0" resource="0"
+            file="Source/DFMSLookAndFeel.h"/>
+      <FILE id="ZxeLht" name="GridAudioRendererAudioSource.cpp" compile="1"
+            resource="0" file="Source/GridAudioRendererAudioSource.cpp"/>
+      <FILE id="XbKIAt" name="GridAudioRendererAudioSource.h" compile="0"
+            resource="0" file="Source/GridAudioRendererAudioSource.h"/>
+      <FILE id="XYaZa0" name="GridData.h" compile="0" resource="0" file="Source/GridData.h"/>
+      <FILE id="lgFGmq" name="GridImageRenderer.cpp" compile="1" resource="0"
+            file="Source/GridImageRenderer.cpp"/>
+      <FILE id="iRU6E5" name="GridImageRenderer.h" compile="0" resource="0"
+            file="Source/GridImageRenderer.h"/>
+      <FILE id="rjPYaw" name="GridPoint.h" compile="0" resource="0" file="Source/GridPoint.h"/>
+      <FILE id="u5hy5O" name="PixelBrush.cpp" compile="1" resource="0" file="Source/PixelBrush.cpp"/>
+      <FILE id="qbWo51" name="PixelBrush.h" compile="0" resource="0" file="Source/PixelBrush.h"/>
+      <FILE id="eSpdYn" name="Configuration.h" compile="0" resource="0" file="Source/Configuration.h"/>
+      <FILE id="zYCyS7" name="DrawGrid.cpp" compile="1" resource="0" file="Source/DrawGrid.cpp"/>
+      <FILE id="zPU404" name="DrawGrid.h" compile="0" resource="0" file="Source/DrawGrid.h"/>
+      <FILE id="Bs9Qmy" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" osxSDK="default" osxCompatibility="default" osxArchitecture="default"
+                       isDebug="1" optimisation="1" targetName="DFMS2"/>
+        <CONFIGURATION name="Release" osxSDK="default" osxCompatibility="default" osxArchitecture="default"
+                       isDebug="0" optimisation="2" targetName="DFMS2"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../Juce/modules"/>
+        <MODULEPATH id="juce_events" path="../Juce/modules"/>
+        <MODULEPATH id="juce_graphics" path="../Juce/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../Juce/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../Juce/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../Juce/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../Juce/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../Juce/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../Juce/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../Juce/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../Juce/modules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULES id="juce_audio_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_audio_devices" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_audio_formats" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_audio_processors" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_core" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_cryptography" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_events" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_graphics" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_gui_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
+  </MODULES>
+  <JUCEOPTIONS/>
+</JUCERPROJECT>
