@@ -37,7 +37,7 @@ void GridAudioRendererAudioSource::prepareToPlay(int samplesPerBlockExpected, do
 //                                              Configuration::getFftLength(), gridData_);
 //    reconstructor.perform(fullPieceAudioBuffer_);
 
-    LimGriffenReconstructor reconstructor(Configuration::getFftOrder(), Configuration::getFftLength(), gridData_, lgIterations_);
+    LimGriffinReconstructor reconstructor(Configuration::getFftOrder(), Configuration::getFftLength(), gridData_, lgIterations_);
     reconstructor.perform(fullPieceAudioBuffer_);
     currentOutputOffset_ = 0;
 }

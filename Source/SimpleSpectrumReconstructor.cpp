@@ -17,7 +17,6 @@ totalNumberWindows_(gridData.getWidth()),
 gridData_(gridData),
 fft_(fftOrder, true)
 {
-    // Stupid checks
     jassert(windowLength_ == windowMidpoint_ * 2);
     jassert(windowLength_ == 1 << fftOrder);
     jassert(gridData_.getHeight() == windowMidpoint_ + 1);

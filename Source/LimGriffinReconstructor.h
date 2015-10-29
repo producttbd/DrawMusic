@@ -15,10 +15,10 @@
 
 #include "SimpleSpectrumReconstructor.h"
 
-class LimGriffenReconstructor : public SimpleSpectrumReconstructor
+class LimGriffinReconstructor : public SimpleSpectrumReconstructor
 {
 public:
-    LimGriffenReconstructor(int fftOrder, int windowLength, const GridData& gridData, int iterations);
+    LimGriffinReconstructor(int fftOrder, int windowLength, const GridData& gridData, int iterations);
     void perform(AudioSampleBuffer& outputBuffer) override;
 
 protected:

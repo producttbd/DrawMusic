@@ -8,6 +8,7 @@
   - Moving applying brushes to background thread
 - Lim/Griffin:
   - Clean up last window stuff
+  - Check spectrum of output audio
   - Verify implementation
   - Clean out slider junk (move to settings menu?)
 - Look and feel
