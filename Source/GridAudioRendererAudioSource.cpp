@@ -33,10 +33,6 @@ GridAudioRendererAudioSource::~GridAudioRendererAudioSource()
 
 void GridAudioRendererAudioSource::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
 {
-//    SimpleSpectrumReconstructor reconstructor(Configuration::getFftOrder(),
-//                                              Configuration::getFftLength(), gridData_);
-//    reconstructor.perform(fullPieceAudioBuffer_);
-
     LimGriffinReconstructor reconstructor(Configuration::getFftOrder(), Configuration::getFftLength(), gridData_, lgIterations_);
     reconstructor.perform(fullPieceAudioBuffer_);
     currentOutputOffset_ = 0;

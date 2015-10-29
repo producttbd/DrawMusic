@@ -31,6 +31,7 @@ MainComponent::MainComponent ()
     reconstructionSlider_.setSliderStyle(Slider::SliderStyle::LinearHorizontal);
     reconstructionSlider_.setTextBoxStyle(Slider::TextBoxLeft, false, 30, 30);
     reconstructionSlider_.setRange(0, 10, 1);
+    reconstructionSlider_.addListener(&gridAudioSource_);
 
     addAndMakeVisible(&drawGrid_);
 
