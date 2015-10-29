@@ -31,6 +31,7 @@ void PixelBrush::drawInTo(juce::Graphics& g, const GridColourScheme& colourSchem
 
 Array<GridPoint> PixelBrush::startStroke(GridPoint p, GridData &gridData) const
 {
+    //lastPoint_ = p;
     return applyBrushToPoint(p, gridData);
 }
 
@@ -63,7 +64,7 @@ Array<GridPoint> PixelBrush::applyBrushToPoint(GridPoint p, GridData &gridData) 
                     break;
                 default:
                 case PointType::Absolute:
-                    gridData[affectedPoint] = brushPoint.z;
+                    gridData[affectedPoint] = jmax(gridData[affectedPoint], brushPoint.z);
                     break;
             }
             gridData[affectedPoint] = gridData.clampToAcceptableValues(gridData[affectedPoint]);
