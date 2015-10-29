@@ -57,11 +57,19 @@ void MainComponent::paint (Graphics& g)
 
 void MainComponent::resized()
 {
-    drawGrid_.setBounds(10, 10, Configuration::getGridWidth(), Configuration::getGridHeight());
-    playStopButton_.setBounds (10, getHeight() - 10 - 24, 150, 24);
-    clearButton_.setBounds (10 + 150, (getHeight() - 10 - 24) + 0, 150, 24);
-    reconstructionSlider_.setBounds(320, getHeight() - 34, 150, 24);
-    brushPalette_.setBounds(getWidth() - 50, getHeight() - 50, 50, 50);
+    const int outsideMargin = Configuration::getGuiMargin();
+    drawGrid_.setBounds(outsideMargin, outsideMargin, Configuration::getGridWidth(), Configuration::getGridHeight());
+
+    const int buttonWidth = 80;
+    const int buttonHeight = 24;
+    const int buttonY = getHeight() - buttonHeight - outsideMargin;
+    playStopButton_.setBounds (outsideMargin, buttonY, buttonWidth, buttonHeight);
+    clearButton_.setBounds (outsideMargin + buttonWidth, buttonY, buttonWidth, buttonHeight);
+    reconstructionSlider_.setBounds(outsideMargin + 2 * buttonWidth, buttonY, 2 * buttonWidth, buttonHeight);
+
+    const int paletteSide = Configuration::getPaletteSide();
+    brushPalette_.setBounds(getWidth() - paletteSide - outsideMargin, getHeight() - paletteSide - outsideMargin,
+                            paletteSide, paletteSide);
 }
 
 void MainComponent::buttonClicked (Button* buttonThatWasClicked)
