@@ -15,6 +15,7 @@ SimpleSpectrumReconstructor::SimpleSpectrumReconstructor(int fftOrder, int windo
 windowMidpoint_(windowLength / 2),
 totalNumberWindows_(gridData.getWidth()),
 gridData_(gridData),
+scaleFactor_(0.5f),
 fft_(fftOrder, true)
 {
     jassert(windowLength_ == windowMidpoint_ * 2);
@@ -40,6 +41,7 @@ void SimpleSpectrumReconstructor::perform(AudioSampleBuffer& outputBuffer)
         float* toWrite = outputBuffer.getWritePointer(0, windowNumber * windowMidpoint_); // TODO channel
         for (int i = 0; i < windowLength_; ++i)
         {
+            // TODO remove windowing after LG works
             toWrite[i] = fftOutput[i].r * hann_window_[i];
         }
     }
@@ -54,7 +56,8 @@ void SimpleSpectrumReconstructor::expandSpectrogramColumnToFullWindowLength(int 
     output[windowMidpoint_].r = output[0].r;
     for (int i = 1; i < windowMidpoint_; ++i)
     {
-        output[i].r = gridData_.getXY(spectrogramColumn, windowMidpoint_ - i);
+        output[i].r = gridData_.getXY(spectrogramColumn, windowMidpoint_ - i)
+                      * scaleFactor_;
         output[windowLength_ - i].r = output[i].r;
     }
 }
@@ -69,7 +72,8 @@ void SimpleSpectrumReconstructor::expandSpectrogramColumnToFullWindowLength(int 
     output[windowMidpoint_] = output[0];
     for (int i = 1; i < windowMidpoint_; ++i)
     {
-        output[i] = gridData_.getXY(spectrogramColumn, windowMidpoint_ - i);
+        output[i] = gridData_.getXY(spectrogramColumn, windowMidpoint_ - i)
+                    * scaleFactor_;
         output[windowLength_ - i] = output[i];
     }
 }
