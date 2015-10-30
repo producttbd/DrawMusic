@@ -28,8 +28,6 @@ protected:
     const int iterations_;
     FFT forwardFft_;
     FFT inverseFft_;
-
-    static const float hann_window_[];//TODO fix (this assumes window length)
 };
 
 

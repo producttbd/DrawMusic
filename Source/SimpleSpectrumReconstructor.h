@@ -29,6 +29,10 @@ protected:
     const int windowMidpoint_;
     const int totalNumberWindows_;
     const GridData& gridData_;
+
+    static const float hann_window_[];//TODO fix (this assumes window length)
+
+private:
     const FFT fft_;
 };
 
