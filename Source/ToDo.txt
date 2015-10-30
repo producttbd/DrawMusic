@@ -6,6 +6,8 @@
   - Check spectrum of output audio
   - Verify implementation
   - Clean out slider junk (move to settings menu?)
+- WaveFrom display
+- Background audio rendering
 - Look and feel
 - Clean up all the dimensions in MainComponent
 - Clean up all header comments in source files
