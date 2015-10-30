@@ -9,18 +9,17 @@ namespace BinaryData
 
 //================== ToDo.txt ==================
 static const unsigned char temp_binary_data_0[] =
-"- SOURCE CONTROL!!!!!\n"
-"- Selection of brushes\n"
-"  - component for showing brush and name\n"
-"  - click to select\n"
-"  - get current brush\n"
 "- Continuity of drawing\n"
 "  - connecting mouse drag events\n"
 "  - Moving applying brushes to background thread\n"
 "- Lim/Griffin:\n"
 "  - Clean up last window stuff\n"
+"  - Check spectrum of output audio\n"
 "  - Verify implementation\n"
 "  - Clean out slider junk (move to settings menu?)\n"
+"- WaveFrom display\n"
+"- Background audio rendering\n"
+"- Look and feel\n"
 "- Clean up all the dimensions in MainComponent\n"
 "- Clean up all header comments in source files\n"
 "- Clean up includes\n"
@@ -42,7 +41,7 @@ const char* getNamedResource (const char* resourceNameUTF8, int& numBytes) throw
 
     switch (hash)
     {
-        case 0x80091737:  numBytes = 501; return ToDo_txt;
+        case 0x80091737:  numBytes = 472; return ToDo_txt;
         default: break;
     }
 
