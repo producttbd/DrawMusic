@@ -10,7 +10,7 @@
 namespace BinaryData
 {
     extern const char*   ToDo_txt;
-    const int            ToDo_txtSize = 472;
+    const int            ToDo_txtSize = 501;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

@@ -18,6 +18,7 @@ static const unsigned char temp_binary_data_0[] =
 "  - Verify implementation\n"
 "  - Clean out slider junk (move to settings menu?)\n"
 "- WaveFrom display\n"
+"- Log scale of vertical axis\n"
 "- Background audio rendering\n"
 "- Look and feel\n"
 "- Clean up all the dimensions in MainComponent\n"
@@ -41,7 +42,7 @@ const char* getNamedResource (const char* resourceNameUTF8, int& numBytes) throw
 
     switch (hash)
     {
-        case 0x80091737:  numBytes = 472; return ToDo_txt;
+        case 0x80091737:  numBytes = 501; return ToDo_txt;
         default: break;
     }
 

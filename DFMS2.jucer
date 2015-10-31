@@ -67,11 +67,11 @@
         <MODULEPATH id="juce_data_structures" path="../Juce/modules"/>
         <MODULEPATH id="juce_gui_basics" path="../Juce/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../Juce/modules"/>
-        <MODULEPATH id="juce_cryptography" path="../Juce/modules"/>
         <MODULEPATH id="juce_audio_basics" path="../Juce/modules"/>
         <MODULEPATH id="juce_audio_devices" path="../Juce/modules"/>
         <MODULEPATH id="juce_audio_formats" path="../Juce/modules"/>
         <MODULEPATH id="juce_audio_processors" path="../Juce/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../Juce/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
   </EXPORTFORMATS>
@@ -80,8 +80,8 @@
     <MODULES id="juce_audio_devices" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_audio_formats" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_audio_processors" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_audio_utils" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_core" showAllCode="1" useLocalCopy="0"/>
-    <MODULES id="juce_cryptography" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_events" showAllCode="1" useLocalCopy="0"/>
     <MODULES id="juce_graphics" showAllCode="1" useLocalCopy="0"/>
