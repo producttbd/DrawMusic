@@ -9,6 +9,7 @@
 #include "GridAudioRendererAudioSource.h"
 #include "GridColourScheme.h"
 #include "GridData.h"
+#include "WaveformView.h"
 
 class MainComponent  : public Component,
                        public ButtonListener
@@ -36,6 +37,7 @@ private:
     AudioTransportSource transportSource_;
     GridAudioRendererAudioSource gridAudioSource_;
     TimeSliceThread thread_;
+    WaveformView waveformView_;
 
     TextButton playStopButton_;
     TextButton clearButton_;

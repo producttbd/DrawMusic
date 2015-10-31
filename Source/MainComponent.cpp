@@ -11,6 +11,7 @@ MainComponent::MainComponent ()
     transportSource_(),
     gridAudioSource_(gridData_),
     thread_("audio file preview"),
+    waveformView_("waveform view"),
     playStopButton_("playStopButton"),
     clearButton_("renderButton"),
     reconstructionSlider_("reconstructionSlider")
@@ -26,6 +27,8 @@ MainComponent::MainComponent ()
     clearButton_.setButtonText(TRANS("clear"));
     clearButton_.setConnectedEdges(Button::ConnectedOnLeft);
     clearButton_.addListener(this);
+
+    addAndMakeVisible(&waveformView_);
 
     addAndMakeVisible(&reconstructionSlider_);
     reconstructionSlider_.setSliderStyle(Slider::SliderStyle::LinearHorizontal);
@@ -58,8 +61,13 @@ void MainComponent::paint (Graphics& g)
 
 void MainComponent::resized()
 {
+    const int gridWidth = Configuration::getGridWidth();
+    const int gridHeight = Configuration::getGridHeight();
     const int outsideMargin = Configuration::getGuiMargin();
-    drawGrid_.setBounds(outsideMargin, outsideMargin, Configuration::getGridWidth(), Configuration::getGridHeight());
+    drawGrid_.setBounds(outsideMargin, outsideMargin, gridWidth, gridHeight);
+
+    waveformView_.setBounds(outsideMargin, 2 * outsideMargin + gridHeight,
+                            gridWidth, Configuration::getWaveformViewHeight());
 
     const int buttonWidth = 80;
     const int buttonHeight = 24;

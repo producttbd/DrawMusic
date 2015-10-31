@@ -17,7 +17,7 @@ class Configuration
 public:
     static constexpr int getMainWindowHeight()
     {
-        return getGridHeight() + 3 * guiMargin_ + paletteSide_;
+        return getGridHeight() + 4 * guiMargin_ + waveformViewHeight_+ paletteSide_;
     }
     static constexpr int getMainWindowWidth()
     {
@@ -28,10 +28,12 @@ public:
     static constexpr int getPaletteSide() { return paletteSide_; }
     static constexpr int getButtonHeight() { return buttonHeight_; }
     static constexpr int getButtonWidth() { return buttonWidth_; }
+    static constexpr int getWaveformViewHeight() { return waveformViewHeight_; }
 
     static constexpr int getNumberChannels() { return 1; }
     static constexpr int getFftOrder() { return fftOrder_; }
     static constexpr int getFftLength() { return windowLength_; }
+    static constexpr int getSamplesPerThumbnailSample() { return thumbnailSampleWindow_; }
 
     static constexpr int getGridHeight() { return windowLength_ / 2 + 1; }
     static constexpr int getGridWidth() { return totalNumberWindows_; }
@@ -45,9 +47,11 @@ private:
     static constexpr int buttonWidth_ = 80;
     static constexpr int buttonHeight_ = 24;
     static constexpr int guiMargin_ = 10;
+    static constexpr int waveformViewHeight_ = 120;
     static constexpr int fftOrder_ = 10;
     static constexpr int windowLength_ = 1 << fftOrder_;
     static constexpr int totalNumberWindows_ = 1000;
+    static constexpr int thumbnailSampleWindow_ = 1 << (fftOrder_ - 2);
     static constexpr int paletteSide_ = 100;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Configuration);
