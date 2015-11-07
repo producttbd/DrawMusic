@@ -6,7 +6,6 @@
   - Check spectrum of output audio
   - Verify implementation
   - Clean out slider junk (move to settings menu?)
-- WaveFrom display
 - Log scale of vertical axis
 - Background audio rendering
 - Look and feel
