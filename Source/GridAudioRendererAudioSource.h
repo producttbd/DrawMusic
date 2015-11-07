@@ -16,12 +16,28 @@
 #include "Configuration.h"
 #include "GridData.h"
 
-class GridAudioRendererAudioSource : public PositionableAudioSource, public Slider::Listener
+class GridAudioRendererAudioSource : public PositionableAudioSource,
+                                     public Slider::Listener,
+                                     public ChangeListener
 {
 public:
+    class Listener
+    {
+    public:
+        virtual void newAudioCallback(const AudioSampleBuffer& updatedAudio) =0;
+        virtual ~Listener() {}
+    };
+    
     explicit GridAudioRendererAudioSource(const GridData& gridData) noexcept;
     ~GridAudioRendererAudioSource();
-    
+
+    void rerender();
+    void addListener(Listener* listener);
+    void removeListener(Listener* listener);
+
+    // ChangeListener method
+    void changeListenerCallback (ChangeBroadcaster *source) override;
+
     // AudioSource methods
     void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;
     void releaseResources() override;
@@ -40,18 +56,23 @@ public:
     void sliderDragEnded(Slider* slider) override;
 
 private:
+    void callDeviceChangeListeners();
+
     static inline int freqIndexToColumnIndex(int i)
     {
         return Configuration::getFftLength() - i;
     }
 
+
     const GridData& gridData_;
-    bool shouldLoop_;
+    bool readyToPlay_;
     FFT fft_;
     AudioSampleBuffer fullPieceAudioBuffer_;
     int currentOutputOffset_;
 
     int lgIterations_;
+
+    ListenerList<Listener> listeners_;
 };
 
 

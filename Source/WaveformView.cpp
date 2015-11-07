@@ -14,15 +14,14 @@
 
 WaveformView::WaveformView(const String& name)
 : Component(name),
-  unused_audioFormatManager_(),
-  thumbnailCache_(/*maxNumThumbsToStore*/ 1),
-  audioThumbnail_(Configuration::getSamplesPerThumbnailSample(), unused_audioFormatManager_, thumbnailCache_),
   scrollbar_(/*isVertical*/ false),
   zoomSlider_()
 {
-
+    addAndMakeVisible(&scrollbar_);
+    addAndMakeVisible(&zoomSlider_);
 }
 
+// Component overrides
 void WaveformView::resized()
 {
 
@@ -31,6 +30,15 @@ void WaveformView::resized()
 void WaveformView::paint(Graphics& g)
 {
     g.fillAll(Colours::darkgrey);
+    g.setColour (Colours::lightblue);
+    thumbnail_.drawChannel(g, getLocalBounds());
+}
+
+// GridAudioRendererAudioSource::Listener
+void WaveformView::newAudioCallback(const AudioSampleBuffer& updatedAudio)
+{
+    thumbnail_.refresh(updatedAudio, 512);
+    repaint();
 }
 
 // Scrollbar::Listener overrides

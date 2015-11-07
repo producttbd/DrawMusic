@@ -5,6 +5,10 @@
               jucerVersion="3.2.0">
   <MAINGROUP id="BvMvtA" name="DFMS2">
     <GROUP id="{157F435B-C817-59C4-B8EE-094D6D6F9F9C}" name="Source">
+      <FILE id="oi8q4O" name="AudioBufferThumbnail.cpp" compile="1" resource="0"
+            file="Source/AudioBufferThumbnail.cpp"/>
+      <FILE id="fKG5Ox" name="AudioBufferThumbnail.h" compile="0" resource="0"
+            file="Source/AudioBufferThumbnail.h"/>
       <FILE id="Sb9fZ4" name="WaveformView.cpp" compile="1" resource="0"
             file="Source/WaveformView.cpp"/>
       <FILE id="Chiiu3" name="WaveformView.h" compile="0" resource="0" file="Source/WaveformView.h"/>

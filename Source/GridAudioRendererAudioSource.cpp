@@ -17,7 +17,6 @@
 
 GridAudioRendererAudioSource::GridAudioRendererAudioSource(const GridData& gridData) noexcept
 : gridData_(gridData),
-  shouldLoop_(false),
   fft_(Configuration::getFftOrder(), true),
   fullPieceAudioBuffer_(Configuration::getNumberChannels(), Configuration::getTotalAudioSampleLength()),
   currentOutputOffset_(0),
@@ -31,11 +30,40 @@ GridAudioRendererAudioSource::~GridAudioRendererAudioSource()
     
 }
 
-void GridAudioRendererAudioSource::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
+void GridAudioRendererAudioSource::rerender()
 {
     LimGriffinReconstructor reconstructor(Configuration::getFftOrder(), Configuration::getFftLength(), gridData_, lgIterations_);
     reconstructor.perform(fullPieceAudioBuffer_);
     currentOutputOffset_ = 0;
+    readyToPlay_ = true;
+    listeners_.call(&GridAudioRendererAudioSource::Listener::newAudioCallback,
+                    fullPieceAudioBuffer_);
+}
+
+void GridAudioRendererAudioSource::addListener(GridAudioRendererAudioSource::Listener* listener)
+{
+    listeners_.add(listener);
+}
+
+void GridAudioRendererAudioSource::removeListener(GridAudioRendererAudioSource::Listener* listener)
+{
+    listeners_.remove(listener);
+}
+
+// ChangeListener method
+void GridAudioRendererAudioSource::changeListenerCallback(juce::ChangeBroadcaster* /*source*/)
+{
+    readyToPlay_ = false;
+    rerender();
+}
+
+// AudioSource methods
+void GridAudioRendererAudioSource::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
+{
+    if (!readyToPlay_)
+    {
+        rerender();
+    }
 }
 
 void GridAudioRendererAudioSource::releaseResources()
@@ -82,12 +110,12 @@ int64 GridAudioRendererAudioSource::getTotalLength() const
 
 bool GridAudioRendererAudioSource::isLooping() const
 {
-    return shouldLoop_;
+    return false;
 }
 
 void GridAudioRendererAudioSource::setLooping(bool shouldLoop)
 {
-    shouldLoop_ = shouldLoop;
+    jassert(false);
 };
 
 // Slider::Listener methods

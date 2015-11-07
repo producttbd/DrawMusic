@@ -69,4 +69,5 @@ void DrawGrid::mouseUp(const juce::MouseEvent& event)
     auto affectedPixels = currentBrush->finishStroke(GridPoint(event.x, event.y), gridData_);
     gridImageRenderer_.renderSelectPointsToImage(gridData_, affectedPixels, theImage_);
     repaint();
+    sendChangeMessage();
 }

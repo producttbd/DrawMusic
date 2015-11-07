@@ -40,7 +40,9 @@ MainComponent::MainComponent ()
 
     setSize(Configuration::getMainWindowWidth(), Configuration::getMainWindowHeight());
 
-    // Post Size
+    // Listener registration
+    drawGrid_.addChangeListener(&gridAudioSource_);
+    gridAudioSource_.addListener(&waveformView_);
 
     // Audio
     deviceManager_.initialise (0, 2, 0, true, String::empty, 0);

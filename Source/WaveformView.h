@@ -13,9 +13,13 @@
 
 #include "JuceHeader.h"
 
+#include "AudioBufferThumbnail.h"
+#include "GridAudioRendererAudioSource.h"
+
 class WaveformView : public Component,
                      public ScrollBar::Listener,
-                     public Slider::Listener
+                     public Slider::Listener,
+                     public GridAudioRendererAudioSource::Listener
 {
 public:
     explicit WaveformView(const String& name);
@@ -24,19 +28,19 @@ public:
     void resized() override;
     void paint(Graphics& g) override;
 
-    // Scrollbar::Listener overrides
-    void scrollBarMoved(
-            ScrollBar *scrollBarThatHasMoved, double newRangeStart) override;
+    // GridAudioRendererAudioSource::Listener override
+    void newAudioCallback(const AudioSampleBuffer& updatedAudio) override;
 
-    // Slider::Listener
+    // Scrollbar::Listener overrides
+    void scrollBarMoved(ScrollBar *scrollBarThatHasMoved, double newRangeStart) override;
+
+    // Slider::Listener overrides
     void sliderValueChanged(Slider* slider) override;
     void sliderDragStarted(Slider* slider) override;
     void sliderDragEnded(Slider* slider) override;
 
 private:
-    AudioFormatManager unused_audioFormatManager_;
-    AudioThumbnailCache thumbnailCache_;
-    AudioThumbnail audioThumbnail_;
+    AudioBufferThumbnail thumbnail_;
     ScrollBar scrollbar_;
     Slider zoomSlider_;
 };

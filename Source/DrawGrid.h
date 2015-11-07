@@ -19,7 +19,8 @@
 #include "GridImageRenderer.h"
 #include "PixelBrush.h"
 
-class DrawGrid : public Component
+class DrawGrid : public Component,
+                 public ChangeBroadcaster
 {
 public:
     DrawGrid(GridData& gridData,
