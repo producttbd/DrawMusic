@@ -13,7 +13,14 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
-class DFMSLookAndFeel : public LookAndFeel_V3 {
+class DFMSLookAndFeel : public LookAndFeel_V1 {
+public:
+    DFMSLookAndFeel();
+
+    void drawButtonBackground(Graphics& g, Button& button, const Colour& backgroundColour,
+                              bool isMouseOverButton, bool isButtonDown) override;
+
+    //void draw
 
 };
 

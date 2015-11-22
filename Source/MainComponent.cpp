@@ -114,6 +114,7 @@ void MainComponent::startPlayback()
     transportSource_.setSource(&gridAudioSource_);
     transportSource_.setPosition (0);
     playStopButton_.setButtonText (TRANS("stop"));
+    playStopButton_.setToggleState(true, NotificationType::dontSendNotification);
     transportSource_.start();
 }
 
@@ -122,5 +123,6 @@ void MainComponent::stopPlayback()
     transportSource_.stop();
     transportSource_.setSource(nullptr);
     playStopButton_.setButtonText (TRANS("play"));
+    playStopButton_.setToggleState(false, NotificationType::dontSendNotification);
 }
 

@@ -17,8 +17,6 @@
 #include "GridAudioRendererAudioSource.h"
 
 class WaveformView : public Component,
-                     public ScrollBar::Listener,
-                     public Slider::Listener,
                      public GridAudioRendererAudioSource::Listener
 {
 public:
@@ -31,18 +29,8 @@ public:
     // GridAudioRendererAudioSource::Listener override
     void newAudioCallback(const AudioSampleBuffer& updatedAudio) override;
 
-    // Scrollbar::Listener overrides
-    void scrollBarMoved(ScrollBar *scrollBarThatHasMoved, double newRangeStart) override;
-
-    // Slider::Listener overrides
-    void sliderValueChanged(Slider* slider) override;
-    void sliderDragStarted(Slider* slider) override;
-    void sliderDragEnded(Slider* slider) override;
-
 private:
     AudioBufferThumbnail thumbnail_;
-    ScrollBar scrollbar_;
-    Slider zoomSlider_;
 };
 
 
