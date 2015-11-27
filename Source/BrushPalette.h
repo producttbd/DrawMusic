@@ -16,22 +16,27 @@
 #include "GridColourScheme.h"
 #include "PixelBrush.h"
 
-class BrushPalette : public Component
+class BrushPalette : public Component, public Slider::Listener
 {
 public:
     BrushPalette(const String& componentName,
                           const GridColourScheme& colourScheme) noexcept;
 
+    PixelBrush* getCurrentBrush() const;
+
+    // Component overrides
     void mouseDown(const MouseEvent &event) override;
     void paint (Graphics&) override;
-    //void resized() override;
+    void resized() override;
 
-    PixelBrush* getCurrentBrush() const;
+    // Slider::Listener overrides
+    void sliderValueChanged(Slider* slider) override;
 
 private:
     const GridColourScheme& colourScheme_;
     int currentBrush_;
     OwnedArray<PixelBrush> brushes_;
+    Slider intensitySlider_;
 };
 
 

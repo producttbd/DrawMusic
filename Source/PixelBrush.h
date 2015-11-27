@@ -3,6 +3,7 @@
 
 #include "JuceHeader.h"
 
+#include "Configuration.h"
 #include "GridColourScheme.h"
 #include "GridData.h"
 #include "GridPoint.h"
@@ -31,8 +32,10 @@ public:
 
     PixelBrush(const String name, Array<BrushPoint> points);
     virtual ~PixelBrush();
+
     void drawInTo(Graphics& g, const GridColourScheme& colourScheme,
                   int offsetX, int offsetY) const;
+    void setIntensityScalar(float newValue);
 
     virtual Array<GridPoint> startStroke(GridPoint p, GridData& gridData);
     virtual Array<GridPoint> continueStroke(GridPoint p, GridData& gridData);
@@ -43,8 +46,18 @@ protected:
     virtual Array<GridPoint> applyBrushToStroke(const Array<GridPoint>& pointsInStroke,  GridData& gridData) const;
     virtual Array<GridPoint> applyBrushToPoint(GridPoint p, GridData& gridData) const;
 
+    static inline float clampOutputValue(float value)
+    {
+        return jmax(jmin(value, Configuration::getMaxGridValue()), Configuration::getMinGridValue());
+    }
+
     const String name_;
     Array<BrushPoint> brushPattern_;
+    float intensityScalar_;
+
+    static constexpr float minIntensityScalar_ = 0.0f;
+    static constexpr float maxIntensityScalar_ = 2.0f;
+
     Array<GridPoint> pointsInStroke_;
     GridPoint lastPoint_;
 

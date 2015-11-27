@@ -37,6 +37,8 @@ public:
 
     static constexpr int getGridHeight() { return windowLength_ / 2 + 1; }
     static constexpr int getGridWidth() { return totalNumberWindows_; }
+    static constexpr float getMinGridValue() { return minGridValue_; }
+    static constexpr float getMaxGridValue() { return maxGridValue_; }
     
     static constexpr int getTotalAudioSampleLength()
     {
@@ -53,6 +55,8 @@ private:
     static constexpr int totalNumberWindows_ = 1000;
     static constexpr int thumbnailSampleWindow_ = 1 << (fftOrder_ - 2);
     static constexpr int paletteSide_ = 100;
+    static constexpr float minGridValue_ = 0.0f;
+    static constexpr float maxGridValue_ = 1.0f;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Configuration);
 };

@@ -16,8 +16,23 @@ BrushPalette::BrushPalette(const String& componentName, const GridColourScheme& 
 : Component(componentName),
   colourScheme_(colourScheme),
   currentBrush_(0),
-  brushes_(BrushFactory::getAllBrushes())
+  brushes_(BrushFactory::getAllBrushes()),
+  intensitySlider_("intensitySlider")
 {
+    addAndMakeVisible(intensitySlider_);
+    intensitySlider_.setSliderStyle(Slider::SliderStyle::LinearVertical);
+    intensitySlider_.setTextBoxStyle(Slider::NoTextBox, true, 0, 0);
+    intensitySlider_.setRange(0.0, 2.0);
+    intensitySlider_.setValue(1.0);
+    intensitySlider_.addListener(this);
+}
+
+PixelBrush* BrushPalette::getCurrentBrush() const
+{
+    jassert(currentBrush_ >= 0 && currentBrush_ < brushes_.size());
+    auto brush = brushes_[currentBrush_];
+    brush->setIntensityScalar(intensitySlider_.getValue());
+    return brush;
 }
 
 void BrushPalette::mouseDown(const MouseEvent& event)
@@ -31,12 +46,17 @@ void BrushPalette::paint(Graphics& g)
 {
     jassert(currentBrush_ >= 0 && currentBrush_ < brushes_.size());
     PixelBrush* brush = brushes_[currentBrush_];
+    brush->setIntensityScalar(intensitySlider_.getValue());
     brush->drawInTo(g, colourScheme_, getWidth() / 2, getHeight() / 2);
 }
 
-PixelBrush* BrushPalette::getCurrentBrush() const
+void BrushPalette::resized()
 {
-    jassert(currentBrush_ >= 0 && currentBrush_ < brushes_.size());
-    return brushes_[currentBrush_];
+    int sliderWidth = 12;
+    intensitySlider_.setBounds(getWidth() - sliderWidth, 0, sliderWidth, getHeight());
 }
 
+void BrushPalette::sliderValueChanged(Slider* slider)
+{
+    repaint();
+}

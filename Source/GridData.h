@@ -48,11 +48,6 @@ public:
         jassert(p.y >= 0 && p.y < gridHeight);
         return data.getData()[PointToLinear(p)];
     }
-
-    static float clampToAcceptableValues(float value)
-    {
-        return jmin(jmax(value, minValue_), maxValue_);
-    }
     
 private:
     inline int PointToLinear(GridPoint p) const { return p.x * gridHeight + p.y; }

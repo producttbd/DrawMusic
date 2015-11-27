@@ -3,6 +3,7 @@
 PixelBrush::PixelBrush(const String name, Array<BrushPoint> points)
 : name_(name),
   brushPattern_(points),
+  intensityScalar_(1.0f),
   pointsInStroke_(),
   lastPoint_(0, 0)
 {
@@ -22,12 +23,18 @@ void PixelBrush::drawInTo(juce::Graphics& g, const GridColourScheme& colourSchem
     {
         const auto x = offsetX + brushPoint.x;
         const auto y = offsetY + brushPoint.y;
-        g.setColour(colourScheme.convertToColour(brushPoint.z));
+        const float value = clampOutputValue(brushPoint.z * intensityScalar_);
+        g.setColour(colourScheme.convertToColour(value));
         g.setPixel(x, y);
     }
     g.setColour(zeroColour.contrasting());
     Rectangle<int> gBounds = g.getClipBounds();
     g.drawText(name_, 0, 0, gBounds.getWidth(), 20, Justification::left);
+}
+
+void PixelBrush::setIntensityScalar(float newValue)
+{
+    intensityScalar_ = jmax(jmin(newValue, maxIntensityScalar_), minIntensityScalar_);
 }
 
 Array<GridPoint> PixelBrush::startStroke(GridPoint p, GridData &gridData)
@@ -104,8 +111,6 @@ Array<GridPoint> PixelBrush::getIntermediaryPoints(GridPoint start, GridPoint en
 Array<GridPoint> PixelBrush::applyBrushToStroke(const Array<GridPoint>& pointsInStroke, GridData& gridData) const
 {
     jassert(pointsInStroke.size() > 1);
-    std::cout << "Stroke length: " << pointsInStroke_.size() << "\n";
-
     Array<GridPoint> allAffectedPoints;
 
     GridPoint start = pointsInStroke[0];
@@ -136,14 +141,14 @@ Array<GridPoint> PixelBrush::applyBrushToPoint(GridPoint p, GridData& gridData) 
             switch(brushPoint.type)
             {
                 case PointType::Additive:
-                    gridData[affectedPoint] += brushPoint.z;
+                    gridData[affectedPoint] += (brushPoint.z * intensityScalar_);
                     break;
                 default:
                 case PointType::Absolute:
-                    gridData[affectedPoint] = jmax(gridData[affectedPoint], brushPoint.z);
+                    gridData[affectedPoint] = jmax(gridData[affectedPoint], brushPoint.z * intensityScalar_);
                     break;
             }
-            gridData[affectedPoint] = gridData.clampToAcceptableValues(gridData[affectedPoint]);
+            gridData[affectedPoint] = clampOutputValue(gridData[affectedPoint]);
             affectedPoints.add(affectedPoint);
         }
     }
