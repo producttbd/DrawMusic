@@ -1,6 +1,7 @@
 - Continuity of drawing
-  - connecting mouse drag events
+  - Deal with overlapping points between points
   - Moving applying brushes to background thread
+  - real-time drawing
 - Lim/Griffin:
   - Clean up last window stuff
   - Check spectrum of output audio
@@ -8,11 +9,9 @@
   - Clean out slider junk (move to settings menu?)
 - Log scale of vertical axis
 - Background audio rendering
-- Look and feel
 - Clean up all the dimensions in MainComponent
 - Clean up all header comments in source files
 - Clean up includes
-- Waveform view
 - Save/load
 
 
