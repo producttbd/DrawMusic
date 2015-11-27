@@ -37,6 +37,7 @@ void DrawGrid::refreshAll()
 {
     gridImageRenderer_.renderGridDataToImage(gridData_, theImage_);
     repaint();
+    sendChangeMessage();
 }
 
 void DrawGrid::paint (Graphics& g)
