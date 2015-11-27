@@ -1,13 +1,3 @@
-/*
-  ==============================================================================
-
-    LimGriffinReconstructor.h
-    Created: 27 Oct 2015 6:06:01pm
-    Author:  Trevor Knight
-
-  ==============================================================================
-*/
-
 #ifndef LIMGRIFFINRECONSTRUCTOR_H_INCLUDED
 #define LIMGRIFFINRECONSTRUCTOR_H_INCLUDED
 

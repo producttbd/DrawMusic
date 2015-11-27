@@ -1,13 +1,3 @@
-/*
-  ==============================================================================
-
-    SimpleSpectrumReconstructor.cpp
-    Created: 27 Oct 2015 6:05:49pm
-    Author:  Trevor Knight
-
-  ==============================================================================
-*/
-
 #include "SimpleSpectrumReconstructor.h"
 
 SimpleSpectrumReconstructor::SimpleSpectrumReconstructor(int fftOrder, int windowLength, const GridData& gridData)

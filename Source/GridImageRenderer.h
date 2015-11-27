@@ -1,14 +1,3 @@
-/*
- ==============================================================================
- 
- GridImageRenderer.h
- Created: 5 Jul 2015 7:08:44pm
- Author:  Trevor Knight
- 
- ==============================================================================
-*/
-
-
 #ifndef GRIDIMAGERENDERER_H_INCLUDED
 #define GRIDIMAGERENDERER_H_INCLUDED
 

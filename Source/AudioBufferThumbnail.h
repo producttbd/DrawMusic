@@ -1,13 +1,3 @@
-/*
-  ==============================================================================
-
-    AudioBufferThumbnail.h
-    Created: 4 Nov 2015 11:44:43pm
-    Author:  Trevor Knight
-
-  ==============================================================================
-*/
-
 #ifndef AUDIOBUFFERTHUMBNAIL_H_INCLUDED
 #define AUDIOBUFFERTHUMBNAIL_H_INCLUDED
 

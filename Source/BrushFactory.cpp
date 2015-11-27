@@ -1,13 +1,3 @@
-/*
-  ==============================================================================
-
-    BrushFactory.cpp
-    Created: 28 Oct 2015 1:16:54pm
-    Author:  Trevor Knight
-
-  ==============================================================================
-*/
-
 #include "BrushFactory.h"
 
 using BrushPoint = PixelBrush::BrushPoint;

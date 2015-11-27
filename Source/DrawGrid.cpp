@@ -1,13 +1,3 @@
-/*
-  ==============================================================================
-
-    DrawGrid.cpp
-    Created: 3 Jul 2015 10:34:23pm
-    Author:  Trevor Knight
-
-  ==============================================================================
-*/
-
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "DrawGrid.h"
 #include "Configuration.h"

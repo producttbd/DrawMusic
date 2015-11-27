@@ -10,8 +10,5 @@
 - Log scale of vertical axis
 - Background audio rendering
 - Clean up all the dimensions in MainComponent
-- Clean up all header comments in source files
 - Clean up includes
 - Save/load
-
-

@@ -1,13 +1,3 @@
-/*
- ==============================================================================
- 
- GridAudioRendererAudioSource.h
- Created: 7 Jul 2015 10:53:53pm
- Author:  Trevor Knight
- 
- ==============================================================================
- */
-
 #ifndef GRIDAUDIORENDERERAUDIOSOURCE_H_INCLUDED
 #define GRIDAUDIORENDERERAUDIOSOURCE_H_INCLUDED
 

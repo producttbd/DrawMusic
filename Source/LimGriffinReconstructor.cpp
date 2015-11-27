@@ -1,13 +1,3 @@
-/*
-  ==============================================================================
-
-    LimGriffinReconstructor.cpp
-    Created: 27 Oct 2015 6:06:01pm
-    Author:  Trevor Knight
-
-  ==============================================================================
-*/
-
 #include "LimGriffinReconstructor.h"
 
 #include "Configuration.h"

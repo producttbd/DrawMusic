@@ -1,13 +1,3 @@
-/*
-  ==============================================================================
-
-    SimpleSpectrumReconstructor.h
-    Created: 27 Oct 2015 6:05:49pm
-    Author:  Trevor Knight
-
-  ==============================================================================
-*/
-
 #ifndef SIMPLESPECTRUMRECONSTRUCTOR_H_INCLUDED
 #define SIMPLESPECTRUMRECONSTRUCTOR_H_INCLUDED
 

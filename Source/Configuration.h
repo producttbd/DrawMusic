@@ -1,13 +1,3 @@
-/*
- ==============================================================================
- 
- Configuration.h
- Created: 3 Jul 2015 10:34:23pm
- Author:  Trevor Knight
- 
- ==============================================================================
-*/
-
 #ifndef DFMS2_Configuration_h
 
 #include "../JuceLibraryCode/JuceHeader.h"

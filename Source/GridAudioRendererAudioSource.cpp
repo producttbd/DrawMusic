@@ -1,13 +1,3 @@
-/*
- ==============================================================================
- 
- GridAudioRendererAudioSource.cpp
- Created: 7 Jul 2015 10:53:53pm
- Author:  Trevor Knight
- 
- ==============================================================================
- */
-
 #include "GridAudioRendererAudioSource.h"
 
 #include <cmath>

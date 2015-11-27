@@ -1,13 +1,3 @@
-/*
- ==============================================================================
- 
- GridImageRenderer.cpp
- Created: 5 Jul 2015 7:08:44pm
- Author:  Trevor Knight
- 
- ==============================================================================
-*/
-
 #include "GridImageRenderer.h"
 
 GridImageRenderer::GridImageRenderer(const GridColourScheme& colourScheme)

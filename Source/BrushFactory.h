@@ -1,13 +1,3 @@
-/*
-  ==============================================================================
-
-    BrushFactory.h
-    Created: 28 Oct 2015 1:16:54pm
-    Author:  Trevor Knight
-
-  ==============================================================================
-*/
-
 #ifndef BRUSHFACTORY_H_INCLUDED
 #define BRUSHFACTORY_H_INCLUDED
 

@@ -1,13 +1,3 @@
-/*
-  ==============================================================================
-
-    BrushPalette.h
-    Created: 28 Oct 2015 12:03:02pm
-    Author:  Trevor Knight
-
-  ==============================================================================
-*/
-
 #ifndef BRUSHPALETTE_H_INCLUDED
 #define BRUSHPALETTE_H_INCLUDED
 
@@ -20,7 +10,7 @@ class BrushPalette : public Component, public Slider::Listener
 {
 public:
     BrushPalette(const String& componentName,
-                          const GridColourScheme& colourScheme) noexcept;
+                 const GridColourScheme& colourScheme) noexcept;
 
     PixelBrush* getCurrentBrush() const;
 

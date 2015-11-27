@@ -1,11 +1,3 @@
-//
-//  GridPoint.h
-//  DFMS2
-//
-//  Created by Trevor Knight on 11 Oct 15.
-//
-//
-
 #ifndef GridPoint_h
 #define GridPoint_h
 
