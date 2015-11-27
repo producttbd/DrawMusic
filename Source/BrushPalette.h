@@ -26,7 +26,7 @@ public:
     void paint (Graphics&) override;
     //void resized() override;
 
-    const PixelBrush* getCurrentBrush() const;
+    PixelBrush* getCurrentBrush() const;
 
 private:
     const GridColourScheme& colourScheme_;

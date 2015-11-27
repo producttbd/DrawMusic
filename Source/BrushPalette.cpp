@@ -34,7 +34,7 @@ void BrushPalette::paint(Graphics& g)
     brush->drawInTo(g, colourScheme_, getWidth() / 2, getHeight() / 2);
 }
 
-const PixelBrush* BrushPalette::getCurrentBrush() const
+PixelBrush* BrushPalette::getCurrentBrush() const
 {
     jassert(currentBrush_ >= 0 && currentBrush_ < brushes_.size());
     return brushes_[currentBrush_];

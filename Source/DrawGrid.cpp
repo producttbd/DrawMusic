@@ -51,21 +51,21 @@ void DrawGrid::resized()
 
 void DrawGrid::mouseDown(const MouseEvent& event)
 {
-    const PixelBrush* currentBrush = brushPalette_.getCurrentBrush();
+    PixelBrush* currentBrush = brushPalette_.getCurrentBrush();
     auto affectedPixels = currentBrush->startStroke(GridPoint(event.x, event.y), gridData_);
     gridImageRenderer_.renderSelectPointsToImage(gridData_, affectedPixels, theImage_);
 }
 
 void DrawGrid::mouseDrag(const juce::MouseEvent& event)
 {
-    const PixelBrush* currentBrush = brushPalette_.getCurrentBrush();
+    PixelBrush* currentBrush = brushPalette_.getCurrentBrush();
     auto affectedPixels = currentBrush->continueStroke(GridPoint(event.x, event.y), gridData_);
     gridImageRenderer_.renderSelectPointsToImage(gridData_, affectedPixels, theImage_);
 }
 
 void DrawGrid::mouseUp(const juce::MouseEvent& event)
 {
-    const PixelBrush* currentBrush = brushPalette_.getCurrentBrush();
+    PixelBrush* currentBrush = brushPalette_.getCurrentBrush();
     auto affectedPixels = currentBrush->finishStroke(GridPoint(event.x, event.y), gridData_);
     gridImageRenderer_.renderSelectPointsToImage(gridData_, affectedPixels, theImage_);
     repaint();

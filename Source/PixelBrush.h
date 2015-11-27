@@ -34,15 +34,18 @@ public:
     void drawInTo(Graphics& g, const GridColourScheme& colourScheme,
                   int offsetX, int offsetY) const;
 
-    virtual Array<GridPoint> startStroke(GridPoint p, GridData& gridData) const;
-    virtual Array<GridPoint> continueStroke(GridPoint p, GridData& gridData) const;
-    virtual Array<GridPoint> finishStroke(GridPoint p, GridData& gridData) const;
+    virtual Array<GridPoint> startStroke(GridPoint p, GridData& gridData);
+    virtual Array<GridPoint> continueStroke(GridPoint p, GridData& gridData);
+    virtual Array<GridPoint> finishStroke(GridPoint p, GridData& gridData);
 
-private:
-    Array<GridPoint> applyBrushToPoint(GridPoint p, GridData& gridData) const;
+protected:
+    virtual Array<GridPoint> getIntermediaryPoints(GridPoint start, GridPoint end) const;
+    virtual Array<GridPoint> applyBrushToStroke(const Array<GridPoint>& pointsInStroke,  GridData& gridData) const;
+    virtual Array<GridPoint> applyBrushToPoint(GridPoint p, GridData& gridData) const;
 
     const String name_;
     Array<BrushPoint> brushPattern_;
+    Array<GridPoint> pointsInStroke_;
     GridPoint lastPoint_;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PixelBrush)
