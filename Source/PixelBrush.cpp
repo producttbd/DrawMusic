@@ -86,7 +86,7 @@ Array<GridPoint> PixelBrush::getIntermediaryPoints(GridPoint start, GridPoint en
     int y = start.y;
     const int maxX = end.x;
 
-    for(int x = start.x; x < maxX; ++x)
+    for(int x = start.x; x <= maxX; ++x)
     {
         if(steep)
         {
