@@ -30,11 +30,11 @@ public:
         PointType type;
     };
 
-    PixelBrush(const String name, Array<BrushPoint> points);
+    explicit PixelBrush(const String name);
     virtual ~PixelBrush();
 
-    void drawInTo(Graphics& g, const GridColourScheme& colourScheme,
-                  int offsetX, int offsetY) const;
+    virtual void drawInTo(Graphics& g, const GridColourScheme& colourScheme,
+                          int offsetX, int offsetY) const = 0;
     void setIntensityScalar(float newValue);
 
     virtual Array<GridPoint> startStroke(GridPoint p, GridData& gridData);
@@ -44,7 +44,7 @@ public:
 protected:
     virtual Array<GridPoint> getIntermediaryPoints(GridPoint start, GridPoint end) const;
     virtual Array<GridPoint> applyBrushToStroke(const Array<GridPoint>& pointsInStroke,  GridData& gridData) const;
-    virtual Array<GridPoint> applyBrushToPoint(GridPoint p, GridData& gridData) const;
+    virtual Array<GridPoint> applyBrushToPoint(GridPoint p, GridData& gridData) const = 0;
 
     static inline float clampOutputValue(float value)
     {
@@ -52,16 +52,50 @@ protected:
     }
 
     const String name_;
-    Array<BrushPoint> brushPattern_;
     float intensityScalar_;
 
     static constexpr float minIntensityScalar_ = 0.0f;
     static constexpr float maxIntensityScalar_ = 2.0f;
 
     Array<GridPoint> pointsInStroke_;
-    GridPoint lastPoint_;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PixelBrush)
+};
+
+class PointClusterBrush : public PixelBrush
+{
+public:
+    PointClusterBrush(const String name, Array<BrushPoint> brushPattern);
+
+    void drawInTo(juce::Graphics& g, const GridColourScheme& colourScheme,
+                  const int offsetX, const int offsetY) const override;
+
+protected:
+    Array<GridPoint> applyBrushToPoint(GridPoint p, GridData& gridData) const override;
+
+private:
+    Array<BrushPoint> brushPattern_;
+};
+
+class XYProfileBrush : public PixelBrush
+{
+public:
+    XYProfileBrush(const String name, Array<float> xProfile, Array<float> yProfile,
+                   int xOffset, int yOffset);
+
+    void drawInTo(juce::Graphics& g, const GridColourScheme& colourScheme,
+                  const int offsetX, const int offsetY) const override;
+
+protected:
+    Array<GridPoint> applyBrushToPoint(GridPoint p, GridData& gridData) const override;
+
+private:
+    int xOffset_;
+    int yOffset_;
+    Array<float> xProfile_;
+    Array<float> yProfile_;
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(XYProfileBrush)
 };
 
 

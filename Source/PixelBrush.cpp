@@ -1,35 +1,15 @@
 #include "PixelBrush.h"
 
-PixelBrush::PixelBrush(const String name, Array<BrushPoint> points)
+PixelBrush::PixelBrush(const String name)
 : name_(name),
-  brushPattern_(points),
   intensityScalar_(1.0f),
-  pointsInStroke_(),
-  lastPoint_(0, 0)
+  pointsInStroke_()
 {
 }
 
 PixelBrush::~PixelBrush()
 {
     
-}
-
-void PixelBrush::drawInTo(juce::Graphics& g, const GridColourScheme& colourScheme,
-                          const int offsetX, const int offsetY) const
-{
-    Colour zeroColour = colourScheme.convertToColour(0.0f);
-    g.fillAll(zeroColour);
-    for (const auto& brushPoint : brushPattern_)
-    {
-        const auto x = offsetX + brushPoint.x;
-        const auto y = offsetY + brushPoint.y;
-        const float value = clampOutputValue(brushPoint.z * intensityScalar_);
-        g.setColour(colourScheme.convertToColour(value));
-        g.setPixel(x, y);
-    }
-    g.setColour(zeroColour.contrasting());
-    Rectangle<int> gBounds = g.getClipBounds();
-    g.drawText(name_, 0, 0, gBounds.getWidth(), 20, Justification::left);
 }
 
 void PixelBrush::setIntensityScalar(float newValue)
@@ -126,7 +106,32 @@ Array<GridPoint> PixelBrush::applyBrushToStroke(const Array<GridPoint>& pointsIn
     return allAffectedPoints;
 }
 
-Array<GridPoint> PixelBrush::applyBrushToPoint(GridPoint p, GridData& gridData) const
+PointClusterBrush::PointClusterBrush(const String name, Array<BrushPoint> brushPattern)
+: PixelBrush(name),
+  brushPattern_(brushPattern)
+{
+
+}
+
+void PointClusterBrush::drawInTo(juce::Graphics& g, const GridColourScheme& colourScheme,
+                          const int offsetX, const int offsetY) const
+{
+    Colour zeroColour = colourScheme.convertToColour(0.0f);
+    g.fillAll(zeroColour);
+    for (const auto& brushPoint : brushPattern_)
+    {
+        const auto x = offsetX + brushPoint.x;
+        const auto y = offsetY + brushPoint.y;
+        const float value = clampOutputValue(brushPoint.z * intensityScalar_);
+        g.setColour(colourScheme.convertToColour(value));
+        g.setPixel(x, y);
+    }
+    g.setColour(zeroColour.contrasting());
+    Rectangle<int> gBounds = g.getClipBounds();
+    g.drawText(name_, 0, 0, gBounds.getWidth(), 20, Justification::left);
+}
+
+Array<GridPoint> PointClusterBrush::applyBrushToPoint(GridPoint p, GridData& gridData) const
 {
     Array<GridPoint> affectedPoints;
     const auto width = gridData.getWidth();
@@ -151,6 +156,66 @@ Array<GridPoint> PixelBrush::applyBrushToPoint(GridPoint p, GridData& gridData) 
             gridData[affectedPoint] = clampOutputValue(gridData[affectedPoint]);
             affectedPoints.add(affectedPoint);
         }
+    }
+    return affectedPoints;
+}
+
+XYProfileBrush::XYProfileBrush(const String name, Array<float> xProfile, Array<float> yProfile,
+                               int xOffset, int yOffset)
+: PixelBrush(name),
+  xOffset_(xOffset),
+  yOffset_(yOffset),
+  xProfile_(xProfile),
+  yProfile_(yProfile)
+{
+}
+
+void XYProfileBrush::drawInTo(juce::Graphics& g, const GridColourScheme& colourScheme,
+                                    const int offsetX, const int offsetY) const
+{
+    Colour zeroColour = colourScheme.convertToColour(0.0f);
+    g.fillAll(zeroColour);
+
+    int y = offsetY + yOffset_;
+    for (const auto& yP : yProfile_)
+    {
+        int x = offsetX + xOffset_;
+        for (const auto& xP : xProfile_)
+        {
+            const float value = clampOutputValue(xP * yP * intensityScalar_);
+            g.setColour(colourScheme.convertToColour(value));
+            g.setPixel(x, y);
+            ++x;
+        }
+        --y;
+    }
+    g.setColour(zeroColour.contrasting());
+    Rectangle<int> gBounds = g.getClipBounds();
+    g.drawText(name_, 0, 0, gBounds.getWidth(), 20, Justification::left);
+}
+
+Array<GridPoint> XYProfileBrush::applyBrushToPoint(GridPoint p, GridData& gridData) const
+{
+    Array<GridPoint> affectedPoints;
+    const auto width = gridData.getWidth();
+    const auto height = gridData.getHeight();
+
+    int y = p.y + yOffset_;
+    for (const auto& yP : yProfile_)
+    {
+        int x = p.x + xOffset_;
+        for (const auto& xP : xProfile_)
+        {
+            if (x >= 0 && x < width && y >= 0 && y < height)
+            {
+                const float value = clampOutputValue(xP * yP * intensityScalar_);
+                GridPoint affectedPoint(x, y);
+                gridData[affectedPoint] = jmax(value, gridData[affectedPoint]);
+                affectedPoints.add(affectedPoint);
+            }
+            ++x;
+        }
+        --y;
     }
     return affectedPoints;
 }
