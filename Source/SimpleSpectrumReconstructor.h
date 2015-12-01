@@ -7,6 +7,7 @@
 
 class SimpleSpectrumReconstructor {
 public:
+    // Will zero-pad if gridData's height is less than window length
     SimpleSpectrumReconstructor(int fftOrder, int windowLength, const GridData& gridData);
     virtual void perform(AudioSampleBuffer& outputBuffer);
     virtual ~SimpleSpectrumReconstructor();

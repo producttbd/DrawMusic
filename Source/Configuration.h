@@ -25,7 +25,7 @@ public:
     static constexpr int getFftLength() { return windowLength_; }
     static constexpr int getSamplesPerThumbnailSample() { return thumbnailSampleWindow_; }
 
-    static constexpr int getGridHeight() { return windowLength_ / 2 + 1; }
+    static constexpr int getGridHeight() { return gridHeight_; }
     static constexpr int getGridWidth() { return totalNumberWindows_; }
     static constexpr float getMinGridValue() { return minGridValue_; }
     static constexpr float getMaxGridValue() { return maxGridValue_; }
@@ -40,8 +40,10 @@ private:
     static constexpr int buttonHeight_ = 24;
     static constexpr int guiMargin_ = 10;
     static constexpr int waveformViewHeight_ = 120;
-    static constexpr int fftOrder_ = 10;
+    static constexpr int fftOrder_ = 12;
     static constexpr int windowLength_ = 1 << fftOrder_;
+
+    static constexpr int gridHeight_ = 513; // (1024 / 2 + 1)
     static constexpr int totalNumberWindows_ = 1000;
     static constexpr int thumbnailSampleWindow_ = 1 << (fftOrder_ - 2);
     static constexpr int paletteSide_ = 100;
