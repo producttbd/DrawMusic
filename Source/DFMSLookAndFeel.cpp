@@ -9,9 +9,9 @@ DFMSLookAndFeel::DFMSLookAndFeel()
     setColour(ListBox::outlineColourId,            findColour (ComboBox::outlineColourId));
     setColour(ScrollBar::thumbColourId,            Colour (0xffbbbbdd));
     setColour(ScrollBar::backgroundColourId,       Colours::transparentBlack);
-    setColour(Slider::thumbColourId,               Colours::white);
-    setColour(Slider::trackColourId,               Colour (0x7f000000));
-    setColour(Slider::textBoxOutlineColourId,      Colours::grey);
+    //setColour(Slider::backgroundColourId,          Colours::darkgrey);
+    setColour(Slider::thumbColourId,               Colours::red);
+    setColour(Slider::trackColourId,               Colours::white);
 }
 
 void DFMSLookAndFeel::drawButtonBackground(Graphics& g, Button& button, const Colour& backgroundColour,
