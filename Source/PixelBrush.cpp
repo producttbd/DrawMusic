@@ -43,6 +43,12 @@ Array<GridPoint> PixelBrush::getIntermediaryPoints(GridPoint start, GridPoint en
 {
     Array<GridPoint> intermediaryPoints;
 
+    if (start == end)
+    {
+        intermediaryPoints.add(start);
+        return intermediaryPoints;
+    }
+
     // Bresenham's line algorithm
     auto steep = abs(end.y - start.y) > abs(end.x - start.x);
 
@@ -66,7 +72,7 @@ Array<GridPoint> PixelBrush::getIntermediaryPoints(GridPoint start, GridPoint en
     int y = start.y;
     const int maxX = end.x;
 
-    for(int x = start.x; x <= maxX; ++x)
+    for(int x = start.x; x < maxX; ++x)
     {
         if(steep)
         {

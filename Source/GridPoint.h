@@ -7,6 +7,11 @@ struct GridPoint
     GridPoint(int x, int y) : x(x), y(y) {}
     int x;
     int y;
+
+    bool operator==(const GridPoint& other)
+    {
+        return x == other.x && y == other.y;
+    }
 };
 
 #endif /* GridPoint_h */

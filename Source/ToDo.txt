@@ -1,5 +1,4 @@
 - Continuity of drawing
-  - Deal with overlapping points between points
   - Moving applying brushes to background thread
   - real-time drawing
 - Lim/Griffin:
