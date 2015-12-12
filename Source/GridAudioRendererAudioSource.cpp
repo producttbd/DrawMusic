@@ -12,12 +12,10 @@ GridAudioRendererAudioSource::GridAudioRendererAudioSource(const GridData& gridD
   currentOutputOffset_(0),
   lgIterations_(0)
 {
-
 }
 
 GridAudioRendererAudioSource::~GridAudioRendererAudioSource()
 {
-
 }
 
 void GridAudioRendererAudioSource::rerender()
@@ -58,17 +56,23 @@ void GridAudioRendererAudioSource::prepareToPlay(int samplesPerBlockExpected, do
 
 void GridAudioRendererAudioSource::releaseResources()
 {
-
 }
 
 void GridAudioRendererAudioSource::getNextAudioBlock (const AudioSourceChannelInfo &bufferToFill)
 {
+    // TODO remove this hack
+    if (currentOutputOffset_ >= fullPieceAudioBuffer_.getNumSamples())
+    {
+        currentOutputOffset_ = 0;
+    }
+        
     auto readPtr = fullPieceAudioBuffer_.getReadPointer(0, currentOutputOffset_);
-    auto leftWritePtr = bufferToFill.buffer->getWritePointer(0, bufferToFill.startSample); // LEFT CHANNEL
-    auto rightWritePtr = bufferToFill.buffer->getWritePointer(1, bufferToFill.startSample); // RIGHT CHANNEL
+    auto leftWritePtr = bufferToFill.buffer->getWritePointer(0, bufferToFill.startSample);
+    auto rightWritePtr = bufferToFill.buffer->getWritePointer(1, bufferToFill.startSample);
 
     auto endPoint = jmin(bufferToFill.numSamples,
                          fullPieceAudioBuffer_.getNumSamples() - currentOutputOffset_);
+    
     for (int i = 0; i < endPoint; ++i)
     {
         leftWritePtr[i] = readPtr[i];
@@ -77,8 +81,8 @@ void GridAudioRendererAudioSource::getNextAudioBlock (const AudioSourceChannelIn
 
     for (int i = endPoint; i < bufferToFill.numSamples; ++i)
     {
-        leftWritePtr[i] = 0;
-        rightWritePtr[i] = 0;
+        leftWritePtr[i] = 0.0f;
+        rightWritePtr[i] = 0.0f;
     }
 
     currentOutputOffset_ += endPoint;
