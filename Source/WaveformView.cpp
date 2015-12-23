@@ -16,8 +16,8 @@ void WaveformView::paint(Graphics& g)
 {
     g.setColour(Colours::black);
     g.drawRect(getLocalBounds());
-    g.fillAll(Colours::green.withAlpha(0.01f)); // Wavelength container color
-    g.setColour (Colours::white); // Wavelength color
+    g.fillAll(Colours::white);
+    g.setColour (Colours::darkgrey);
     thumbnail_.drawChannel(g, getLocalBounds());
 }
 

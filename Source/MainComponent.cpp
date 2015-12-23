@@ -58,7 +58,7 @@ MainComponent::~MainComponent()
 
 void MainComponent::paint (Graphics& g)
 {
-    g.fillAll (Colours::green.withAlpha(0.7f)); // Program background color
+    g.fillAll (Colours::white);
 }
 
 void MainComponent::resized()

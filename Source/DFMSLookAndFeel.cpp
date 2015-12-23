@@ -10,7 +10,7 @@ DFMSLookAndFeel::DFMSLookAndFeel()
     setColour(ScrollBar::thumbColourId,            Colour (0xffbbbbdd));
     setColour(ScrollBar::backgroundColourId,       Colours::transparentBlack);
     //setColour(Slider::backgroundColourId,          Colours::darkgrey);
-    setColour(Slider::thumbColourId,               Colours::black); // Slider color
+    setColour(Slider::thumbColourId,               Colours::red);
     setColour(Slider::trackColourId,               Colours::white);
 }
 
