@@ -9,43 +9,46 @@ class GridData
 {
 public:
     GridData(int gridWidth, int gridHeight)
-        : data(gridWidth * gridHeight, true),
-          gridWidth(gridWidth),
-          gridHeight(gridHeight)
+        : data_(gridWidth * gridHeight, true),
+          gridWidth_(gridWidth),
+          gridHeight_(gridHeight)
     {
-        jassert(gridWidth > 0);
-        jassert(gridHeight > 0);
+        jassert(gridWidth_ > 0);
+        jassert(gridHeight_ > 0);
     }
 
-    void clear() { data.clear(gridWidth * gridHeight); }
-    int getWidth() const { return gridWidth; }
-    int getHeight() const { return gridHeight; }
+    void clear() { data_.clear(gridWidth_ * gridHeight_); }
+    int getWidth() const { return gridWidth_; }
+    int getHeight() const { return gridHeight_; }
+    
     float getXY(int x, int y) const
     {
-        jassert(x >=  0 && x < gridWidth);
-        jassert(y >= 0 && y < gridHeight);
-        return data.getData()[PointToLinear(x, y)];
+        jassert(x >=  0 && x < gridWidth_);
+        jassert(y >= 0 && y < gridHeight_);
+        return data_.getData()[PointToLinear(x, y)];
     }
+    
     float operator[](GridPoint p) const
     {
-        jassert(p.x >=  0 && p.x < gridWidth);
-        jassert(p.y >= 0 && p.y < gridHeight);
-        return data.getData()[PointToLinear(p)];
+        jassert(p.x >=  0 && p.x < gridWidth_);
+        jassert(p.y >= 0 && p.y < gridHeight_);
+        return data_.getData()[PointToLinear(p)];
     }
+    
     float& operator[](GridPoint p)
     {
-        jassert(p.x >=  0 && p.x < gridWidth);
-        jassert(p.y >= 0 && p.y < gridHeight);
-        return data.getData()[PointToLinear(p)];
+        jassert(p.x >=  0 && p.x < gridWidth_);
+        jassert(p.y >= 0 && p.y < gridHeight_);
+        return data_.getData()[PointToLinear(p)];
     }
     
 private:
-    inline int PointToLinear(GridPoint p) const { return p.x * gridHeight + p.y; }
-    inline int PointToLinear(int x, int y ) const { return x * gridHeight + y; }
+    inline int PointToLinear(GridPoint p) const { return p.x * gridHeight_ + p.y; }
+    inline int PointToLinear(int x, int y ) const { return x * gridHeight_ + y; }
     
-    HeapBlock<float> data;
-    int gridWidth;
-    int gridHeight;
+    HeapBlock<float> data_;
+    int gridWidth_;
+    int gridHeight_;
 
     static constexpr float minValue_ = 0.0f;
     static constexpr float maxValue_ = 1.0f;
