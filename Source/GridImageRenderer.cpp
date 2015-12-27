@@ -11,7 +11,7 @@ void GridImageRenderer::renderGridDataToImage(const GridData& gridData, Image& i
     {
         for (int y = 0; y < gridData.getHeight(); ++y)
         {
-            image.setPixelAt(x, y, colourScheme_.convertToColour((gridData)[GridPoint(x, y)]));
+            image.setPixelAt(x, y, colourScheme_.convertToColour(gridData[GridPoint(x, y)]));
         }
     }
 }

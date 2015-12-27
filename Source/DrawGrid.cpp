@@ -1,6 +1,7 @@
-#include "../JuceLibraryCode/JuceHeader.h"
-#include "DrawGrid.h"
+#include "JuceHeader.h"
 #include "Configuration.h"
+#include "DFMSLookAndFeel.h"
+#include "DrawGrid.h"
 
 DrawGrid::DrawGrid(GridData& gridData, const GridColourScheme& colourScheme,
                    const BrushPalette& brushPalette)
@@ -33,6 +34,7 @@ void DrawGrid::refreshAll()
 void DrawGrid::paint (Graphics& g)
 {
     g.drawImageAt(theImage_, 0, 0);
+    DFMSLookAndFeel::drawComponentOutline(g, *this);
     //TODO Allow grid and image to be different sizes
 }
 

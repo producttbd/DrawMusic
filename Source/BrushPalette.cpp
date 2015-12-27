@@ -1,6 +1,7 @@
 #include "BrushPalette.h"
 
 #include "BrushFactory.h"
+#include "DFMSLookAndFeel.h"
 
 BrushPalette::BrushPalette(const String& componentName, const GridColourScheme& colourScheme) noexcept
 : Component(componentName),
@@ -38,6 +39,7 @@ void BrushPalette::paint(Graphics& g)
     PixelBrush* brush = brushes_[currentBrush_];
     brush->setIntensityScalar(intensitySlider_.getValue());
     brush->drawInTo(g, colourScheme_, getWidth() / 2, getHeight() / 2);
+    DFMSLookAndFeel::drawComponentOutline(g, *this);
 }
 
 void BrushPalette::resized()

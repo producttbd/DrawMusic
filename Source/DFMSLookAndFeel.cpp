@@ -40,6 +40,11 @@ void DFMSLookAndFeel::drawButtonBackground(Graphics& g, Button& button, const Co
     g.setColour (bc);
     g.fillPath (outline);
 
-    g.setColour (Colours::black.withAlpha ((isMouseOverButton) ? 0.6f : 0.4f));
-    g.strokePath (outline, PathStrokeType ((isMouseOverButton) ? 2.0f : 1.4f));
+    drawComponentOutline(g, button);
+}
+
+void DFMSLookAndFeel::drawComponentOutline(juce::Graphics& g, juce::Component& c)
+{
+    g.setColour(Colours::black.withAlpha(0.4f));
+    g.drawRect(c.getLocalBounds());
 }

@@ -9,6 +9,8 @@ public:
 
     void drawButtonBackground(Graphics& g, Button& button, const Colour& backgroundColour,
                               bool isMouseOverButton, bool isButtonDown) override;
+    
+    static void drawComponentOutline(Graphics& g, Component& c);
 };
 
 #endif  // DFMSLOOKANDFEEL_H_INCLUDED

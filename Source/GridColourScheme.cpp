@@ -2,5 +2,5 @@
 
 Colour GridColourScheme::convertToColour(float value) const
 {
-    return Colour::greyLevel(value);
+    return Colour::greyLevel(1.0f - value);
 }
