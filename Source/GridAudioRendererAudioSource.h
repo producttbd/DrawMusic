@@ -1,7 +1,7 @@
 #ifndef GRIDAUDIORENDERERAUDIOSOURCE_H_INCLUDED
 #define GRIDAUDIORENDERERAUDIOSOURCE_H_INCLUDED
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 
 #include "Configuration.h"
 #include "GridData.h"
@@ -26,7 +26,7 @@ public:
     void removeListener(Listener* listener);
 
     // ChangeListener method
-    void changeListenerCallback (ChangeBroadcaster *source) override;
+    void changeListenerCallback(ChangeBroadcaster *source) override;
 
     // AudioSource methods
     void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;

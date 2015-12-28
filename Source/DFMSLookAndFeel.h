@@ -1,7 +1,7 @@
 #ifndef DFMSLOOKANDFEEL_H_INCLUDED
 #define DFMSLOOKANDFEEL_H_INCLUDED
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 
 class DFMSLookAndFeel : public LookAndFeel_V1 {
 public:

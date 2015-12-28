@@ -1,6 +1,6 @@
 #ifndef DFMS2_Configuration_h
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 
 class Configuration
 {

@@ -1,7 +1,7 @@
 #ifndef SIMPLESPECTRUMRECONSTRUCTOR_H_INCLUDED
 #define SIMPLESPECTRUMRECONSTRUCTOR_H_INCLUDED
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include "JuceHeader.h"
 
 #include "GridData.h"
 

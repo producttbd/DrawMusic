@@ -1,6 +1,7 @@
 #include "MainComponent.h"
 
 #include "Configuration.h"
+
 MainComponent::MainComponent ()
   : gridData_(Configuration::getGridWidth(), Configuration::getGridHeight()), //TODO This janky dependency chain
     colourScheme_(),

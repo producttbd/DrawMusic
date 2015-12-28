@@ -1,4 +1,3 @@
-#include "JuceHeader.h"
 #include "Configuration.h"
 #include "DFMSLookAndFeel.h"
 #include "DrawGrid.h"
