@@ -11,21 +11,32 @@ class GridAudioRendererAudioSource : public PositionableAudioSource,
                                      public ChangeListener
 {
 public:
-    class Listener
+    class NewAudioListener
     {
     public:
         virtual void newAudioCallback(const AudioSampleBuffer& updatedAudio) =0;
-        virtual ~Listener() {}
+        virtual ~NewAudioListener() {}
     };
+    
+    class NewPositionListener
+    {
+    public:
+        virtual void newPositionCallback(float fraction) =0;
+        virtual ~NewPositionListener() {}
+    };
+    
     
     explicit GridAudioRendererAudioSource(const GridData& gridData) noexcept;
     ~GridAudioRendererAudioSource();
 
     void rerender();
-    void addListener(Listener* listener);
-    void removeListener(Listener* listener);
-
+    void addNewAudioListener(NewAudioListener* listener);
+    void removeNewAudioListener(NewAudioListener* listener);
+    void addNewPositionListener(NewPositionListener* listener);
+    void removeNewPositionListener(NewPositionListener* listener);
+    
     // ChangeListener method
+    // Called when new gridData is available and needs rerendering
     void changeListenerCallback(ChangeBroadcaster *source) override;
 
     // AudioSource methods
@@ -62,7 +73,8 @@ private:
 
     int lgIterations_;
 
-    ListenerList<Listener> listeners_;
+    ListenerList<NewAudioListener> newAudioListeners_;
+    ListenerList<NewPositionListener> newPositionListeners_;
 };
 
 

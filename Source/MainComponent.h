@@ -9,6 +9,7 @@
 #include "GridAudioRendererAudioSource.h"
 #include "GridColourScheme.h"
 #include "GridData.h"
+#include "PlaybackTimeline.h"
 #include "WaveformView.h"
 
 class MainComponent  : public Component,
@@ -27,6 +28,20 @@ private:
     void stopPlayback();
     void startPlayback();
 
+    class PlaybackTimer : public Timer
+    {
+    public:
+        PlaybackTimer(PlaybackTimeline& playbackTimeline)
+        : playbackTimeline_(playbackTimeline) {}
+        void timerCallback() override
+        {
+            playbackTimeline_.repaint();
+        }
+        
+    private:
+        PlaybackTimeline& playbackTimeline_;
+    };
+    
     GridData gridData_;
     GridColourScheme colourScheme_;
     BrushPalette brushPalette_;
@@ -36,6 +51,8 @@ private:
     AudioSourcePlayer audioSourcePlayer_;
     AudioTransportSource transportSource_;
     GridAudioRendererAudioSource gridAudioSource_;
+    PlaybackTimeline playbackTimeline_;
+    PlaybackTimer playbackTimer_;
     TimeSliceThread thread_;
     WaveformView waveformView_;
 
@@ -43,6 +60,7 @@ private:
     TextButton clearButton_;
 
     Slider reconstructionSlider_;
+
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };

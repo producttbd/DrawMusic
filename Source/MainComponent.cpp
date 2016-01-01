@@ -11,6 +11,8 @@ MainComponent::MainComponent ()
     audioSourcePlayer_(),
     transportSource_(),
     gridAudioSource_(gridData_),
+    playbackTimeline_("playbackTimeline"),
+    playbackTimer_(playbackTimeline_),
     thread_("audio file preview"),
     waveformView_("waveform view"),
     playStopButton_("playStopButton"),
@@ -38,12 +40,15 @@ MainComponent::MainComponent ()
     reconstructionSlider_.addListener(&gridAudioSource_);
 
     addAndMakeVisible(&drawGrid_);
+    
+    addAndMakeVisible(&playbackTimeline_);
 
     setSize(Configuration::getMainWindowWidth(), Configuration::getMainWindowHeight());
 
     // Listener registration
     drawGrid_.addChangeListener(&gridAudioSource_);
-    gridAudioSource_.addListener(&waveformView_);
+    gridAudioSource_.addNewAudioListener(&waveformView_);
+    gridAudioSource_.addNewPositionListener(&playbackTimeline_);
 
     // Audio
     deviceManager_.initialise (0, 2, 0, true, String::empty, 0);
@@ -71,6 +76,9 @@ void MainComponent::resized()
 
     waveformView_.setBounds(outsideMargin, 2 * outsideMargin + gridHeight,
                             gridWidth, Configuration::getWaveformViewHeight());
+    
+    playbackTimeline_.setBounds(outsideMargin, 2 * outsideMargin + gridHeight,
+                                gridWidth, Configuration::getWaveformViewHeight());
 
     const int buttonWidth = 80;
     const int buttonHeight = 24;
@@ -116,6 +124,7 @@ void MainComponent::startPlayback()
     transportSource_.setPosition (0);
     playStopButton_.setButtonText (TRANS("stop"));
     playStopButton_.setToggleState(true, NotificationType::dontSendNotification);
+    playbackTimer_.startTimer(Configuration::getPlaybackTimerInterval());
     transportSource_.start();
 }
 
@@ -126,4 +135,3 @@ void MainComponent::stopPlayback()
     playStopButton_.setButtonText (TRANS("play"));
     playStopButton_.setToggleState(false, NotificationType::dontSendNotification);
 }
-

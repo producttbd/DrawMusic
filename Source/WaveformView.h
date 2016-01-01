@@ -7,7 +7,7 @@
 #include "GridAudioRendererAudioSource.h"
 
 class WaveformView : public Component,
-                     public GridAudioRendererAudioSource::Listener
+                     public GridAudioRendererAudioSource::NewAudioListener
 {
 public:
     explicit WaveformView(const String& name);

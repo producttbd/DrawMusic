@@ -34,6 +34,8 @@ public:
     {
         return (totalNumberWindows_ + 1) * (windowLength_ / 2);
     }
+    
+    static constexpr int getPlaybackTimerInterval() { return 50; }
 
 private:
     static constexpr int buttonWidth_ = 80;
