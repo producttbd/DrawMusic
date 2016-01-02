@@ -1,6 +1,9 @@
 - Continuity of drawing
   - Moving applying brushes to background thread
   - real-time drawing
+- Look and Feel
+  - Change getDefaultBackgroundColour to registering a colour
+  - Remove references to DFMSLookAndFeel in MainComponent
 - Lim/Griffin:
   - Clean up last window stuff
   - Check spectrum of output audio
@@ -8,6 +11,4 @@
   - Clean out slider junk (move to settings menu?)
 - Log scale of vertical axis
 - Background audio rendering
-- Clean up all the dimensions in MainComponent
-- Clean up includes
 - Save/load

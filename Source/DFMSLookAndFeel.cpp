@@ -48,3 +48,8 @@ void DFMSLookAndFeel::drawComponentOutline(juce::Graphics& g, juce::Component& c
     g.setColour(Colours::black.withAlpha(0.4f));
     g.drawRect(c.getLocalBounds());
 }
+
+Colour DFMSLookAndFeel::getDefaultBackgroundColour()
+{
+    return Colours::white;
+}

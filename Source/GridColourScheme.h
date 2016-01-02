@@ -3,6 +3,7 @@
 
 #include "JuceHeader.h"
 
+// TODO move to look and feel maybe
 class GridColourScheme
 {
 public:

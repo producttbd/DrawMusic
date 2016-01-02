@@ -12,6 +12,8 @@ public:
     
     static void drawComponentOutline(Graphics& g, Component& c);
     
+    static Colour getDefaultBackgroundColour();
+    
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DFMSLookAndFeel);
 };
