@@ -18,6 +18,11 @@ GridAudioRendererAudioSource::~GridAudioRendererAudioSource()
 {
 }
 
+const AudioSampleBuffer& GridAudioRendererAudioSource::getOutputBuffer()
+{
+    return fullPieceAudioBuffer_;
+}
+
 void GridAudioRendererAudioSource::rerender()
 {
     LimGriffinReconstructor reconstructor(Configuration::getFftOrder(), Configuration::getFftLength(), gridData_, lgIterations_);

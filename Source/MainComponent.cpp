@@ -16,7 +16,8 @@ MainComponent::MainComponent ()
     thread_("audio file preview"),
     waveformView_("waveform view"),
     playStopButton_("playStopButton"),
-    clearButton_("renderButton"),
+    clearButton_("clearButton"),
+    exportButton_("exportButton"),
     reconstructionSlider_("reconstructionSlider")
 {
     addAndMakeVisible(&brushPalette_);
@@ -28,14 +29,19 @@ MainComponent::MainComponent ()
 
     addAndMakeVisible(&clearButton_);
     clearButton_.setButtonText(TRANS("clear"));
-    clearButton_.setConnectedEdges(Button::ConnectedOnLeft);
+    clearButton_.setConnectedEdges(Button::ConnectedOnLeft & Button::ConnectedOnRight);
     clearButton_.addListener(this);
+    
+    addAndMakeVisible(&exportButton_);
+    exportButton_.setButtonText(TRANS("export"));
+    exportButton_.setConnectedEdges(Button::ConnectedOnLeft);
+    exportButton_.addListener(this);
 
     addAndMakeVisible(&waveformView_);
 
     addAndMakeVisible(&reconstructionSlider_);
     reconstructionSlider_.setSliderStyle(Slider::SliderStyle::LinearHorizontal);
-    reconstructionSlider_.setTextBoxStyle(Slider::TextBoxLeft, false, 30, 30);
+    reconstructionSlider_.setTextBoxStyle(Slider::TextBoxLeft, false, 30, 30); // TODO magic number
     reconstructionSlider_.setRange(0, 10, 1);
     reconstructionSlider_.addListener(&gridAudioSource_);
 
@@ -51,7 +57,7 @@ MainComponent::MainComponent ()
     gridAudioSource_.addNewPositionListener(&playbackTimeline_);
 
     // Audio
-    deviceManager_.initialise (0, 2, 0, true, String::empty, 0);
+    deviceManager_.initialise (0, 2, 0, true, String::empty, 0); // TODO channels?
     thread_.startThread(3);
     deviceManager_.addAudioCallback(&audioSourcePlayer_);
     audioSourcePlayer_.setSource(&transportSource_);
@@ -83,9 +89,10 @@ void MainComponent::resized()
     const int buttonWidth = 80;
     const int buttonHeight = 24;
     const int buttonY = getHeight() - buttonHeight - outsideMargin;
-    playStopButton_.setBounds (outsideMargin, buttonY, buttonWidth, buttonHeight);
-    clearButton_.setBounds (outsideMargin + buttonWidth, buttonY, buttonWidth, buttonHeight);
-    reconstructionSlider_.setBounds(outsideMargin + 2 * buttonWidth, buttonY, 2 * buttonWidth, buttonHeight);
+    playStopButton_.setBounds(outsideMargin, buttonY, buttonWidth, buttonHeight);
+    clearButton_.setBounds(outsideMargin + buttonWidth, buttonY, buttonWidth, buttonHeight);
+    exportButton_.setBounds(outsideMargin + 2 * buttonWidth, buttonY, buttonWidth, buttonHeight);
+    reconstructionSlider_.setBounds(outsideMargin + 3 * buttonWidth, buttonY, 2 * buttonWidth, buttonHeight);
 
     const int paletteSide = Configuration::getPaletteSide();
     brushPalette_.setBounds(getWidth() - paletteSide - outsideMargin, getHeight() - paletteSide - outsideMargin,
@@ -103,6 +110,24 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
         stopPlayback();
         gridData_.clear();
         drawGrid_.refreshAll();
+    }
+    else if (buttonThatWasClicked == &exportButton_)
+    {
+        AudioFormatManager afManager;
+        afManager.registerBasicFormats();
+        AudioFormat* format = afManager.getDefaultFormat();
+        
+        FileChooser fileChooser(TRANS("Select output file"),
+                                File::nonexistent,
+                                format->getFileExtensions().joinIntoString(";"));
+        if (fileChooser.browseForFileToSave(true))
+        {
+            File file(fileChooser.getResult());
+            auto buffer = gridAudioSource_.getOutputBuffer();
+            ScopedPointer<AudioFormatWriter> writer = format->createWriterFor(file.createOutputStream(), 44100, buffer.getNumChannels(), 16, NULL, 0);
+            writer->writeFromAudioSampleBuffer(buffer, 0, buffer.getNumSamples());
+        }
+        
     }
 }
 
@@ -131,6 +156,7 @@ void MainComponent::startPlayback()
 void MainComponent::stopPlayback()
 {
     transportSource_.stop();
+    playbackTimer_.stopTimer();
     transportSource_.setSource(nullptr);
     playStopButton_.setButtonText (TRANS("play"));
     playStopButton_.setToggleState(false, NotificationType::dontSendNotification);

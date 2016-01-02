@@ -28,6 +28,8 @@ public:
     
     explicit GridAudioRendererAudioSource(const GridData& gridData) noexcept;
     ~GridAudioRendererAudioSource();
+    
+    const AudioSampleBuffer& getOutputBuffer();
 
     void rerender();
     void addNewAudioListener(NewAudioListener* listener);

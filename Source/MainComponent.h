@@ -12,16 +12,16 @@
 #include "PlaybackTimeline.h"
 #include "WaveformView.h"
 
-class MainComponent  : public Component,
-                       public Button::Listener
+class MainComponent : public Component,
+                      public Button::Listener
 {
 public:
     MainComponent ();
     ~MainComponent();
 
-    void paint (Graphics& g);
+    void paint(Graphics& g);
     void resized();
-    void buttonClicked (Button* buttonThatWasClicked);
+    void buttonClicked(Button* buttonThatWasClicked);
 
 private:
     void togglePlayback();
@@ -58,12 +58,11 @@ private:
 
     TextButton playStopButton_;
     TextButton clearButton_;
+    TextButton exportButton_;
 
     Slider reconstructionSlider_;
 
-
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };
-
 
 #endif   // __JUCE_HEADER_9002020A4DD09B20__
