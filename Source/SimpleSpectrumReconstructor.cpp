@@ -5,7 +5,7 @@ SimpleSpectrumReconstructor::SimpleSpectrumReconstructor(int fftOrder, int windo
 windowMidpoint_(windowLength / 2),
 totalNumberWindows_(gridData.getWidth()),
 gridData_(gridData),
-scaleFactor_(0.5f),
+scaleFactor_(0.2f),
 fft_(fftOrder, true)
 {
     jassert(windowLength_ == windowMidpoint_ * 2);
@@ -31,8 +31,7 @@ void SimpleSpectrumReconstructor::perform(AudioSampleBuffer& outputBuffer)
         float* toWrite = outputBuffer.getWritePointer(0, windowNumber * windowMidpoint_); // TODO channel
         for (int i = 0; i < windowLength_; ++i)
         {
-            // TODO remove windowing after LG works
-            toWrite[i] = fftOutput[i].r * hann_window_[i];
+            toWrite[i] += fftOutput[i].r;
         }
     }
 }
