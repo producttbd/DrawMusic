@@ -11,6 +11,9 @@ public:
                               bool isMouseOverButton, bool isButtonDown) override;
     
     static void drawComponentOutline(Graphics& g, Component& c);
+    
+private:
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DFMSLookAndFeel);
 };
 
 #endif  // DFMSLOOKANDFEEL_H_INCLUDED

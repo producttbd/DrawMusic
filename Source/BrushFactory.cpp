@@ -8,7 +8,6 @@ OwnedArray<PixelBrush> BrushFactory::getAllBrushes()
     OwnedArray<PixelBrush> result;
     Array<BrushPoint> brushPattern;
 
-
     // Square brush
     brushPattern.add(BrushPoint(-1, -1, 0.2, PointType::Additive));
     brushPattern.add(BrushPoint(-1, 0, 0.2, PointType::Additive));

@@ -27,6 +27,8 @@ private:
     int currentBrush_;
     OwnedArray<PixelBrush> brushes_;
     Slider intensitySlider_;
+    
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BrushPalette);
 };
 
 

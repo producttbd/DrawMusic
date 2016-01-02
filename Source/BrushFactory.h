@@ -9,6 +9,10 @@ class BrushFactory
 {
 public:
     static OwnedArray<PixelBrush> getAllBrushes();
+    
+    BrushFactory() = delete;
+    BrushFactory(BrushFactory&) = delete;
+    BrushFactory& operator=(BrushFactory&) = delete;
 };
 
 

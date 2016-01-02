@@ -77,6 +77,8 @@ private:
 
     ListenerList<NewAudioListener> newAudioListeners_;
     ListenerList<NewPositionListener> newPositionListeners_;
+    
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GridAudioRendererAudioSource);
 };
 
 
