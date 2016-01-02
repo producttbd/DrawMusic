@@ -24,12 +24,14 @@ private:
 
         MinMaxValue(float minimum, float maximum) noexcept
         {
+            jassert(maximum >= minimum);
             values[0] = minimum;
             values[1] = maximum;
         }
 
         void setFloat(float minimum, float maximum)
         {
+            jassert(maximum >= minimum);
             values[0] = minimum;
             values[1] = maximum;
         }
@@ -39,11 +41,12 @@ private:
             return values[1] - values[0];
         }
 
-        inline float getMinValue() const noexcept        { return values[0]; }
-        inline float getMaxValue() const noexcept        { return values[1]; }
+        inline float getMinValue() const noexcept { return values[0]; }
+        inline float getMaxValue() const noexcept { return values[1]; }
 
         inline bool isNonZero() const noexcept
         {
+            jassert(values[1] >= values[0]);
             return values[1] > values[0];
         }
 

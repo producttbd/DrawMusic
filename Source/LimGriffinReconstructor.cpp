@@ -2,6 +2,7 @@
 
 #include "Configuration.h"
 
+
 LimGriffinReconstructor::LimGriffinReconstructor(int fftOrder, int windowLength, const GridData& gridData, int iterations)
 : SimpleSpectrumReconstructor(fftOrder, windowLength, gridData),
 iterations_(iterations),
@@ -20,9 +21,10 @@ void LimGriffinReconstructor::copyWindowOutAndZeroFirstHalf(float* destination, 
     float* writePointer = source.getWritePointer(0, offset); //TODO Channel
     for (int i = 0; i < windowLength_; ++i)
     {
+        jassert(!isnan(readPointer[i]));
         destination[i] = readPointer[i] * hann_window_[i];
     }
-    for (int i = 0; i < windowLength_; ++i)
+    for (int i = 0; i < windowMidpoint_; ++i)
     {
         writePointer[i] = 0.0f; // TODO Use memset?
     }
@@ -33,6 +35,7 @@ void LimGriffinReconstructor::addBackToOriginal(AudioSampleBuffer& destination, 
     float* writePointer = destination.getWritePointer(0, offset); // TODO Channel
     for (int i = 0; i < windowLength_; ++i)
     {
+        jassert(!isnan(source[i]));
         writePointer[i] += source[i];
     }
 }
@@ -41,8 +44,8 @@ void LimGriffinReconstructor::perform(AudioSampleBuffer& outputBuffer)
 {
     SimpleSpectrumReconstructor::perform(outputBuffer);
 
-    HeapBlock<FFT::Complex> bufferA(2 * windowLength_);
-    HeapBlock<FFT::Complex> bufferB(2 * windowLength_);
+    HeapBlock<FFT::Complex> bufferA(windowLength_);
+    HeapBlock<FFT::Complex> bufferB(windowLength_);
     HeapBlock<float> magnitudeData(windowLength_);
 
     for (int iter = 0; iter < iterations_; ++iter)
@@ -50,12 +53,13 @@ void LimGriffinReconstructor::perform(AudioSampleBuffer& outputBuffer)
         // In general, we're doing this in-place with overlapping windows
         // So we'll always have two windows copied to buffers so we don't over-write what
         // we're next working on.
-        bufferA.clear(2 * windowLength_);
-        bufferB.clear(2 * windowLength_);
+        bufferA.clear(windowLength_);
+        bufferB.clear(windowLength_);
         FFT::Complex* currentWindowAsComplex = bufferA.getData();
         float* currentWindowAsFloat = (float*)(currentWindowAsComplex);
         float* nextWindowBuffer = (float*)(bufferB.getData());
 
+        
         // Copy the first window to current buffer before we start
         copyWindowOutAndZeroFirstHalf(currentWindowAsFloat, outputBuffer, 0);
 
@@ -70,7 +74,11 @@ void LimGriffinReconstructor::perform(AudioSampleBuffer& outputBuffer)
                 float currentMagnitude = sqrt(currentWindowAsComplex[i].r * currentWindowAsComplex[i].r
                                               + currentWindowAsComplex[i].i * currentWindowAsComplex[i].i);
                 currentWindowAsComplex[i].r = currentWindowAsComplex[i].r / currentMagnitude * magnitudeData[i];
+                currentWindowAsComplex[i].r = isnan(currentWindowAsComplex[i].r) ?
+                        0.0f :  currentWindowAsComplex[i].r;
                 currentWindowAsComplex[i].i = currentWindowAsComplex[i].i / currentMagnitude * magnitudeData[i];
+                currentWindowAsComplex[i].i = isnan(currentWindowAsComplex[i].r) ?
+                        0.0f :  currentWindowAsComplex[i].r;
             }
             inverseFft_.performRealOnlyInverseTransform(currentWindowAsFloat);
 
