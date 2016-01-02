@@ -1,6 +1,8 @@
 #include "MainComponent.h"
 
+#include "AudioSettingsWindow.h"
 #include "Configuration.h"
+#include "DFMSLookAndFeel.h"
 
 MainComponent::MainComponent ()
   : gridData_(Configuration::getGridWidth(), Configuration::getGridHeight()), //TODO This janky dependency chain
@@ -18,6 +20,7 @@ MainComponent::MainComponent ()
     playStopButton_("playStopButton"),
     clearButton_("clearButton"),
     exportButton_("exportButton"),
+    settingsButton_("settingsButton"),
     reconstructionSlider_("reconstructionSlider")
 {
     addAndMakeVisible(&brushPalette_);
@@ -34,8 +37,13 @@ MainComponent::MainComponent ()
     
     addAndMakeVisible(&exportButton_);
     exportButton_.setButtonText(TRANS("export"));
-    exportButton_.setConnectedEdges(Button::ConnectedOnLeft);
+    exportButton_.setConnectedEdges(Button::ConnectedOnLeft & Button::ConnectedOnRight);
     exportButton_.addListener(this);
+    
+    addAndMakeVisible(&settingsButton_);
+    settingsButton_.setButtonText(TRANS("settings"));
+    settingsButton_.setConnectedEdges(Button::ConnectedOnLeft);
+    settingsButton_.addListener(this);
 
     addAndMakeVisible(&waveformView_);
 
@@ -66,11 +74,15 @@ MainComponent::MainComponent ()
 
 MainComponent::~MainComponent()
 {
+    if (audioSettingsWindow_ != nullptr)
+    {
+        audioSettingsWindow_.deleteAndZero();
+    }
 }
 
 void MainComponent::paint (Graphics& g)
 {
-    g.fillAll(Colours::white);
+    g.fillAll(DFMSLookAndFeel::getDefaultBackgroundColour());
 }
 
 void MainComponent::resized()
@@ -92,7 +104,8 @@ void MainComponent::resized()
     playStopButton_.setBounds(outsideMargin, buttonY, buttonWidth, buttonHeight);
     clearButton_.setBounds(outsideMargin + buttonWidth, buttonY, buttonWidth, buttonHeight);
     exportButton_.setBounds(outsideMargin + 2 * buttonWidth, buttonY, buttonWidth, buttonHeight);
-    reconstructionSlider_.setBounds(outsideMargin + 3 * buttonWidth, buttonY, 2 * buttonWidth, buttonHeight);
+    settingsButton_.setBounds(outsideMargin + 3 * buttonWidth, buttonY, buttonWidth, buttonHeight);
+    reconstructionSlider_.setBounds(outsideMargin + 4 * buttonWidth, buttonY, 2 * buttonWidth, buttonHeight);
 
     const int paletteSide = Configuration::getPaletteSide();
     brushPalette_.setBounds(getWidth() - paletteSide - outsideMargin, getHeight() - paletteSide - outsideMargin,
@@ -129,6 +142,10 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
         }
         
     }
+    else if (buttonThatWasClicked == &settingsButton_)
+    {
+        openAudioSettingsWindow();
+    }
 }
 
 void MainComponent::togglePlayback()
@@ -160,4 +177,20 @@ void MainComponent::stopPlayback()
     transportSource_.setSource(nullptr);
     playStopButton_.setButtonText (TRANS("play"));
     playStopButton_.setToggleState(false, NotificationType::dontSendNotification);
+}
+
+void MainComponent::openAudioSettingsWindow()
+{
+    if (audioSettingsWindow_ != nullptr)
+    {
+        return;
+    }
+    audioSettingsWindow_ = new AudioSettingsWindow(TRANS("audio settings window"), deviceManager_);
+    Rectangle<int> area (0, 0, 500, 600);
+    const RectanglePlacement placement (RectanglePlacement::xLeft
+                                        + RectanglePlacement::yTop + RectanglePlacement::doNotResize);
+    Rectangle<int> result (placement.appliedTo (area, Desktop::getInstance().getDisplays().getMainDisplay().userArea.reduced (20)));
+    audioSettingsWindow_->setBounds (result);
+    
+    audioSettingsWindow_->setVisible(true);
 }

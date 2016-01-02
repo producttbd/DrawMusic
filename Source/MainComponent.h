@@ -27,6 +27,8 @@ private:
     void togglePlayback();
     void stopPlayback();
     void startPlayback();
+    
+    void openAudioSettingsWindow();
 
     class PlaybackTimer : public Timer
     {
@@ -55,11 +57,15 @@ private:
     PlaybackTimer playbackTimer_;
     TimeSliceThread thread_;
     WaveformView waveformView_;
+    
+    Component::SafePointer<Component> audioSettingsWindow_;
 
     TextButton playStopButton_;
     TextButton clearButton_;
     TextButton exportButton_;
+    TextButton settingsButton_;
 
+    // TODO remove this slider, move to settings or something
     Slider reconstructionSlider_;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
