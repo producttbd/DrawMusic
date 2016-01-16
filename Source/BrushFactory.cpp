@@ -9,15 +9,15 @@ OwnedArray<PixelBrush> BrushFactory::getAllBrushes()
     Array<BrushPoint> brushPattern;
 
     // Square brush
-    brushPattern.add(BrushPoint(-1, -1, 0.2, PointType::Additive));
-    brushPattern.add(BrushPoint(-1, 0, 0.2, PointType::Additive));
-    brushPattern.add(BrushPoint(-1, 1, 0.2, PointType::Additive));
-    brushPattern.add(BrushPoint(0, 1, 0.2, PointType::Additive));
-    brushPattern.add(BrushPoint(1, 1, 0.2, PointType::Additive));
-    brushPattern.add(BrushPoint(1, 0, 0.2, PointType::Additive));
-    brushPattern.add(BrushPoint(1, -1, 0.2, PointType::Additive));
-    brushPattern.add(BrushPoint(0, -1, 0.2, PointType::Additive));
-    brushPattern.add(BrushPoint(0, 0, 0.2, PointType::Additive));
+//    brushPattern.add(BrushPoint(-1, -1, 0.2, PointType::Additive));
+//    brushPattern.add(BrushPoint(-1, 0, 0.2, PointType::Additive));
+//    brushPattern.add(BrushPoint(-1, 1, 0.2, PointType::Additive));
+//    brushPattern.add(BrushPoint(0, 1, 0.2, PointType::Additive));
+//    brushPattern.add(BrushPoint(1, 1, 0.2, PointType::Additive));
+//    brushPattern.add(BrushPoint(1, 0, 0.2, PointType::Additive));
+//    brushPattern.add(BrushPoint(1, -1, 0.2, PointType::Additive));
+//    brushPattern.add(BrushPoint(0, -1, 0.2, PointType::Additive));
+    brushPattern.add(BrushPoint(0, 0, 1.0, PointType::Additive));
     result.add(new PointClusterBrush(TRANS("Square brush"), brushPattern));
 
     // Hann brush
