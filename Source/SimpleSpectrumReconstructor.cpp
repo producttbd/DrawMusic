@@ -44,12 +44,10 @@ void SimpleSpectrumReconstructor::expandSpectrogramColumnToFullWindowLength(int 
 
     // Fill in input buffer
     output[0].r = gridData_.getXY(spectrogramColumn, lastGridPoint);
-    output[windowMidpoint_].r = output[0].r;
-    for (int i = 1; i < lastGridPoint; ++i)
+    for (int i = 1; i < gridData_.getHeight(); ++i)
     {
-        output[i].r = gridData_.getXY(spectrogramColumn, lastGridPoint - i)
-                      * scaleFactor_;
-        output[windowLength_ - i].r = output[i].r;
+        output[i].r = gridData_.getXY(spectrogramColumn, lastGridPoint - i) * scaleFactor_;
+        output[windowLength_ - i] = output[i];
     }
 }
 
@@ -62,11 +60,9 @@ void SimpleSpectrumReconstructor::expandSpectrogramColumnToFullWindowLength(int 
 
     // Fill in input buffer
     output[0] = gridData_.getXY(spectrogramColumn, lastGridPoint);
-    output[windowMidpoint_] = output[0];
-    for (int i = 1; i < lastGridPoint; ++i)
+    for (int i = 1; i < gridData_.getHeight(); ++i)
     {
-        output[i] = gridData_.getXY(spectrogramColumn, lastGridPoint - i)
-                    * scaleFactor_;
+        output[i] = gridData_.getXY(spectrogramColumn, lastGridPoint - i) * scaleFactor_;
         output[windowLength_ - i] = output[i];
     }
 }
