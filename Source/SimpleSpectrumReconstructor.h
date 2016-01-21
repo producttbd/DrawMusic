@@ -9,6 +9,11 @@ class SimpleSpectrumReconstructor {
 public:
     // Will zero-pad if gridData's height is less than window length
     SimpleSpectrumReconstructor(int fftOrder, int windowLength, const GridData& gridData);
+    
+    SimpleSpectrumReconstructor(const SimpleSpectrumReconstructor&) = delete;
+    SimpleSpectrumReconstructor& operator=(const SimpleSpectrumReconstructor&) = delete;
+    
+    
     virtual void perform(AudioSampleBuffer& outputBuffer);
     virtual ~SimpleSpectrumReconstructor();
 
@@ -26,6 +31,7 @@ protected:
 
 private:
     const FFT fft_;
+    
 };
 
 
