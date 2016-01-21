@@ -1,11 +1,13 @@
 #include "SimpleSpectrumReconstructor.h"
 
+#include "Configuration.h"
+
 SimpleSpectrumReconstructor::SimpleSpectrumReconstructor(int fftOrder, int windowLength, const GridData& gridData)
 : windowLength_(windowLength),
 windowMidpoint_(windowLength / 2),
 totalNumberWindows_(gridData.getWidth()),
 gridData_(gridData),
-scaleFactor_(0.2f),
+scaleFactor_(Configuration::getPreReconstructionScaleFactor()),
 fft_(fftOrder, true)
 {
     jassert(windowLength_ == windowMidpoint_ * 2);

@@ -23,6 +23,10 @@ public:
     static constexpr int getNumberChannels() { return 1; }
     static constexpr int getFftOrder() { return fftOrder_; }
     static constexpr int getFftLength() { return windowLength_; }
+    static constexpr float getPreReconstructionScaleFactor()
+    {
+        return preReconstructionScaleFactor_;
+    }
     static constexpr int getSamplesPerThumbnailSample() { return thumbnailSampleWindow_; }
 
     static constexpr int getGridHeight() { return gridHeight_; }
@@ -35,7 +39,7 @@ public:
         return (totalNumberWindows_ + 1) * (windowLength_ / 2);
     }
     
-    static constexpr int getPlaybackTimerInterval() { return 50; }
+    static constexpr int getPlaybackTimerInterval() { return playbackTimerInterval_; }
 
 private:
     static constexpr int buttonWidth_ = 80;
@@ -44,6 +48,7 @@ private:
     static constexpr int waveformViewHeight_ = 120;
     static constexpr int fftOrder_ = 12;
     static constexpr int windowLength_ = 1 << fftOrder_;
+    static constexpr float preReconstructionScaleFactor_ = 0.01f;
 
     static constexpr int gridHeight_ = 513; // (1024 / 2 + 1)
     static constexpr int totalNumberWindows_ = 1000;
@@ -51,6 +56,8 @@ private:
     static constexpr int paletteSide_ = 100;
     static constexpr float minGridValue_ = 0.0f;
     static constexpr float maxGridValue_ = 1.0f;
+
+    static constexpr int playbackTimerInterval_ = 50;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Configuration);
 };
