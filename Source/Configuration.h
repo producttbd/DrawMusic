@@ -2,6 +2,8 @@
 
 #include "JuceHeader.h"
 
+#define WINDOW_4096
+
 class Configuration
 {
 public:
@@ -42,15 +44,19 @@ public:
     static constexpr int getPlaybackTimerInterval() { return playbackTimerInterval_; }
 
 private:
+#ifdef WINDOW_4096
+    static constexpr int fftOrder_ = 12;
+#endif
+
     static constexpr int buttonWidth_ = 80;
     static constexpr int buttonHeight_ = 24;
     static constexpr int guiMargin_ = 10;
     static constexpr int waveformViewHeight_ = 120;
-    static constexpr int fftOrder_ = 12;
+
     static constexpr int windowLength_ = 1 << fftOrder_;
     static constexpr float preReconstructionScaleFactor_ = 0.01f;
 
-    static constexpr int gridHeight_ = 513; // (1024 / 2 + 1)
+    static constexpr int gridHeight_ = 513;
     static constexpr int totalNumberWindows_ = 1000;
     static constexpr int thumbnailSampleWindow_ = 1 << (fftOrder_ - 2);
     static constexpr int paletteSide_ = 100;
