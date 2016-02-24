@@ -1,6 +1,7 @@
 #include "MainComponent.h"
 
 #include "AudioSettingsWindow.h"
+#include "BrushPaletteWindow.h"
 #include "Configuration.h"
 #include "DFMSLookAndFeel.h"
 
@@ -186,11 +187,4 @@ void MainComponent::openAudioSettingsWindow()
         return;
     }
     audioSettingsWindow_ = new AudioSettingsWindow(TRANS("audio settings window"), deviceManager_);
-    Rectangle<int> area (0, 0, 500, 600);
-    const RectanglePlacement placement (RectanglePlacement::xLeft
-                                        + RectanglePlacement::yTop + RectanglePlacement::doNotResize);
-    Rectangle<int> result (placement.appliedTo (area, Desktop::getInstance().getDisplays().getMainDisplay().userArea.reduced (20)));
-    audioSettingsWindow_->setBounds (result);
-    
-    audioSettingsWindow_->setVisible(true);
 }

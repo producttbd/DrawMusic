@@ -33,7 +33,7 @@ void SimpleSpectrumReconstructor::perform(AudioSampleBuffer& outputBuffer)
         float* toWrite = outputBuffer.getWritePointer(0, windowNumber * windowMidpoint_); // TODO channel
         for (int i = 0; i < windowMidpoint_; ++i)
         {
-            toWrite[i] += fftOutput[i].r;
+            toWrite[i] = fftOutput[i].r;
         }
     }
 }

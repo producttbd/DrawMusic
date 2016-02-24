@@ -3,12 +3,12 @@
 
 #include "JuceHeader.h"
 
+#include "AbstractBrushAction.h"
 #include "Configuration.h"
-#include "GridColourScheme.h"
 #include "GridData.h"
 #include "GridPoint.h"
 
-class PixelBrush
+class PixelBrush : public AbstractBrushAction
 {
 public:
     enum class PointType
@@ -30,20 +30,19 @@ public:
         PointType type;
     };
 
-    explicit PixelBrush(const String name);
+    PixelBrush();
     virtual ~PixelBrush();
 
-    virtual void drawInTo(Graphics& g, const GridColourScheme& colourScheme,
-                          int offsetX, int offsetY) const = 0;
     void setIntensityScalar(float newValue);
 
-    virtual Array<GridPoint> startStroke(GridPoint p, GridData& gridData);
-    virtual Array<GridPoint> continueStroke(GridPoint p, GridData& gridData);
-    virtual Array<GridPoint> finishStroke(GridPoint p, GridData& gridData);
+    Array<GridPoint> startStroke(GridPoint p, GridData& gridData) override;
+    Array<GridPoint> continueStroke(GridPoint p, GridData& gridData) override;
+    Array<GridPoint> finishStroke(GridPoint p, GridData& gridData) override;
 
 protected:
     virtual Array<GridPoint> getIntermediaryPoints(GridPoint start, GridPoint end) const;
-    virtual Array<GridPoint> applyBrushToStroke(const Array<GridPoint>& pointsInStroke,  GridData& gridData) const;
+    virtual Array<GridPoint> applyBrushToStroke(
+            const Array<GridPoint>& pointsInStroke,  GridData& gridData) const;
     virtual Array<GridPoint> applyBrushToPoint(GridPoint p, GridData& gridData) const = 0;
 
     static inline float clampOutputValue(float value)
@@ -51,7 +50,6 @@ protected:
         return jmax(jmin(value, Configuration::getMaxGridValue()), Configuration::getMinGridValue());
     }
 
-    const String name_;
     float intensityScalar_;
 
     static constexpr float minIntensityScalar_ = 0.0f;
@@ -65,10 +63,9 @@ protected:
 class PointClusterBrush : public PixelBrush
 {
 public:
-    PointClusterBrush(const String name, Array<BrushPoint> brushPattern);
+    explicit PointClusterBrush(Array<BrushPoint> brushPattern);
 
-    void drawInTo(juce::Graphics& g, const GridColourScheme& colourScheme,
-                  const int offsetX, const int offsetY) const override;
+    void drawPreviewInto(juce::Graphics& g, const Rectangle<int>& bounds) const override;
 
 protected:
     Array<GridPoint> applyBrushToPoint(GridPoint p, GridData& gridData) const override;
@@ -80,11 +77,10 @@ private:
 class XYProfileBrush : public PixelBrush
 {
 public:
-    XYProfileBrush(const String name, Array<float> xProfile, Array<float> yProfile,
+    XYProfileBrush(Array<float> xProfile, Array<float> yProfile,
                    int xOffset, int yOffset);
 
-    void drawInTo(juce::Graphics& g, const GridColourScheme& colourScheme,
-                  const int offsetX, const int offsetY) const override;
+    void drawPreviewInto(juce::Graphics& g, const Rectangle<int>& bounds) const override;
 
 protected:
     Array<GridPoint> applyBrushToPoint(GridPoint p, GridData& gridData) const override;

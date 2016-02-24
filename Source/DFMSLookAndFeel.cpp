@@ -40,13 +40,18 @@ void DFMSLookAndFeel::drawButtonBackground(Graphics& g, Button& button, const Co
     g.setColour (bc);
     g.fillPath (outline);
 
-    drawComponentOutline(g, button);
+    drawOutline(g, button);
 }
 
-void DFMSLookAndFeel::drawComponentOutline(juce::Graphics& g, juce::Component& c)
+void DFMSLookAndFeel::drawOutline(juce::Graphics& g, juce::Component& c)
+{
+    drawOutline(g, c.getLocalBounds());
+}
+
+void DFMSLookAndFeel::drawOutline(juce::Graphics& g, Rectangle<int> bounds)
 {
     g.setColour(Colours::black.withAlpha(0.4f));
-    g.drawRect(c.getLocalBounds());
+    g.drawRect(bounds);
 }
 
 Colour DFMSLookAndFeel::getDefaultBackgroundColour()

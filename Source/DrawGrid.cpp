@@ -33,7 +33,7 @@ void DrawGrid::refreshAll()
 void DrawGrid::paint (Graphics& g)
 {
     g.drawImageAt(theImage_, 0, 0);
-    DFMSLookAndFeel::drawComponentOutline(g, *this);
+    DFMSLookAndFeel::drawOutline(g, *this);
     //TODO Allow grid and image to be different sizes
 }
 
@@ -43,21 +43,21 @@ void DrawGrid::resized()
 
 void DrawGrid::mouseDown(const MouseEvent& event)
 {
-    PixelBrush* currentBrush = brushPalette_.getCurrentBrush();
+    auto currentBrush = brushPalette_.getCurrentBrushAction();
     auto affectedPixels = currentBrush->startStroke(GridPoint(event.x, event.y), gridData_);
     gridImageRenderer_.renderSelectPointsToImage(gridData_, affectedPixels, theImage_);
 }
 
 void DrawGrid::mouseDrag(const juce::MouseEvent& event)
 {
-    PixelBrush* currentBrush = brushPalette_.getCurrentBrush();
+    auto currentBrush = brushPalette_.getCurrentBrushAction();
     auto affectedPixels = currentBrush->continueStroke(GridPoint(event.x, event.y), gridData_);
     gridImageRenderer_.renderSelectPointsToImage(gridData_, affectedPixels, theImage_);
 }
 
 void DrawGrid::mouseUp(const juce::MouseEvent& event)
 {
-    PixelBrush* currentBrush = brushPalette_.getCurrentBrush();
+    auto currentBrush = brushPalette_.getCurrentBrushAction();
     auto affectedPixels = currentBrush->finishStroke(GridPoint(event.x, event.y), gridData_);
     gridImageRenderer_.renderSelectPointsToImage(gridData_, affectedPixels, theImage_);
     repaint();

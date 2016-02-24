@@ -7,7 +7,7 @@
 class GridColourScheme
 {
 public:
-    Colour convertToColour(float value) const;
+    static Colour convertToColour(float value);
 };
 
 

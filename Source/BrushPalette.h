@@ -3,31 +3,36 @@
 
 #include "JuceHeader.h"
 
+#include "AbstractBrushAction.h"
+#include "AbstractCompleteBrush.h"
+#include "BrushPaletteWindow.h"
 #include "GridColourScheme.h"
 #include "PixelBrush.h"
 
-class BrushPalette : public Component, public Slider::Listener
+class BrushPalette : public Component, ChangeListener
 {
 public:
     BrushPalette(const String& componentName,
                  const GridColourScheme& colourScheme) noexcept;
 
-    PixelBrush* getCurrentBrush() const;
+    AbstractBrushAction* getCurrentBrushAction() const;
 
     // Component overrides
     void mouseDown(const MouseEvent &event) override;
     void paint (Graphics&) override;
     void resized() override;
 
-    // Slider::Listener overrides
-    void sliderValueChanged(Slider* slider) override;
+    // ChangeListener
+    void changeListenerCallback(ChangeBroadcaster* source) override;
 
 private:
+    void openBrushPaletteWindow();
+
     const GridColourScheme& colourScheme_;
     int currentBrush_;
-    OwnedArray<PixelBrush> brushes_;
-    Slider intensitySlider_;
-    
+    OwnedArray<AbstractCompleteBrush> brushes_;
+    Component::SafePointer<BrushPaletteWindow> brushPaletteWindow_;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BrushPalette);
 };
 

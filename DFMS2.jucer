@@ -5,63 +5,91 @@
               jucerVersion="4.1.0">
   <MAINGROUP id="BvMvtA" name="DFMS2">
     <GROUP id="{157F435B-C817-59C4-B8EE-094D6D6F9F9C}" name="Source">
-      <FILE id="KfGaQB" name="AudioSettingsWindow.cpp" compile="1" resource="0"
-            file="Source/AudioSettingsWindow.cpp"/>
-      <FILE id="lfN6p1" name="AudioSettingsWindow.h" compile="0" resource="0"
-            file="Source/AudioSettingsWindow.h"/>
-      <FILE id="OWMJkd" name="PlaybackTimeline.cpp" compile="1" resource="0"
-            file="Source/PlaybackTimeline.cpp"/>
-      <FILE id="ZgFpnH" name="PlaybackTimeline.h" compile="0" resource="0"
-            file="Source/PlaybackTimeline.h"/>
+      <FILE id="sPQu2j" name="AbstractBrushAction.h" compile="0" resource="0"
+            file="Source/AbstractBrushAction.h"/>
+      <FILE id="kOVY8H" name="AbstractBrushControls.h" compile="0" resource="0"
+            file="Source/AbstractBrushControls.h"/>
+      <FILE id="aAmScr" name="AbstractCompleteBrush.h" compile="0" resource="0"
+            file="Source/AbstractCompleteBrush.h"/>
       <FILE id="oi8q4O" name="AudioBufferThumbnail.cpp" compile="1" resource="0"
             file="Source/AudioBufferThumbnail.cpp"/>
       <FILE id="fKG5Ox" name="AudioBufferThumbnail.h" compile="0" resource="0"
             file="Source/AudioBufferThumbnail.h"/>
-      <FILE id="Sb9fZ4" name="WaveformView.cpp" compile="1" resource="0"
-            file="Source/WaveformView.cpp"/>
-      <FILE id="Chiiu3" name="WaveformView.h" compile="0" resource="0" file="Source/WaveformView.h"/>
-      <FILE id="SnX5RN" name="GridColourScheme.cpp" compile="1" resource="0"
-            file="Source/GridColourScheme.cpp"/>
-      <FILE id="QvzCgi" name="GridColourScheme.h" compile="0" resource="0"
-            file="Source/GridColourScheme.h"/>
+      <FILE id="KfGaQB" name="AudioSettingsWindow.cpp" compile="1" resource="0"
+            file="Source/AudioSettingsWindow.cpp"/>
+      <FILE id="lfN6p1" name="AudioSettingsWindow.h" compile="0" resource="0"
+            file="Source/AudioSettingsWindow.h"/>
+      <FILE id="truvez" name="BaseWindow.cpp" compile="1" resource="0" file="Source/BaseWindow.cpp"/>
+      <FILE id="KQX9Ca" name="BaseWindow.h" compile="0" resource="0" file="Source/BaseWindow.h"/>
+      <FILE id="emLEdn" name="BasicBrushControls.cpp" compile="1" resource="0"
+            file="Source/BasicBrushControls.cpp"/>
+      <FILE id="tZ9ros" name="BasicBrushControls.h" compile="0" resource="0"
+            file="Source/BasicBrushControls.h"/>
+      <FILE id="tBw35K" name="BasicCompleteBrush.cpp" compile="1" resource="0"
+            file="Source/BasicCompleteBrush.cpp"/>
+      <FILE id="tkT0b7" name="BasicCompleteBrush.h" compile="0" resource="0"
+            file="Source/BasicCompleteBrush.h"/>
       <FILE id="qpqOpz" name="BrushFactory.cpp" compile="1" resource="0"
             file="Source/BrushFactory.cpp"/>
       <FILE id="sl07iy" name="BrushFactory.h" compile="0" resource="0" file="Source/BrushFactory.h"/>
-      <FILE id="oHjjCo" name="ToDo.txt" compile="0" resource="1" file="Source/ToDo.txt"/>
       <FILE id="IOqWyB" name="BrushPalette.cpp" compile="1" resource="0"
             file="Source/BrushPalette.cpp"/>
       <FILE id="hoqts4" name="BrushPalette.h" compile="0" resource="0" file="Source/BrushPalette.h"/>
-      <FILE id="SszaTR" name="LimGriffinReconstructor.cpp" compile="1" resource="0"
-            file="Source/LimGriffinReconstructor.cpp"/>
-      <FILE id="tjoYTS" name="LimGriffinReconstructor.h" compile="0" resource="0"
-            file="Source/LimGriffinReconstructor.h"/>
-      <FILE id="wH9E94" name="SimpleSpectrumReconstructor.cpp" compile="1"
-            resource="0" file="Source/SimpleSpectrumReconstructor.cpp"/>
-      <FILE id="qa4ysO" name="SimpleSpectrumReconstructor.h" compile="0"
-            resource="0" file="Source/SimpleSpectrumReconstructor.h"/>
-      <FILE id="AXA7kk" name="MainComponent.cpp" compile="1" resource="0"
-            file="Source/MainComponent.cpp"/>
-      <FILE id="GOq5mL" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
+      <FILE id="Wab7CL" name="BrushPaletteWindow.cpp" compile="1" resource="0"
+            file="Source/BrushPaletteWindow.cpp"/>
+      <FILE id="LUrRMT" name="BrushPaletteWindow.h" compile="0" resource="0"
+            file="Source/BrushPaletteWindow.h"/>
+      <FILE id="NYGKv7" name="BrushPaletteWindowContent.cpp" compile="1"
+            resource="0" file="Source/BrushPaletteWindowContent.cpp"/>
+      <FILE id="q77PF2" name="BrushPaletteWindowContent.h" compile="0" resource="0"
+            file="Source/BrushPaletteWindowContent.h"/>
+      <FILE id="eSpdYn" name="Configuration.h" compile="0" resource="0" file="Source/Configuration.h"/>
       <FILE id="Cb5ZWw" name="DFMSLookAndFeel.cpp" compile="1" resource="0"
             file="Source/DFMSLookAndFeel.cpp"/>
       <FILE id="MIMY9z" name="DFMSLookAndFeel.h" compile="0" resource="0"
             file="Source/DFMSLookAndFeel.h"/>
+      <FILE id="zYCyS7" name="DrawGrid.cpp" compile="1" resource="0" file="Source/DrawGrid.cpp"/>
+      <FILE id="zPU404" name="DrawGrid.h" compile="0" resource="0" file="Source/DrawGrid.h"/>
       <FILE id="ZxeLht" name="GridAudioRendererAudioSource.cpp" compile="1"
             resource="0" file="Source/GridAudioRendererAudioSource.cpp"/>
       <FILE id="XbKIAt" name="GridAudioRendererAudioSource.h" compile="0"
             resource="0" file="Source/GridAudioRendererAudioSource.h"/>
+      <FILE id="SnX5RN" name="GridColourScheme.cpp" compile="1" resource="0"
+            file="Source/GridColourScheme.cpp"/>
+      <FILE id="QvzCgi" name="GridColourScheme.h" compile="0" resource="0"
+            file="Source/GridColourScheme.h"/>
       <FILE id="XYaZa0" name="GridData.h" compile="0" resource="0" file="Source/GridData.h"/>
       <FILE id="lgFGmq" name="GridImageRenderer.cpp" compile="1" resource="0"
             file="Source/GridImageRenderer.cpp"/>
       <FILE id="iRU6E5" name="GridImageRenderer.h" compile="0" resource="0"
             file="Source/GridImageRenderer.h"/>
       <FILE id="rjPYaw" name="GridPoint.h" compile="0" resource="0" file="Source/GridPoint.h"/>
+      <FILE id="SszaTR" name="LimGriffinReconstructor.cpp" compile="1" resource="0"
+            file="Source/LimGriffinReconstructor.cpp"/>
+      <FILE id="tjoYTS" name="LimGriffinReconstructor.h" compile="0" resource="0"
+            file="Source/LimGriffinReconstructor.h"/>
+      <FILE id="Bs9Qmy" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="AXA7kk" name="MainComponent.cpp" compile="1" resource="0"
+            file="Source/MainComponent.cpp"/>
+      <FILE id="GOq5mL" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
       <FILE id="u5hy5O" name="PixelBrush.cpp" compile="1" resource="0" file="Source/PixelBrush.cpp"/>
       <FILE id="qbWo51" name="PixelBrush.h" compile="0" resource="0" file="Source/PixelBrush.h"/>
-      <FILE id="eSpdYn" name="Configuration.h" compile="0" resource="0" file="Source/Configuration.h"/>
-      <FILE id="zYCyS7" name="DrawGrid.cpp" compile="1" resource="0" file="Source/DrawGrid.cpp"/>
-      <FILE id="zPU404" name="DrawGrid.h" compile="0" resource="0" file="Source/DrawGrid.h"/>
-      <FILE id="Bs9Qmy" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="OWMJkd" name="PlaybackTimeline.cpp" compile="1" resource="0"
+            file="Source/PlaybackTimeline.cpp"/>
+      <FILE id="ZgFpnH" name="PlaybackTimeline.h" compile="0" resource="0"
+            file="Source/PlaybackTimeline.h"/>
+      <FILE id="wH9E94" name="SimpleSpectrumReconstructor.cpp" compile="1"
+            resource="0" file="Source/SimpleSpectrumReconstructor.cpp"/>
+      <FILE id="qa4ysO" name="SimpleSpectrumReconstructor.h" compile="0"
+            resource="0" file="Source/SimpleSpectrumReconstructor.h"/>
+      <FILE id="oHjjCo" name="ToDo.txt" compile="0" resource="1" file="Source/ToDo.txt"/>
+      <FILE id="Sb9fZ4" name="WaveformView.cpp" compile="1" resource="0"
+            file="Source/WaveformView.cpp"/>
+      <FILE id="Chiiu3" name="WaveformView.h" compile="0" resource="0" file="Source/WaveformView.h"/>
+      <FILE id="q0A5cX" name="WindowBoundsManager.cpp" compile="1" resource="0"
+            file="Source/WindowBoundsManager.cpp"/>
+      <FILE id="D8EXnj" name="WindowBoundsManager.h" compile="0" resource="0"
+            file="Source/WindowBoundsManager.h"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>

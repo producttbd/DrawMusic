@@ -3,17 +3,18 @@
 
 #include "JuceHeader.h"
 
-#include "PixelBrush.h"
+#include "AbstractCompleteBrush.h"
 
 class BrushFactory
 {
 public:
-    static OwnedArray<PixelBrush> getAllBrushes();
+    static void getAllBrushes(OwnedArray<AbstractCompleteBrush>& brushes);
     
     BrushFactory() = delete;
     BrushFactory(BrushFactory&) = delete;
     BrushFactory& operator=(BrushFactory&) = delete;
-};
 
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BrushFactory);
+};
 
 #endif  // BRUSHFACTORY_H_INCLUDED

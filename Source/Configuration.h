@@ -1,5 +1,5 @@
-#ifndef DFMS2_Configuration_h
-
+#ifndef DFMS2_CONFIGURATION_H_INCLUDED
+#define DFMS2_CONFIGURATION_H_INCLUDED
 #include "JuceHeader.h"
 
 #define WINDOW_4096
@@ -15,7 +15,7 @@ public:
     {
         return totalNumberWindows_ + 2 * guiMargin_;
     }
-    
+
     static constexpr int getGuiMargin() { return guiMargin_; }
     static constexpr int getPaletteSide() { return paletteSide_; }
     static constexpr int getButtonHeight() { return buttonHeight_; }
@@ -35,12 +35,15 @@ public:
     static constexpr int getGridWidth() { return totalNumberWindows_; }
     static constexpr float getMinGridValue() { return minGridValue_; }
     static constexpr float getMaxGridValue() { return maxGridValue_; }
-    
+
+    static constexpr int getNewWindowWidth() { return newWindowWidth_; }
+    static constexpr int getNewWindowHeight() { return newWindowHeight_; }
+
     static constexpr int getTotalAudioSampleLength()
     {
         return (totalNumberWindows_ + 1) * (windowLength_ / 2);
     }
-    
+
     static constexpr int getPlaybackTimerInterval() { return playbackTimerInterval_; }
 
 private:
@@ -63,12 +66,12 @@ private:
     static constexpr float minGridValue_ = 0.0f;
     static constexpr float maxGridValue_ = 1.0f;
 
+    static constexpr int newWindowWidth_ = 500;
+    static constexpr int newWindowHeight_ = 600;
+
     static constexpr int playbackTimerInterval_ = 50;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Configuration);
 };
 
-#define DFMS2_Configuration_h
-
-
-#endif
+#endif // DFMS2_CONFIGURATION_H_INCLUDED

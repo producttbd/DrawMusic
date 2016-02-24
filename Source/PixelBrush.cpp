@@ -1,8 +1,9 @@
 #include "PixelBrush.h"
 
-PixelBrush::PixelBrush(const String name)
-: name_(name),
-  intensityScalar_(1.0f),
+#include "GridColourScheme.h"
+
+PixelBrush::PixelBrush()
+: intensityScalar_(1.0f),
   pointsInStroke_()
 {
 }
@@ -112,29 +113,26 @@ Array<GridPoint> PixelBrush::applyBrushToStroke(const Array<GridPoint>& pointsIn
     return allAffectedPoints;
 }
 
-PointClusterBrush::PointClusterBrush(const String name, Array<BrushPoint> brushPattern)
-: PixelBrush(name),
+PointClusterBrush::PointClusterBrush(Array<BrushPoint> brushPattern)
+: PixelBrush(),
   brushPattern_(brushPattern)
 {
 
 }
 
-void PointClusterBrush::drawInTo(juce::Graphics& g, const GridColourScheme& colourScheme,
-                          const int offsetX, const int offsetY) const
+void PointClusterBrush::drawPreviewInto(
+        juce::Graphics& g, const Rectangle<int>& bounds) const
 {
-    Colour zeroColour = colourScheme.convertToColour(0.0f);
+    Colour zeroColour = GridColourScheme::convertToColour(0.0f);
     g.fillAll(zeroColour);
     for (const auto& brushPoint : brushPattern_)
     {
-        const auto x = offsetX + brushPoint.x;
-        const auto y = offsetY + brushPoint.y;
+        const auto x = bounds.getCentreX() + brushPoint.x;
+        const auto y = bounds.getCentreY() + brushPoint.y;
         const float value = clampOutputValue(brushPoint.z * intensityScalar_);
-        g.setColour(colourScheme.convertToColour(value));
+        g.setColour(GridColourScheme::convertToColour(value));
         g.setPixel(x, y);
     }
-    g.setColour(zeroColour.contrasting());
-    Rectangle<int> gBounds = g.getClipBounds();
-    g.drawText(name_, 0, 0, gBounds.getWidth(), 20, Justification::left);
 }
 
 Array<GridPoint> PointClusterBrush::applyBrushToPoint(GridPoint p, GridData& gridData) const
@@ -166,9 +164,9 @@ Array<GridPoint> PointClusterBrush::applyBrushToPoint(GridPoint p, GridData& gri
     return affectedPoints;
 }
 
-XYProfileBrush::XYProfileBrush(const String name, Array<float> xProfile, Array<float> yProfile,
+XYProfileBrush::XYProfileBrush(Array<float> xProfile, Array<float> yProfile,
                                int xOffset, int yOffset)
-: PixelBrush(name),
+: PixelBrush(),
   xOffset_(xOffset),
   yOffset_(yOffset),
   xProfile_(xProfile),
@@ -176,28 +174,24 @@ XYProfileBrush::XYProfileBrush(const String name, Array<float> xProfile, Array<f
 {
 }
 
-void XYProfileBrush::drawInTo(juce::Graphics& g, const GridColourScheme& colourScheme,
-                                    const int offsetX, const int offsetY) const
+void XYProfileBrush::drawPreviewInto(juce::Graphics& g, const Rectangle<int>& bounds) const
 {
-    Colour zeroColour = colourScheme.convertToColour(0.0f);
+    const Colour zeroColour = GridColourScheme::convertToColour(0.0f);
     g.fillAll(zeroColour);
 
-    int y = offsetY + yOffset_;
+    int y = bounds.getCentreY() + yOffset_;
     for (const auto& yP : yProfile_)
     {
-        int x = offsetX + xOffset_;
+        int x = bounds.getCentreX() + xOffset_;
         for (const auto& xP : xProfile_)
         {
             const float value = clampOutputValue(xP * yP * intensityScalar_);
-            g.setColour(colourScheme.convertToColour(value));
+            g.setColour(GridColourScheme::convertToColour(value));
             g.setPixel(x, y);
             ++x;
         }
         --y;
     }
-    g.setColour(zeroColour.contrasting());
-    Rectangle<int> gBounds = g.getClipBounds();
-    g.drawText(name_, 0, 0, gBounds.getWidth(), 20, Justification::left);
 }
 
 Array<GridPoint> XYProfileBrush::applyBrushToPoint(GridPoint p, GridData& gridData) const

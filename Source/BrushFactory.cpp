@@ -1,29 +1,31 @@
 #include "BrushFactory.h"
 
+#include "AbstractCompleteBrush.h"
+#include "AbstractBrushControls.h"
+#include "BasicBrushControls.h"
+#include "BasicCompleteBrush.h"
+#include "PixelBrush.h"
+
 using BrushPoint = PixelBrush::BrushPoint;
 using PointType = PixelBrush::PointType;
 
-OwnedArray<PixelBrush> BrushFactory::getAllBrushes()
+void BrushFactory::getAllBrushes(OwnedArray<AbstractCompleteBrush>& brushes)
 {
-    OwnedArray<PixelBrush> result;
-    Array<BrushPoint> brushPattern;
+    brushes.clear();
 
-    // Square brush
-//    brushPattern.add(BrushPoint(-1, -1, 0.2, PointType::Additive));
-//    brushPattern.add(BrushPoint(-1, 0, 0.2, PointType::Additive));
-//    brushPattern.add(BrushPoint(-1, 1, 0.2, PointType::Additive));
-//    brushPattern.add(BrushPoint(0, 1, 0.2, PointType::Additive));
-//    brushPattern.add(BrushPoint(1, 1, 0.2, PointType::Additive));
-//    brushPattern.add(BrushPoint(1, 0, 0.2, PointType::Additive));
-//    brushPattern.add(BrushPoint(1, -1, 0.2, PointType::Additive));
-//    brushPattern.add(BrushPoint(0, -1, 0.2, PointType::Additive));
+    // Single dot brush
+    Array<BrushPoint> brushPattern;
     brushPattern.add(BrushPoint(0, 0, 1.0, PointType::Additive));
-    result.add(new PointClusterBrush(TRANS("Square brush"), brushPattern));
+    ScopedPointer<AbstractBrushAction> action = new PointClusterBrush(brushPattern);
+    ScopedPointer<AbstractBrushControls> control = new BasicBrushControls();
+    brushes.add(new BasicCompleteBrush(TRANS("Single dot brush"), action, control));
 
     // Hann brush
     Array<float> hannProfile({0.1464466094067262f, 0.49999999999999994f, 0.8535533905932737f,
         1.0f, 0.8535533905932738f, 0.5000000000000001f, 0.14644660940672627f});
-    result.add(new XYProfileBrush(TRANS("Hann point"), hannProfile, hannProfile, -3, -3));
+    action = new XYProfileBrush(hannProfile, hannProfile, -3, -3);
+    control = new BasicBrushControls();
+    brushes.add(new BasicCompleteBrush(TRANS("Hann point"), action, control));
 
     // Percussion
     Array<float> xPercussive({0.65f,
@@ -33,7 +35,11 @@ OwnedArray<PixelBrush> BrushFactory::getAllBrushes()
     {
         yPercussive.add(i / 500.0f);
     }
-    result.add(new XYProfileBrush(TRANS("Percussion"), xPercussive, yPercussive, -1, 0));
+    action = new XYProfileBrush(xPercussive, yPercussive, -1, 0);
+    control = new BasicBrushControls();
+    brushes.add(new BasicCompleteBrush(TRANS("Percussive"), action, control));
+
+
 
     // noise cluster
     brushPattern.clear();
@@ -45,7 +51,7 @@ OwnedArray<PixelBrush> BrushFactory::getAllBrushes()
             brushPattern.add(BrushPoint(x, y, random.nextFloat()*0.1f, PointType::Absolute));
         }
     }
-    result.add(new PointClusterBrush(TRANS("Noise brush"), brushPattern));
-
-    return result;
+    action = new PointClusterBrush(brushPattern);
+    control = new BasicBrushControls();
+    brushes.add(new BasicCompleteBrush(TRANS("Noise square"), action, control));
 }

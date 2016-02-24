@@ -15,7 +15,7 @@ void WaveformView::resized()
 
 void WaveformView::paint(Graphics& g)
 {
-    DFMSLookAndFeel::drawComponentOutline(g, *this);
+    DFMSLookAndFeel::drawOutline(g, *this);
     g.setColour (Colours::darkgrey);
     thumbnail_.drawChannel(g, getLocalBounds());
 }

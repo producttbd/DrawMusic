@@ -18,6 +18,8 @@ protected:
     const int iterations_;
     FFT forwardFft_;
     FFT inverseFft_;
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(LimGriffinReconstructor);
 };
 
 #endif  // LIMGRIFFINRECONSTRUCTOR_H_INCLUDED
