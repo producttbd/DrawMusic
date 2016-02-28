@@ -28,10 +28,6 @@ void BrushPalette::paint(Graphics& g)
     AbstractBrushAction* brushAction = brush->getBrushAction();
     brushAction->drawPreviewInto(g, getLocalBounds());
     DFMSLookAndFeel::drawOutline(g, *this);
-
-    const Colour zeroColour = GridColourScheme::convertToColour(0.0f);
-    g.setColour(zeroColour.contrasting());
-    g.drawText(brush->getName(), 0, 0, getWidth(), 20, Justification::left);
 }
 
 void BrushPalette::resized()

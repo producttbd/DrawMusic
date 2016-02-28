@@ -37,8 +37,6 @@ void BrushFactory::getAllBrushes(BrushCollection& brushCollection)
     control = new BasicBrushControls();
     brushCollection.add(new BasicCompleteBrush(TRANS("Percussive"), action, control));
 
-
-
     // noise cluster
     brushPattern.clear();
     Random random;

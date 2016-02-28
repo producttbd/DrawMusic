@@ -40,9 +40,8 @@ void BrushPaletteWindowContent::buttonClicked(Button* button)
 
 void BrushPaletteWindowContent::paint(Graphics& g)
 {
-
-    //setSize(3 * margin + previewSide + smallPreviewSide, 3 * margin + previewSide + controlsHeight);
-
+    
+    const int margin = Configuration::getGuiMargin();
     const AbstractCompleteBrush* currentCompleteBrush = brushCollection_.getCurrentBrush();
 
     // Preview area
@@ -51,8 +50,10 @@ void BrushPaletteWindowContent::paint(Graphics& g)
     currentCompleteBrush->getBrushAction()->drawPreviewInto(g, mainPreviewArea_);
     const Colour zeroColour = GridColourScheme::convertToColour(0.0f);
     g.setColour(zeroColour.contrasting());
-    g.drawText(currentCompleteBrush->getName(), mainPreviewArea_.getX(), mainPreviewArea_.getY(),
-               mainPreviewArea_.getWidth(), 40, Justification::left);
+    
+    g.drawText(currentCompleteBrush->getName(),
+               mainPreviewArea_.getX() + margin, mainPreviewArea_.getY() + margin,
+               mainPreviewArea_.getWidth() - 2 * margin, 40, Justification::topLeft);
     DFMSLookAndFeel::drawOutline(g, mainPreviewArea_);
     g.restoreState();
 
