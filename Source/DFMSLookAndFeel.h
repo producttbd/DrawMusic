@@ -10,8 +10,10 @@ public:
     void drawButtonBackground(Graphics& g, Button& button, const Colour& backgroundColour,
                               bool isMouseOverButton, bool isButtonDown) override;
     
-    static void drawOutline(Graphics& g, Component& c);
-    static void drawOutline(Graphics& g, Rectangle<int> bounds);
+    static void drawOutline(Graphics& g, Component& c,
+                            bool isMouseOver=false, bool isSelected=false);
+    static void drawOutline(Graphics& g, Rectangle<int> bounds,
+                            bool isMouseOver=false, bool isSelected=false);
     
     static Colour getDefaultBackgroundColour();
     

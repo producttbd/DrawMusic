@@ -1,7 +1,5 @@
 #include "BrushPalette.h"
 
-
-
 #include "BrushFactory.h"
 #include "DFMSLookAndFeel.h"
 
@@ -9,15 +7,14 @@ BrushPalette::BrushPalette(const String& componentName, const GridColourScheme& 
 : Component(componentName),
   colourScheme_(colourScheme),
   currentBrush_(0),
-  brushes_()
+  brushCollection_()
 {
-    BrushFactory::getAllBrushes(brushes_);
+    brushCollection_.addChangeListener(this);
 }
 
 AbstractBrushAction* BrushPalette::getCurrentBrushAction() const
 {
-    jassert(currentBrush_ >= 0 && currentBrush_ < brushes_.size());
-    return brushes_[currentBrush_]->getBrushAction();
+    return brushCollection_.getCurrentBrush()->getBrushAction();
 }
 
 void BrushPalette::mouseDown(const MouseEvent& event)
@@ -27,8 +24,7 @@ void BrushPalette::mouseDown(const MouseEvent& event)
 
 void BrushPalette::paint(Graphics& g)
 {
-    jassert(currentBrush_ >= 0 && currentBrush_ < brushes_.size());
-    AbstractCompleteBrush* brush = brushes_[currentBrush_];
+    const AbstractCompleteBrush* brush = brushCollection_.getCurrentBrush();
     AbstractBrushAction* brushAction = brush->getBrushAction();
     brushAction->drawPreviewInto(g, getLocalBounds());
     DFMSLookAndFeel::drawOutline(g, *this);
@@ -42,12 +38,9 @@ void BrushPalette::resized()
 {
 }
 
-void BrushPalette::changeListenerCallback(juce::ChangeBroadcaster* source)
+void BrushPalette::changeListenerCallback(juce::ChangeBroadcaster* /*source*/)
 {
-    if (brushPaletteWindow_ != nullptr)
-    {
-        repaint();
-    }
+    repaint();
 }
 
 void BrushPalette::openBrushPaletteWindow()
@@ -56,7 +49,5 @@ void BrushPalette::openBrushPaletteWindow()
     {
         return;
     }
-    brushPaletteWindow_ = new BrushPaletteWindow("brush palette window",
-                                                 brushes_.getRawDataPointer(),
-                                                 brushes_.size(), &currentBrush_);
+    brushPaletteWindow_ = new BrushPaletteWindow("brushPalettewindow", brushCollection_);
 }

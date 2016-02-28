@@ -3,12 +3,12 @@
 
 #include "JuceHeader.h"
 
-#include "AbstractCompleteBrush.h"
+#include "BrushCollection.h"
 
 class BrushFactory
 {
 public:
-    static void getAllBrushes(OwnedArray<AbstractCompleteBrush>& brushes);
+    static void getAllBrushes(BrushCollection& brushCollection);
     
     BrushFactory() = delete;
     BrushFactory(BrushFactory&) = delete;

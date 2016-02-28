@@ -29,6 +29,10 @@
             file="Source/BasicCompleteBrush.cpp"/>
       <FILE id="tkT0b7" name="BasicCompleteBrush.h" compile="0" resource="0"
             file="Source/BasicCompleteBrush.h"/>
+      <FILE id="QW8rWB" name="BrushCollection.cpp" compile="1" resource="0"
+            file="Source/BrushCollection.cpp"/>
+      <FILE id="mPKKyn" name="BrushCollection.h" compile="0" resource="0"
+            file="Source/BrushCollection.h"/>
       <FILE id="qpqOpz" name="BrushFactory.cpp" compile="1" resource="0"
             file="Source/BrushFactory.cpp"/>
       <FILE id="sl07iy" name="BrushFactory.h" compile="0" resource="0" file="Source/BrushFactory.h"/>
@@ -43,6 +47,10 @@
             resource="0" file="Source/BrushPaletteWindowContent.cpp"/>
       <FILE id="q77PF2" name="BrushPaletteWindowContent.h" compile="0" resource="0"
             file="Source/BrushPaletteWindowContent.h"/>
+      <FILE id="d9bNmD" name="BrushPreviewButton.cpp" compile="1" resource="0"
+            file="Source/BrushPreviewButton.cpp"/>
+      <FILE id="drcgF2" name="BrushPreviewButton.h" compile="0" resource="0"
+            file="Source/BrushPreviewButton.h"/>
       <FILE id="eSpdYn" name="Configuration.h" compile="0" resource="0" file="Source/Configuration.h"/>
       <FILE id="Cb5ZWw" name="DFMSLookAndFeel.cpp" compile="1" resource="0"
             file="Source/DFMSLookAndFeel.cpp"/>
@@ -82,7 +90,7 @@
             resource="0" file="Source/SimpleSpectrumReconstructor.cpp"/>
       <FILE id="qa4ysO" name="SimpleSpectrumReconstructor.h" compile="0"
             resource="0" file="Source/SimpleSpectrumReconstructor.h"/>
-      <FILE id="oHjjCo" name="ToDo.txt" compile="0" resource="1" file="Source/ToDo.txt"/>
+      <FILE id="oHjjCo" name="ToDo.txt" compile="0" resource="0" file="Source/ToDo.txt"/>
       <FILE id="Sb9fZ4" name="WaveformView.cpp" compile="1" resource="0"
             file="Source/WaveformView.cpp"/>
       <FILE id="Chiiu3" name="WaveformView.h" compile="0" resource="0" file="Source/WaveformView.h"/>

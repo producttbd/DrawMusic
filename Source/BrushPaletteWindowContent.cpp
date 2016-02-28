@@ -3,58 +3,82 @@
 #include "Configuration.h"
 #include "DFMSLookAndFeel.h"
 
-BrushPaletteWindowContent::BrushPaletteWindowContent(AbstractCompleteBrush** const brushes,
-                                                     int numberBrushes, int* currentBrush)
-: brushes_(brushes), numberBrushes_(numberBrushes), currentBrush_(currentBrush)
+BrushPaletteWindowContent::BrushPaletteWindowContent(BrushCollection& brushCollection)
+: brushCollection_(brushCollection)
 {
-    jassert(brushes_ != nullptr);
-    jassert(currentBrush_ != nullptr);
+    int currentBrush = brushCollection_.getCurrentBrushIndex();
+    for (int i = 0; i < brushCollection_.size(); ++i)
+    {
+        BrushPreviewButton* button = new BrushPreviewButton(brushCollection_.getBrush(i));
+        button->addListener(this);
+        addAndMakeVisible(button);
+        if (i == currentBrush)
+        {
+            button->setToggleState(true, NotificationType::dontSendNotification);
+        }
+        sidePreviewButtons_.add(button);
+    }
+}
+
+void BrushPaletteWindowContent::buttonClicked(Button* button)
+{
+    const auto name = button->getName();
+    for (int i = 0; i < sidePreviewButtons_.size(); ++i)
+    {
+        sidePreviewButtons_[i]->setToggleState(false, NotificationType::dontSendNotification);
+    }
+    for (int i = 0; i < brushCollection_.size(); ++i)
+    {
+        if (brushCollection_.getBrush(i)->getName() == name)
+        {
+            brushCollection_.setCurrentBrush(i);
+            button->setToggleState(true, NotificationType::dontSendNotification);
+        }
+    }
+    repaint();
 }
 
 void BrushPaletteWindowContent::paint(Graphics& g)
 {
-    const int margin = Configuration::getGuiMargin();
-    const int previewSide = 250;
-    const int smallPreviewSide = 100;
-    const int controlsHeight = 350;
+
     //setSize(3 * margin + previewSide + smallPreviewSide, 3 * margin + previewSide + controlsHeight);
 
-    const AbstractCompleteBrush* currentCompleteBrush = brushes_[*currentBrush_];
+    const AbstractCompleteBrush* currentCompleteBrush = brushCollection_.getCurrentBrush();
 
     // Preview area
     g.saveState();
-    const auto mainPreviewArea = Rectangle<int>(margin, margin, previewSide, previewSide);
-    g.reduceClipRegion(mainPreviewArea);
-    currentCompleteBrush->getBrushAction()->drawPreviewInto(g, mainPreviewArea);
+    g.reduceClipRegion(mainPreviewArea_);
+    currentCompleteBrush->getBrushAction()->drawPreviewInto(g, mainPreviewArea_);
     const Colour zeroColour = GridColourScheme::convertToColour(0.0f);
     g.setColour(zeroColour.contrasting());
-    g.drawText(currentCompleteBrush->getName(), mainPreviewArea.getX(), mainPreviewArea.getY(),
-               mainPreviewArea.getWidth(), 40, Justification::left);
-    DFMSLookAndFeel::drawOutline(g, mainPreviewArea);
+    g.drawText(currentCompleteBrush->getName(), mainPreviewArea_.getX(), mainPreviewArea_.getY(),
+               mainPreviewArea_.getWidth(), 40, Justification::left);
+    DFMSLookAndFeel::drawOutline(g, mainPreviewArea_);
     g.restoreState();
 
     // Controls
     auto controls = currentCompleteBrush->getBrushControls();
     addAndMakeVisible(controls);
-    auto controlBounds = Rectangle<int>(mainPreviewArea.getX(), margin + mainPreviewArea.getBottom(),
-                                        mainPreviewArea.getWidth(), controlsHeight);
-    controls->setBounds(controlBounds);
-    DFMSLookAndFeel::drawOutline(g, controlBounds);
 
-    // Other brushes
-    const int smallPreviewX = 2 * margin + previewSide;
-    for (int i = 0; i < numberBrushes_; ++i)
-    {
-        g.saveState();
-        Rectangle<int> smallPreviewBounds(smallPreviewX, margin + i *(margin + smallPreviewSide),
-                              smallPreviewSide, smallPreviewSide);
-        g.reduceClipRegion(smallPreviewBounds);
-        brushes_[i]->getBrushAction()->drawPreviewInto(g, smallPreviewBounds);
-        DFMSLookAndFeel::drawOutline(g, smallPreviewBounds);
-        g.restoreState();
-    }
+    controls->setBounds(controlsArea_);
+    DFMSLookAndFeel::drawOutline(g, controlsArea_);
 }
 
-
-//void BrushPaletteWindowContent::resized()
-//}
+void BrushPaletteWindowContent::resized()
+{
+    const int smallPreviewSide = 100;
+    const int margin = Configuration::getGuiMargin();
+    const int previewAreaSide = getWidth() - 3 * margin - smallPreviewSide;
+    const int controlsHeight = getHeight() - 3 * margin - previewAreaSide;
+    
+    mainPreviewArea_ = Rectangle<int>(margin, margin, previewAreaSide, previewAreaSide);
+    controlsArea_ = Rectangle<int>(margin, margin + mainPreviewArea_.getBottom(),
+                                   mainPreviewArea_.getWidth(), controlsHeight);
+    
+    const int smallPreviewX = 2 * margin + previewAreaSide;
+    for (int i = 0; i < sidePreviewButtons_.size(); ++i)
+    {
+        sidePreviewButtons_[i]->setBounds(smallPreviewX, margin + i *(margin + smallPreviewSide),
+                                          smallPreviewSide, smallPreviewSide);
+    }
+}

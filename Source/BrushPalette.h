@@ -15,8 +15,8 @@ public:
     BrushPalette(const String& componentName,
                  const GridColourScheme& colourScheme) noexcept;
 
-    AbstractBrushAction* getCurrentBrushAction() const;
-
+    AbstractBrushAction* getCurrentBrushAction() const;    
+    
     // Component overrides
     void mouseDown(const MouseEvent &event) override;
     void paint (Graphics&) override;
@@ -30,7 +30,7 @@ private:
 
     const GridColourScheme& colourScheme_;
     int currentBrush_;
-    OwnedArray<AbstractCompleteBrush> brushes_;
+    BrushCollection brushCollection_;
     Component::SafePointer<BrushPaletteWindow> brushPaletteWindow_;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BrushPalette);

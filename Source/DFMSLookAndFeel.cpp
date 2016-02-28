@@ -43,14 +43,29 @@ void DFMSLookAndFeel::drawButtonBackground(Graphics& g, Button& button, const Co
     drawOutline(g, button);
 }
 
-void DFMSLookAndFeel::drawOutline(juce::Graphics& g, juce::Component& c)
+void DFMSLookAndFeel::drawOutline(juce::Graphics& g, juce::Component& c, bool isMouseOver, bool isSelected)
 {
-    drawOutline(g, c.getLocalBounds());
+    drawOutline(g, c.getLocalBounds(), isMouseOver, isSelected);
 }
 
-void DFMSLookAndFeel::drawOutline(juce::Graphics& g, Rectangle<int> bounds)
+void DFMSLookAndFeel::drawOutline(juce::Graphics& g, Rectangle<int> bounds, bool isMouseOver, bool isSelected)
 {
-    g.setColour(Colours::black.withAlpha(0.4f));
+    Colour colour;
+    if (isSelected)
+    {
+        colour = Colours::red;
+    }
+    else
+    {
+        colour = Colours::black;
+    }
+    
+    if (!isMouseOver)
+    {
+        colour = colour.withAlpha(0.4f);
+    }
+    
+    g.setColour(colour);
     g.drawRect(bounds);
 }
 

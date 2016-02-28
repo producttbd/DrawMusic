@@ -3,15 +3,13 @@
 
 #include "JuceHeader.h"
 
-#include "AbstractCompleteBrush.h"
 #include "BaseWindow.h"
+#include "BrushCollection.h"
 
 class BrushPaletteWindow : public BaseWindow
 {
 public:
-    BrushPaletteWindow(String name,
-                       AbstractCompleteBrush** const brushes,
-                       int numberBrushes, int* currentBrush);
+    BrushPaletteWindow(String name, BrushCollection& brushCollection);
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BrushPaletteWindow);

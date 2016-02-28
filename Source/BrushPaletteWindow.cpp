@@ -1,14 +1,10 @@
 #include "BrushPaletteWindow.h"
 
-
 #include "BrushPaletteWindowContent.h"
-#include "Configuration.h"
-#include "DFMSLookAndFeel.h"
 
 BrushPaletteWindow::BrushPaletteWindow(String name,
-                                       AbstractCompleteBrush** const brushes,
-                                       int numberBrushes, int* currentBrush)
+                                       BrushCollection& brushCollection)
 : BaseWindow(name)
 {
-    setContentOwned(new BrushPaletteWindowContent(brushes, numberBrushes, currentBrush), false);
+    setContentOwned(new BrushPaletteWindowContent(brushCollection), /*resizeToFitWhenContentChangesSize*/ false);
 }

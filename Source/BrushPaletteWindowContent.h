@@ -4,20 +4,27 @@
 #include "JuceHeader.h"
 
 #include "AbstractCompleteBrush.h"
+#include "BrushCollection.h"
+#include "BrushPreviewButton.h"
 
-class BrushPaletteWindowContent : public Component, ChangeBroadcaster
+class BrushPaletteWindowContent : public Component, Button::Listener, ChangeBroadcaster
 {
 public:
-    explicit BrushPaletteWindowContent(AbstractCompleteBrush** const brushes,
-                                       int numberBrushes, int* currentBrush);
-
+    explicit BrushPaletteWindowContent(BrushCollection& brushCollection);
+    
+    // Button::Listener override
+    void buttonClicked(Button* button) override;
+    
+    // Component override
     void paint(Graphics& g) override;
+    void resized() override;
 
 private:
-    AbstractCompleteBrush** const brushes_;
-    int numberBrushes_;
-    int* currentBrush_;
-
+    Rectangle<int> mainPreviewArea_;
+    Rectangle<int> controlsArea_;
+    
+    BrushCollection& brushCollection_;
+    OwnedArray<BrushPreviewButton> sidePreviewButtons_;
 };
 
 #endif // BRUSHPALETTEWINDOWCONTENT_H_INCLUDED
