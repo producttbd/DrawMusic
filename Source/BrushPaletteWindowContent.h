@@ -25,6 +25,7 @@ private:
     
     BrushCollection& brushCollection_;
     OwnedArray<BrushPreviewButton> sidePreviewButtons_;
+    Component* currentControls_;
 };
 
 #endif // BRUSHPALETTEWINDOWCONTENT_H_INCLUDED

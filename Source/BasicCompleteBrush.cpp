@@ -6,6 +6,7 @@ BasicCompleteBrush::BasicCompleteBrush(
     ScopedPointer<AbstractBrushControls> controls)
 : name_(name), action_(action), controls_(controls)
 {
+    controls_->addListener(action_);
 }
 
 String BasicCompleteBrush::getName() const

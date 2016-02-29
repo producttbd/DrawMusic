@@ -2,6 +2,8 @@
 
 #include "GridColourScheme.h"
 
+using ControlSpec = AbstractBrushControls::ControlSpec;
+
 PixelBrush::PixelBrush()
 : intensityScalar_(1.0f),
   pointsInStroke_()
@@ -14,17 +16,21 @@ PixelBrush::~PixelBrush()
 
 Array<AbstractBrushControls::ControlSpec> PixelBrush::getSupportedControls()
 {
-    Array<AbstractBrushControls::ControlSpec> result;
-    AbstractBrushControls::ControlSpec spec({"Intensity", 0.0f, 2.0f, 1.0f});
+    Array<ControlSpec> result;
+    ControlSpec spec({"Intensity", 0.0f, 2.0f, 1.0f});
+    controlWirings.set("Intensity", &intensityScalar_);
+    result.add(spec);
+    spec = ControlSpec({"Size", 1.0f, 100.0f, 10.0f});
+    controlWirings.set("Size", &sizeScalar_);
     result.add(spec);
     return result;
 }
 
 void PixelBrush::controlChanged(AbstractBrushControls::ControlSpec spec)
 {
-    if (spec.name == "Intensity")
+    if (controlWirings.contains(spec.name))
     {
-        intensityScalar_ = spec.currentValue;
+        *(controlWirings[spec.name]) = spec.currentValue;
     }
 }
 
@@ -164,7 +170,7 @@ Array<GridPoint> PointClusterBrush::applyBrushToPoint(GridPoint p, GridData& gri
                     break;
                 default:
                 case PointType::Absolute:
-                    gridData[affectedPoint] = jmax(gridData[affectedPoint], brushPoint.z * intensityScalar_);
+                    gridData[affectedPoint] = jmax(gridData[affectedPoint], brushPoint.z * (float)intensityScalar_);
                     break;
             }
             gridData[affectedPoint] = clampOutputValue(gridData[affectedPoint]);

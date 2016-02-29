@@ -18,15 +18,21 @@ BrushPaletteWindowContent::BrushPaletteWindowContent(BrushCollection& brushColle
         }
         sidePreviewButtons_.add(button);
     }
+    currentControls_ = brushCollection_.getCurrentBrush()->getBrushControls();
+    addAndMakeVisible(currentControls_);
 }
 
 void BrushPaletteWindowContent::buttonClicked(Button* button)
 {
+    // Deselect current brush
+    sidePreviewButtons_[brushCollection_.getCurrentBrushIndex()]->
+        setToggleState(false, NotificationType::dontSendNotification);
+
+    // Hide current controls
+    currentControls_->setVisible(false);
+
+    // Find the selected brush
     const auto name = button->getName();
-    for (int i = 0; i < sidePreviewButtons_.size(); ++i)
-    {
-        sidePreviewButtons_[i]->setToggleState(false, NotificationType::dontSendNotification);
-    }
     for (int i = 0; i < brushCollection_.size(); ++i)
     {
         if (brushCollection_.getBrush(i)->getName() == name)
@@ -35,12 +41,17 @@ void BrushPaletteWindowContent::buttonClicked(Button* button)
             button->setToggleState(true, NotificationType::dontSendNotification);
         }
     }
+
+    // Add the controls
+    currentControls_ = brushCollection_.getCurrentBrush()->getBrushControls();
+    currentControls_->setBounds(controlsArea_);
+    addAndMakeVisible(currentControls_);
+
     repaint();
 }
 
 void BrushPaletteWindowContent::paint(Graphics& g)
 {
-    
     const int margin = Configuration::getGuiMargin();
     const AbstractCompleteBrush* currentCompleteBrush = brushCollection_.getCurrentBrush();
 
@@ -58,10 +69,6 @@ void BrushPaletteWindowContent::paint(Graphics& g)
     g.restoreState();
 
     // Controls
-    auto controls = currentCompleteBrush->getBrushControls();
-    addAndMakeVisible(controls);
-
-    controls->setBounds(controlsArea_);
     DFMSLookAndFeel::drawOutline(g, controlsArea_);
 }
 
@@ -82,4 +89,6 @@ void BrushPaletteWindowContent::resized()
         sidePreviewButtons_[i]->setBounds(smallPreviewX, margin + i *(margin + smallPreviewSide),
                                           smallPreviewSide, smallPreviewSide);
     }
+
+    currentControls_->setBounds(controlsArea_);
 }

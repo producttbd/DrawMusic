@@ -52,7 +52,9 @@ protected:
         return jmax(jmin(value, Configuration::getMaxGridValue()), Configuration::getMinGridValue());
     }
 
-    float intensityScalar_; // TODO Discrepancy between brush values and control values
+    HashMap<String, double*> controlWirings;
+    double intensityScalar_; // TODO Discrepancy between types in brush values and control values
+    double sizeScalar_;
 
     static constexpr float minIntensityScalar_ = 0.0f;
     static constexpr float maxIntensityScalar_ = 2.0f;

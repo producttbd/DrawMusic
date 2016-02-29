@@ -17,7 +17,6 @@ void BrushFactory::getAllBrushes(BrushCollection& brushCollection)
     PixelBrush* action = new PointClusterBrush(brushPattern);
     BasicBrushControls* control = new BasicBrushControls();
     control->addControls(action->getSupportedControls());
-    
     brushCollection.add(new BasicCompleteBrush(TRANS("Single dot brush"), action, control));
 
     // Hann brush
