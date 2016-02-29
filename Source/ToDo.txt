@@ -2,8 +2,17 @@
   - Moving applying brushes to background thread
   - real-time drawing
 - Look and Feel
-  - Change getDefaultBackgroundColour to registering a colour
-  - Remove references to DFMSLookAndFeel in MainComponent
+  - Figure out how the general LookAndFeel stuff works
+  - Make my code conform to that
+  - Gradient ColourScheme
+  - GridColourScheme plumbed through properly
+  - ColourScheme selectable
+- Brushes
+  - Names above controls
+  - Controls and preview buttons in view port
+  - Eraser brush
+  - Noise brush really random
+  - Size for each of the brushes
 - Lim/Griffin:
   - Clean up last window stuff
   - Check spectrum of output audio
