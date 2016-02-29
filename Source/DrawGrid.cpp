@@ -13,8 +13,7 @@ DrawGrid::DrawGrid(GridData& gridData, const GridColourScheme& colourScheme,
 {
     setOpaque(true);
     
-    // In your constructor, you should add any child components, and
-    // initialise any special settings that your component needs.
+    setMouseCursor(MouseCursor::CrosshairCursor);
     
     gridImageRenderer_.renderGridDataToImage(gridData_, theImage_);
 }
