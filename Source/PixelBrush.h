@@ -4,6 +4,7 @@
 #include "JuceHeader.h"
 
 #include "AbstractBrushAction.h"
+#include "AbstractBrushControls.h"
 #include "Configuration.h"
 #include "GridData.h"
 #include "GridPoint.h"
@@ -33,8 +34,9 @@ public:
     PixelBrush();
     virtual ~PixelBrush();
 
-    void setIntensityScalar(float newValue);
-
+    virtual Array<AbstractBrushControls::ControlSpec> getSupportedControls();
+    void controlChanged(AbstractBrushControls::ControlSpec spec) override;
+    
     Array<GridPoint> startStroke(GridPoint p, GridData& gridData) override;
     Array<GridPoint> continueStroke(GridPoint p, GridData& gridData) override;
     Array<GridPoint> finishStroke(GridPoint p, GridData& gridData) override;
@@ -50,7 +52,7 @@ protected:
         return jmax(jmin(value, Configuration::getMaxGridValue()), Configuration::getMinGridValue());
     }
 
-    float intensityScalar_;
+    float intensityScalar_; // TODO Discrepancy between brush values and control values
 
     static constexpr float minIntensityScalar_ = 0.0f;
     static constexpr float maxIntensityScalar_ = 2.0f;

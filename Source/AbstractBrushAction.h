@@ -3,11 +3,12 @@
 
 #include "JuceHeader.h"
 
+#include "AbstractBrushControls.h"
 #include "GridColourScheme.h"
 #include "GridData.h"
 #include "GridPoint.h"
 
-class AbstractBrushAction
+class AbstractBrushAction :  public AbstractBrushControls::Listener
 {
 public:
     AbstractBrushAction() {}

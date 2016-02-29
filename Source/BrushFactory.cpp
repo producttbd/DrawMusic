@@ -14,8 +14,10 @@ void BrushFactory::getAllBrushes(BrushCollection& brushCollection)
     // Single dot brush
     Array<BrushPoint> brushPattern;
     brushPattern.add(BrushPoint(0, 0, 1.0, PointType::Additive));
-    ScopedPointer<AbstractBrushAction> action = new PointClusterBrush(brushPattern);
-    ScopedPointer<AbstractBrushControls> control = new BasicBrushControls();
+    PixelBrush* action = new PointClusterBrush(brushPattern);
+    BasicBrushControls* control = new BasicBrushControls();
+    control->addControls(action->getSupportedControls());
+    
     brushCollection.add(new BasicCompleteBrush(TRANS("Single dot brush"), action, control));
 
     // Hann brush
@@ -23,6 +25,7 @@ void BrushFactory::getAllBrushes(BrushCollection& brushCollection)
         1.0f, 0.8535533905932738f, 0.5000000000000001f, 0.14644660940672627f});
     action = new XYProfileBrush(hannProfile, hannProfile, -3, -3);
     control = new BasicBrushControls();
+    control->addControls(action->getSupportedControls());
     brushCollection.add(new BasicCompleteBrush(TRANS("Hann point"), action, control));
 
     // Percussion
@@ -35,6 +38,7 @@ void BrushFactory::getAllBrushes(BrushCollection& brushCollection)
     }
     action = new XYProfileBrush(xPercussive, yPercussive, -1, 0);
     control = new BasicBrushControls();
+    control->addControls(action->getSupportedControls());
     brushCollection.add(new BasicCompleteBrush(TRANS("Percussive"), action, control));
 
     // noise cluster
@@ -49,5 +53,6 @@ void BrushFactory::getAllBrushes(BrushCollection& brushCollection)
     }
     action = new PointClusterBrush(brushPattern);
     control = new BasicBrushControls();
+    control->addControls(action->getSupportedControls());
     brushCollection.add(new BasicCompleteBrush(TRANS("Noise square"), action, control));
 }

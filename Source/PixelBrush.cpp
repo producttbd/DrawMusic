@@ -10,12 +10,22 @@ PixelBrush::PixelBrush()
 
 PixelBrush::~PixelBrush()
 {
-    
 }
 
-void PixelBrush::setIntensityScalar(float newValue)
+Array<AbstractBrushControls::ControlSpec> PixelBrush::getSupportedControls()
 {
-    intensityScalar_ = jmax(jmin(newValue, maxIntensityScalar_), minIntensityScalar_);
+    Array<AbstractBrushControls::ControlSpec> result;
+    AbstractBrushControls::ControlSpec spec({"Intensity", 0.0f, 2.0f, 1.0f});
+    result.add(spec);
+    return result;
+}
+
+void PixelBrush::controlChanged(AbstractBrushControls::ControlSpec spec)
+{
+    if (spec.name == "Intensity")
+    {
+        intensityScalar_ = spec.currentValue;
+    }
 }
 
 Array<GridPoint> PixelBrush::startStroke(GridPoint p, GridData &gridData)

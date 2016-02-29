@@ -3,12 +3,34 @@
 
 #include "JuceHeader.h"
 
-// TODO: Change this to a list of controls that the palette lays out as it wishes?
 class AbstractBrushControls : public Component
 {
 public:
+    struct ControlSpec
+    {
+        String name;
+        double minValue;
+        double maxValue;
+        double currentValue;
+    };
+    
+    class Listener
+    {
+    public:
+        virtual ~Listener() {}
+        virtual void controlChanged(ControlSpec spec) = 0;
+    };
+    
     AbstractBrushControls() {}
     virtual ~AbstractBrushControls()  {}
+    
+    virtual void addListener(AbstractBrushControls::Listener* listener)
+    {
+        listeners_.add(listener);
+    }
+    
+protected:
+    ListenerList<AbstractBrushControls::Listener> listeners_;
 
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(AbstractBrushControls);
