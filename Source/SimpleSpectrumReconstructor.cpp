@@ -31,9 +31,9 @@ void SimpleSpectrumReconstructor::perform(AudioSampleBuffer& outputBuffer)
         expandSpectrogramColumnToFullWindowLength(windowNumber, fftInput);
         fft_.perform(fftInput, fftOutput);
         float* toWrite = outputBuffer.getWritePointer(0, windowNumber * windowMidpoint_); // TODO channel
-        for (int i = 0; i < windowMidpoint_; ++i)
+        for (int i = 0; i < windowLength_; ++i)
         {
-            toWrite[i] = fftOutput[i].r;
+            toWrite[i] += fftOutput[i].r * hann_window_[i];
         }
     }
 }

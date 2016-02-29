@@ -57,7 +57,7 @@ private:
     static constexpr int waveformViewHeight_ = 120;
 
     static constexpr int windowLength_ = 1 << fftOrder_;
-    static constexpr float preReconstructionScaleFactor_ = 0.01f;
+    static constexpr float preReconstructionScaleFactor_ = 0.1f;
 
     static constexpr int gridHeight_ = 513;
     static constexpr int totalNumberWindows_ = 1000;
