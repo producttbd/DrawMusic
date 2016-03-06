@@ -55,6 +55,8 @@
             file="Source/BrushPreviewButton.cpp"/>
       <FILE id="drcgF2" name="BrushPreviewButton.h" compile="0" resource="0"
             file="Source/BrushPreviewButton.h"/>
+      <FILE id="jx10qm" name="CombBrush.cpp" compile="1" resource="0" file="Source/CombBrush.cpp"/>
+      <FILE id="Rt1O7q" name="CombBrush.h" compile="0" resource="0" file="Source/CombBrush.h"/>
       <FILE id="eSpdYn" name="Configuration.h" compile="0" resource="0" file="Source/Configuration.h"/>
       <FILE id="Cb5ZWw" name="DFMSLookAndFeel.cpp" compile="1" resource="0"
             file="Source/DFMSLookAndFeel.cpp"/>
@@ -62,6 +64,8 @@
             file="Source/DFMSLookAndFeel.h"/>
       <FILE id="zYCyS7" name="DrawGrid.cpp" compile="1" resource="0" file="Source/DrawGrid.cpp"/>
       <FILE id="zPU404" name="DrawGrid.h" compile="0" resource="0" file="Source/DrawGrid.h"/>
+      <FILE id="dwAmZi" name="EraserBrush.cpp" compile="1" resource="0" file="Source/EraserBrush.cpp"/>
+      <FILE id="FJXBDN" name="EraserBrush.h" compile="0" resource="0" file="Source/EraserBrush.h"/>
       <FILE id="ZxeLht" name="GridAudioRendererAudioSource.cpp" compile="1"
             resource="0" file="Source/GridAudioRendererAudioSource.cpp"/>
       <FILE id="XbKIAt" name="GridAudioRendererAudioSource.h" compile="0"
@@ -86,8 +90,6 @@
       <FILE id="GOq5mL" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
       <FILE id="QDXrdR" name="NoiseBrush.cpp" compile="1" resource="0" file="Source/NoiseBrush.cpp"/>
       <FILE id="kTtT6N" name="NoiseBrush.h" compile="0" resource="0" file="Source/NoiseBrush.h"/>
-      <FILE id="u5hy5O" name="PixelBrush.cpp" compile="1" resource="0" file="Source/PixelBrush.cpp"/>
-      <FILE id="qbWo51" name="PixelBrush.h" compile="0" resource="0" file="Source/PixelBrush.h"/>
       <FILE id="OWMJkd" name="PlaybackTimeline.cpp" compile="1" resource="0"
             file="Source/PlaybackTimeline.cpp"/>
       <FILE id="ZgFpnH" name="PlaybackTimeline.h" compile="0" resource="0"

@@ -59,7 +59,7 @@ protected:
     double intensityScalar_; // TODO Discrepancy between types in brush values and control values
 
     static constexpr float minIntensityScalar_ = 0.0f;
-    static constexpr float maxIntensityScalar_ = 2.0f;
+    static constexpr float maxIntensityScalar_ = 1.0f;
 
     Array<GridPoint> pointsInStroke_;
 

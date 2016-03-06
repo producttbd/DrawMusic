@@ -5,6 +5,8 @@
 #include "BasicBrushControls.h"
 #include "BasicCompleteBrush.h"
 #include "BasicBrushBase.h"
+#include "CombBrush.h"
+#include "EraserBrush.h"
 #include "NoiseBrush.h"
 #include "PointClusterBrush.h"
 #include "XYProfileBrush.h"
@@ -43,24 +45,21 @@ void BrushFactory::getAllBrushes(BrushCollection& brushCollection)
     control->addControls(action->getSupportedControls());
     brushCollection.add(new BasicCompleteBrush(TRANS("Percussive"), action, control));
 
-    // noise cluster
-    brushPattern.clear();
-    Random random;
-    for (int x = -40; x <= 40; ++x)
-    {
-        for (int y = -40; y <= 40; ++y)
-        {
-            brushPattern.add(BrushPoint(x, y, random.nextFloat()*0.1f, PointType::Absolute));
-        }
-    }
-    action = new PointClusterBrush(brushPattern);
-    control = new BasicBrushControls();
-    control->addControls(action->getSupportedControls());
-    brushCollection.add(new BasicCompleteBrush(TRANS("Noise square"), action, control));
-
     // new noise brush
     action = new NoiseBrush();
     control = new BasicBrushControls();
     control->addControls(action->getSupportedControls());
     brushCollection.add(new BasicCompleteBrush(TRANS("Noise Brush"), action, control));
+
+    // Comb brush
+    action = new CombBrush();
+    control = new BasicBrushControls();
+    control->addControls(action->getSupportedControls());
+    brushCollection.add(new BasicCompleteBrush(TRANS("Comb brush"), action, control));
+
+    // Eraser brush
+    action = new EraserBrush();
+    control = new BasicBrushControls();
+    control->addControls(action->getSupportedControls());
+    brushCollection.add(new BasicCompleteBrush(TRANS("Eraser brush"), action, control));
 }
