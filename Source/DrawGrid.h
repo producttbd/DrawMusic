@@ -7,7 +7,6 @@
 #include "GridColourScheme.h"
 #include "GridData.h"
 #include "GridImageRenderer.h"
-#include "PixelBrush.h"
 
 class DrawGrid : public Component,
                  public ChangeBroadcaster

@@ -17,6 +17,13 @@ void BasicBrushControls::addControl(ControlSpec spec)
     newSlider->setPopupDisplayEnabled(true, this);
     newSlider->addListener(this);
     sliders_.add(newSlider);
+
+    Label* label = new Label(spec.name, spec.name);
+    label->setEditable(false);
+    label->setJustificationType(Justification::left);
+    labels_.add(label);
+    addAndMakeVisible(label);
+
     addAndMakeVisible(newSlider);
 }
 
@@ -40,11 +47,17 @@ void BasicBrushControls::sliderValueChanged(juce::Slider* slider)
 
 void BasicBrushControls::resized()
 {
-    const int sliderHeight = 50;
     const int margin = Configuration::getGuiMargin();
+    const int labelHeight = 30;
+    const int sliderHeight = 50;
+    const int totalHeight = labelHeight + sliderHeight;
+    const int width = getWidth() - 2 * margin;
+
     
     for (int i = 0; i < sliders_.size(); ++i)
     {
-        sliders_[i]->setBounds(margin, margin + i * sliderHeight, getWidth() - 2 * margin, sliderHeight);
+        labels_[i]->setBounds(margin, margin + i * totalHeight, width, labelHeight);
+        sliders_[i]->setBounds(margin, margin + i * totalHeight + labelHeight,
+                               width, sliderHeight);
     }
 }

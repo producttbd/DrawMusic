@@ -4,17 +4,20 @@
 #include "AbstractBrushControls.h"
 #include "BasicBrushControls.h"
 #include "BasicCompleteBrush.h"
-#include "PixelBrush.h"
+#include "BasicBrushBase.h"
+#include "NoiseBrush.h"
+#include "PointClusterBrush.h"
+#include "XYProfileBrush.h"
 
-using BrushPoint = PixelBrush::BrushPoint;
-using PointType = PixelBrush::PointType;
+using BrushPoint = BasicBrushBase::BrushPoint;
+using PointType = BasicBrushBase::PointType;
 
 void BrushFactory::getAllBrushes(BrushCollection& brushCollection)
 {
     // Single dot brush
     Array<BrushPoint> brushPattern;
     brushPattern.add(BrushPoint(0, 0, 1.0, PointType::Additive));
-    PixelBrush* action = new PointClusterBrush(brushPattern);
+    BasicBrushBase* action = new PointClusterBrush(brushPattern);
     BasicBrushControls* control = new BasicBrushControls();
     control->addControls(action->getSupportedControls());
     brushCollection.add(new BasicCompleteBrush(TRANS("Single dot brush"), action, control));
@@ -54,4 +57,10 @@ void BrushFactory::getAllBrushes(BrushCollection& brushCollection)
     control = new BasicBrushControls();
     control->addControls(action->getSupportedControls());
     brushCollection.add(new BasicCompleteBrush(TRANS("Noise square"), action, control));
+
+    // new noise brush
+    action = new NoiseBrush();
+    control = new BasicBrushControls();
+    control->addControls(action->getSupportedControls());
+    brushCollection.add(new BasicCompleteBrush(TRANS("Noise Brush"), action, control));
 }

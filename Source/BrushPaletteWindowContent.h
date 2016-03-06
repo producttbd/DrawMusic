@@ -7,11 +7,15 @@
 #include "BrushCollection.h"
 #include "BrushPreviewButton.h"
 
-class BrushPaletteWindowContent : public Component, Button::Listener, ChangeBroadcaster
+class BrushPaletteWindowContent : public Component, Button::Listener,
+                                         AbstractBrushControls::Listener, ChangeBroadcaster
 {
 public:
     explicit BrushPaletteWindowContent(BrushCollection& brushCollection);
-    
+
+    // AbstractBrushControls::Listener
+    void controlChanged(AbstractBrushControls::ControlSpec spec) override;
+
     // Button::Listener override
     void buttonClicked(Button* button) override;
     
@@ -25,7 +29,7 @@ private:
     
     BrushCollection& brushCollection_;
     OwnedArray<BrushPreviewButton> sidePreviewButtons_;
-    Component* currentControls_;
+    AbstractBrushControls* currentControls_;
 };
 
 #endif // BRUSHPALETTEWINDOWCONTENT_H_INCLUDED

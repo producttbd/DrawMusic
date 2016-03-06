@@ -6,7 +6,6 @@
 BrushPalette::BrushPalette(const String& componentName, const GridColourScheme& colourScheme) noexcept
 : Component(componentName),
   colourScheme_(colourScheme),
-  currentBrush_(0),
   brushCollection_()
 {
     brushCollection_.addChangeListener(this);

@@ -22,6 +22,11 @@ BrushPaletteWindowContent::BrushPaletteWindowContent(BrushCollection& brushColle
     addAndMakeVisible(currentControls_);
 }
 
+void BrushPaletteWindowContent::controlChanged(AbstractBrushControls::ControlSpec spec)
+{
+    repaint();
+}
+
 void BrushPaletteWindowContent::buttonClicked(Button* button)
 {
     // Deselect current brush
@@ -45,6 +50,7 @@ void BrushPaletteWindowContent::buttonClicked(Button* button)
     // Add the controls
     currentControls_ = brushCollection_.getCurrentBrush()->getBrushControls();
     currentControls_->setBounds(controlsArea_);
+    currentControls_->addListener(this);
     addAndMakeVisible(currentControls_);
 
     repaint();

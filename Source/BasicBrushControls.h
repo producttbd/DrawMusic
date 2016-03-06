@@ -20,6 +20,7 @@ public:
     void resized() override;
 
 private:
+    OwnedArray<Label> labels_;
     OwnedArray<Slider> sliders_;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BasicBrushControls);

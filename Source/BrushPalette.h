@@ -7,7 +7,6 @@
 #include "AbstractCompleteBrush.h"
 #include "BrushPaletteWindow.h"
 #include "GridColourScheme.h"
-#include "PixelBrush.h"
 
 class BrushPalette : public Component, ChangeListener
 {
@@ -29,7 +28,6 @@ private:
     void openBrushPaletteWindow();
 
     const GridColourScheme& colourScheme_;
-    int currentBrush_;
     BrushCollection brushCollection_;
     Component::SafePointer<BrushPaletteWindow> brushPaletteWindow_;
 

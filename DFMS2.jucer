@@ -21,6 +21,10 @@
             file="Source/AudioSettingsWindow.h"/>
       <FILE id="truvez" name="BaseWindow.cpp" compile="1" resource="0" file="Source/BaseWindow.cpp"/>
       <FILE id="KQX9Ca" name="BaseWindow.h" compile="0" resource="0" file="Source/BaseWindow.h"/>
+      <FILE id="MQy6ob" name="BasicBrushBase.cpp" compile="1" resource="0"
+            file="Source/BasicBrushBase.cpp"/>
+      <FILE id="UZm0Mi" name="BasicBrushBase.h" compile="0" resource="0"
+            file="Source/BasicBrushBase.h"/>
       <FILE id="emLEdn" name="BasicBrushControls.cpp" compile="1" resource="0"
             file="Source/BasicBrushControls.cpp"/>
       <FILE id="tZ9ros" name="BasicBrushControls.h" compile="0" resource="0"
@@ -80,12 +84,18 @@
       <FILE id="AXA7kk" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>
       <FILE id="GOq5mL" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
+      <FILE id="QDXrdR" name="NoiseBrush.cpp" compile="1" resource="0" file="Source/NoiseBrush.cpp"/>
+      <FILE id="kTtT6N" name="NoiseBrush.h" compile="0" resource="0" file="Source/NoiseBrush.h"/>
       <FILE id="u5hy5O" name="PixelBrush.cpp" compile="1" resource="0" file="Source/PixelBrush.cpp"/>
       <FILE id="qbWo51" name="PixelBrush.h" compile="0" resource="0" file="Source/PixelBrush.h"/>
       <FILE id="OWMJkd" name="PlaybackTimeline.cpp" compile="1" resource="0"
             file="Source/PlaybackTimeline.cpp"/>
       <FILE id="ZgFpnH" name="PlaybackTimeline.h" compile="0" resource="0"
             file="Source/PlaybackTimeline.h"/>
+      <FILE id="z2bjrT" name="PointClusterBrush.cpp" compile="1" resource="0"
+            file="Source/PointClusterBrush.cpp"/>
+      <FILE id="vFPiiJ" name="PointClusterBrush.h" compile="0" resource="0"
+            file="Source/PointClusterBrush.h"/>
       <FILE id="wH9E94" name="SimpleSpectrumReconstructor.cpp" compile="1"
             resource="0" file="Source/SimpleSpectrumReconstructor.cpp"/>
       <FILE id="qa4ysO" name="SimpleSpectrumReconstructor.h" compile="0"
@@ -98,6 +108,10 @@
             file="Source/WindowBoundsManager.cpp"/>
       <FILE id="D8EXnj" name="WindowBoundsManager.h" compile="0" resource="0"
             file="Source/WindowBoundsManager.h"/>
+      <FILE id="TnfMdw" name="XYProfileBrush.cpp" compile="1" resource="0"
+            file="Source/XYProfileBrush.cpp"/>
+      <FILE id="uuQxcc" name="XYProfileBrush.h" compile="0" resource="0"
+            file="Source/XYProfileBrush.h"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
