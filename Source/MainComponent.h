@@ -11,6 +11,7 @@
 #include "GridData.h"
 #include "PlaybackTimeline.h"
 #include "WaveformView.h"
+#include "WaveletReconstructor.h"
 
 class MainComponent : public Component,
                       public Button::Listener
@@ -48,6 +49,7 @@ private:
     GridColourScheme colourScheme_;
     BrushPalette brushPalette_;
     DrawGrid drawGrid_;
+    WaveletReconstructor reconstructor_;
 
     AudioDeviceManager deviceManager_;
     AudioSourcePlayer audioSourcePlayer_;

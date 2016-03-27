@@ -21,10 +21,6 @@ public:
     static constexpr int getWaveformViewHeight() { return waveformViewHeight_; }
 
     static constexpr int getNumberChannels() { return 1; }
-    static constexpr float getPreReconstructionScaleFactor()
-    {
-        return preReconstructionScaleFactor_;
-    }
     static constexpr int getSamplesPerThumbnailSample() { return thumbnailSampleWindow_; }
 
     static constexpr int getGridHeight() { return gridHeight_; }
@@ -37,9 +33,12 @@ public:
 
     static constexpr int getTotalAudioSampleLength()
     {
-        return (totalNumberWindows_ + 1) * (windowLength_ / 2);
+        return totalNumberWindows_ * reconstructionWindowLength_;
     }
 
+    static constexpr float getMinimumFrequency() { return minimumFrequency_; }
+    static constexpr float getBinsPerOctave() { return binsPerOctave_; }
+    static constexpr int getReconstructionWindowLength() { return reconstructionWindowLength_; }
     static constexpr int getPlaybackTimerInterval() { return playbackTimerInterval_; }
 
 private:
@@ -50,14 +49,15 @@ private:
     static constexpr int guiMargin_ = 10;
     static constexpr int waveformViewHeight_ = 120;
 
-    static constexpr int minimumFrequency = 20;
-    static constexpr int maximumFrequency = 2000;
-    static constexpr int windowLength_ = 1024;
-    static constexpr float preReconstructionScaleFactor_ = 0.1f;
-
-    static constexpr int gridHeight_ = 513;
+    static constexpr int reconstructionWindowLength_ = 2048;
+    static constexpr float minimumFrequency_ = 100.0f;
+    static constexpr float binsPerOctave_ = 128.0f;
+    
+    static constexpr int gridHeight_ = 800;
     static constexpr int totalNumberWindows_ = 1000;
+    
     static constexpr int thumbnailSampleWindow_ = 256;
+    
     static constexpr int paletteSide_ = 100;
     static constexpr float minGridValue_ = 0.0f;
     static constexpr float maxGridValue_ = 1.0f;

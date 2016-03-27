@@ -10,32 +10,32 @@ class WaveletReconstructor
 public:
     struct WaveletReconstructorConfiguration
     {
-        const int NumberFrequencies;
-        const int MinimumFrequency;
-        const int BinsPerOctave;
-        const int WindowLength;
-        const double SampleRate;
+        int NumberFrequencies;
+        float MinimumFrequency;
+        float BinsPerOctave;
+        int WindowLength;
+        double SampleRate;
     };
 
-    explicit WaveletReconstructor(WaveletReconstructorConfiguration config);
+    WaveletReconstructor();
+    
+    void configure(WaveletReconstructorConfiguration config);
 
     void perform(const GridData& gridData, AudioSampleBuffer& buffer) const;
     
 
 private:
-    struct BinWavetable
-    {
-        float Frequency;
-        HeapBlock<float> Waveform;
-
-    private:
-        JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(FrequencyBinInformation);
-    };
-
     void createBinInformation();
 
     WaveletReconstructorConfiguration config_;
-    HeapBlock<BinWavetable> waveTables_;
+    Array<Array<float>> waveTables_;
+    
+    bool configured = false;
+    const float minThreshold = 0.00001f;
+    const float impulseThreshold = 0.1f;
+    const float globalScalar_ = 0.1f;
+    const float rampToZeroTime_ = 0.005; // seconds
+    const float rampTransitionTime_ = 0.010; // seconds
 };
 
 #endif // WAVELETRECONSTRUCTOR_H_INCLUDED

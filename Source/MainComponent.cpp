@@ -10,10 +10,11 @@ MainComponent::MainComponent ()
     colourScheme_(),
     brushPalette_("brushPalette", colourScheme_),
     drawGrid_(gridData_, colourScheme_, brushPalette_),
+    reconstructor_(),
     deviceManager_(),
     audioSourcePlayer_(),
     transportSource_(),
-    gridAudioSource_(gridData_),
+    gridAudioSource_(gridData_, reconstructor_),
     playbackTimeline_("playbackTimeline"),
     playbackTimer_(playbackTimeline_),
     thread_("audio file preview"),
@@ -59,6 +60,16 @@ MainComponent::MainComponent ()
     gridAudioSource_.addNewPositionListener(&playbackTimeline_);
 
     // Audio
+    WaveletReconstructor::WaveletReconstructorConfiguration reconstructorConfig(
+    {
+        Configuration::getGridHeight(),
+        Configuration::getMinimumFrequency(),
+        Configuration::getBinsPerOctave(),
+        Configuration::getReconstructionWindowLength(),
+        44100.0,
+    });
+    reconstructor_.configure(reconstructorConfig);
+    
     deviceManager_.initialise (0, 2, 0, true, String::empty, 0); // TODO channels?
     thread_.startThread(3);
     deviceManager_.addAudioCallback(&audioSourcePlayer_);
