@@ -65,9 +65,6 @@ private:
     TextButton exportButton_;
     TextButton settingsButton_;
 
-    // TODO remove this slider, move to settings or something
-    Slider reconstructionSlider_;
-
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };
 

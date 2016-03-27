@@ -66,9 +66,9 @@
       <FILE id="zPU404" name="DrawGrid.h" compile="0" resource="0" file="Source/DrawGrid.h"/>
       <FILE id="dwAmZi" name="EraserBrush.cpp" compile="1" resource="0" file="Source/EraserBrush.cpp"/>
       <FILE id="FJXBDN" name="EraserBrush.h" compile="0" resource="0" file="Source/EraserBrush.h"/>
-      <FILE id="ZxeLht" name="GridAudioRendererAudioSource.cpp" compile="1"
+      <FILE id="jpRyMm" name="GridAudioRendererAudioSource.cpp" compile="1"
             resource="0" file="Source/GridAudioRendererAudioSource.cpp"/>
-      <FILE id="XbKIAt" name="GridAudioRendererAudioSource.h" compile="0"
+      <FILE id="QmtZnv" name="GridAudioRendererAudioSource.h" compile="0"
             resource="0" file="Source/GridAudioRendererAudioSource.h"/>
       <FILE id="SnX5RN" name="GridColourScheme.cpp" compile="1" resource="0"
             file="Source/GridColourScheme.cpp"/>
@@ -80,10 +80,6 @@
       <FILE id="iRU6E5" name="GridImageRenderer.h" compile="0" resource="0"
             file="Source/GridImageRenderer.h"/>
       <FILE id="rjPYaw" name="GridPoint.h" compile="0" resource="0" file="Source/GridPoint.h"/>
-      <FILE id="SszaTR" name="LimGriffinReconstructor.cpp" compile="1" resource="0"
-            file="Source/LimGriffinReconstructor.cpp"/>
-      <FILE id="tjoYTS" name="LimGriffinReconstructor.h" compile="0" resource="0"
-            file="Source/LimGriffinReconstructor.h"/>
       <FILE id="Bs9Qmy" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
       <FILE id="AXA7kk" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>
@@ -98,14 +94,14 @@
             file="Source/PointClusterBrush.cpp"/>
       <FILE id="vFPiiJ" name="PointClusterBrush.h" compile="0" resource="0"
             file="Source/PointClusterBrush.h"/>
-      <FILE id="wH9E94" name="SimpleSpectrumReconstructor.cpp" compile="1"
-            resource="0" file="Source/SimpleSpectrumReconstructor.cpp"/>
-      <FILE id="qa4ysO" name="SimpleSpectrumReconstructor.h" compile="0"
-            resource="0" file="Source/SimpleSpectrumReconstructor.h"/>
       <FILE id="oHjjCo" name="ToDo.txt" compile="0" resource="0" file="Source/ToDo.txt"/>
       <FILE id="Sb9fZ4" name="WaveformView.cpp" compile="1" resource="0"
             file="Source/WaveformView.cpp"/>
       <FILE id="Chiiu3" name="WaveformView.h" compile="0" resource="0" file="Source/WaveformView.h"/>
+      <FILE id="c6LUGo" name="WaveletReconstructor.cpp" compile="1" resource="0"
+            file="Source/WaveletReconstructor.cpp"/>
+      <FILE id="T4VPn6" name="WaveletReconstructor.h" compile="0" resource="0"
+            file="Source/WaveletReconstructor.h"/>
       <FILE id="q0A5cX" name="WindowBoundsManager.cpp" compile="1" resource="0"
             file="Source/WindowBoundsManager.cpp"/>
       <FILE id="D8EXnj" name="WindowBoundsManager.h" compile="0" resource="0"

@@ -5,9 +5,9 @@
 
 #include "Configuration.h"
 #include "GridData.h"
+#include "WaveletReconstructor.h"
 
 class GridAudioRendererAudioSource : public PositionableAudioSource,
-                                     public Slider::Listener,
                                      public ChangeListener
 {
 public:
@@ -26,7 +26,7 @@ public:
     };
     
     
-    explicit GridAudioRendererAudioSource(const GridData& gridData) noexcept;
+    explicit GridAudioRendererAudioSource(const GridData& gridData, WaveletReconstructor& reconstructor) noexcept;
     ~GridAudioRendererAudioSource();
     
     const AudioSampleBuffer& getOutputBuffer();
@@ -53,27 +53,15 @@ public:
     bool isLooping() const override;
     void setLooping(bool shouldLoop) override;
 
-    // Slider::Listener methods
-    void sliderValueChanged(Slider* slider) override;
-    void sliderDragStarted(Slider* slider) override;
-    void sliderDragEnded(Slider* slider) override;
-
 private:
     void callDeviceChangeListeners();
 
-    static inline int freqIndexToColumnIndex(int i)
-    {
-        return Configuration::getFftLength() - i;
-    }
-
-
     const GridData& gridData_;
     bool readyToPlay_;
-    FFT fft_;
     AudioSampleBuffer fullPieceAudioBuffer_;
     int currentOutputOffset_;
 
-    int lgIterations_;
+    WaveletReconstructor& reconstructor_;
 
     ListenerList<NewAudioListener> newAudioListeners_;
     ListenerList<NewPositionListener> newPositionListeners_;

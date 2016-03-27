@@ -21,8 +21,7 @@ MainComponent::MainComponent ()
     playStopButton_("playStopButton"),
     clearButton_("clearButton"),
     exportButton_("exportButton"),
-    settingsButton_("settingsButton"),
-    reconstructionSlider_("reconstructionSlider")
+    settingsButton_("settingsButton")
 {
     addAndMakeVisible(&brushPalette_);
 
@@ -47,12 +46,6 @@ MainComponent::MainComponent ()
     settingsButton_.addListener(this);
 
     addAndMakeVisible(&waveformView_);
-
-    addAndMakeVisible(&reconstructionSlider_);
-    reconstructionSlider_.setSliderStyle(Slider::SliderStyle::LinearHorizontal);
-    reconstructionSlider_.setTextBoxStyle(Slider::TextBoxLeft, false, 30, 30); // TODO magic number
-    reconstructionSlider_.setRange(0, 10, 1);
-    reconstructionSlider_.addListener(&gridAudioSource_);
 
     addAndMakeVisible(&drawGrid_);
     
@@ -106,7 +99,6 @@ void MainComponent::resized()
     clearButton_.setBounds(outsideMargin + buttonWidth, buttonY, buttonWidth, buttonHeight);
     exportButton_.setBounds(outsideMargin + 2 * buttonWidth, buttonY, buttonWidth, buttonHeight);
     settingsButton_.setBounds(outsideMargin + 3 * buttonWidth, buttonY, buttonWidth, buttonHeight);
-    reconstructionSlider_.setBounds(outsideMargin + 4 * buttonWidth, buttonY, 2 * buttonWidth, buttonHeight);
 
     const int paletteSide = Configuration::getPaletteSide();
     brushPalette_.setBounds(getWidth() - paletteSide - outsideMargin, getHeight() - paletteSide - outsideMargin,

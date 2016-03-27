@@ -2,8 +2,6 @@
 #define DFMS2_CONFIGURATION_H_INCLUDED
 #include "JuceHeader.h"
 
-#define WINDOW_4096
-
 class Configuration
 {
 public:
@@ -23,8 +21,6 @@ public:
     static constexpr int getWaveformViewHeight() { return waveformViewHeight_; }
 
     static constexpr int getNumberChannels() { return 1; }
-    static constexpr int getFftOrder() { return fftOrder_; }
-    static constexpr int getFftLength() { return windowLength_; }
     static constexpr float getPreReconstructionScaleFactor()
     {
         return preReconstructionScaleFactor_;
@@ -47,21 +43,21 @@ public:
     static constexpr int getPlaybackTimerInterval() { return playbackTimerInterval_; }
 
 private:
-#ifdef WINDOW_4096
-    static constexpr int fftOrder_ = 12;
-#endif
+
 
     static constexpr int buttonWidth_ = 80;
     static constexpr int buttonHeight_ = 24;
     static constexpr int guiMargin_ = 10;
     static constexpr int waveformViewHeight_ = 120;
 
-    static constexpr int windowLength_ = 1 << fftOrder_;
+    static constexpr int minimumFrequency = 20;
+    static constexpr int maximumFrequency = 2000;
+    static constexpr int windowLength_ = 1024;
     static constexpr float preReconstructionScaleFactor_ = 0.1f;
 
     static constexpr int gridHeight_ = 513;
     static constexpr int totalNumberWindows_ = 1000;
-    static constexpr int thumbnailSampleWindow_ = 1 << (fftOrder_ - 2);
+    static constexpr int thumbnailSampleWindow_ = 256;
     static constexpr int paletteSide_ = 100;
     static constexpr float minGridValue_ = 0.0f;
     static constexpr float maxGridValue_ = 1.0f;

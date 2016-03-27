@@ -1,16 +1,13 @@
 #include "GridAudioRendererAudioSource.h"
 
-#include <cmath>
 #include "Configuration.h"
-#include "SimpleSpectrumReconstructor.h"
-#include "LimGriffinReconstructor.h"
 
-GridAudioRendererAudioSource::GridAudioRendererAudioSource(const GridData& gridData) noexcept
+GridAudioRendererAudioSource::GridAudioRendererAudioSource(
+        const GridData& gridData, WaveletReconstructor& reconstructor) noexcept
 : gridData_(gridData),
-  fft_(Configuration::getFftOrder(), true),
   fullPieceAudioBuffer_(Configuration::getNumberChannels(), Configuration::getTotalAudioSampleLength()),
   currentOutputOffset_(0),
-  lgIterations_(0)
+  reconstructor_(reconstructor)
 {
 }
 
@@ -25,8 +22,7 @@ const AudioSampleBuffer& GridAudioRendererAudioSource::getOutputBuffer()
 
 void GridAudioRendererAudioSource::rerender()
 {
-    LimGriffinReconstructor reconstructor(Configuration::getFftOrder(), Configuration::getFftLength(), gridData_, lgIterations_);
-    reconstructor.perform(fullPieceAudioBuffer_);
+    reconstructor_.perform(gridData_, fullPieceAudioBuffer_);
     currentOutputOffset_ = 0;
     readyToPlay_ = true;
     newAudioListeners_.call(&GridAudioRendererAudioSource::NewAudioListener::newAudioCallback,
@@ -45,7 +41,8 @@ void GridAudioRendererAudioSource::removeNewAudioListener(
     newAudioListeners_.remove(listener);
 }
 
-void GridAudioRendererAudioSource::addNewPositionListener(                                                      GridAudioRendererAudioSource::NewPositionListener* listener)
+void GridAudioRendererAudioSource::addNewPositionListener(
+        GridAudioRendererAudioSource::NewPositionListener* listener)
 {
     newPositionListeners_.add(listener);
 }
@@ -134,18 +131,3 @@ void GridAudioRendererAudioSource::setLooping(bool shouldLoop)
 {
     jassert(false);
 };
-
-// Slider::Listener methods
-void GridAudioRendererAudioSource::sliderValueChanged(Slider* slider)
-{
-    lgIterations_ = static_cast<int>(slider->getValue());
-}
-
-void GridAudioRendererAudioSource::sliderDragStarted(Slider* slider)
-{
-
-}
-void GridAudioRendererAudioSource::sliderDragEnded(Slider* slider)
-{
-
-}
