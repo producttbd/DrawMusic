@@ -32,43 +32,22 @@ void WaveletReconstructor::perform(const GridData& gridData, AudioSampleBuffer& 
             auto writePtr = buffer.getWritePointer(0, bufferOffset);
             int waveTableOffset = (config_.WindowLength * x) % waveTableLength;
 
-            /*
-            // New impulse
-            if (previousValue < minThreshold && value > minThreshold)
-            {
-                waveTableOffset = 0;
-                for (int i = 0; i < config_.WindowLength; ++i)
-                {
-                    writePtr[i] += waveTable[waveTableOffset];
-                    waveTableOffset = ++waveTableOffset % waveTableLength;
-                }
-            }*/
-            // Ramp down
-            if (previousValue > minThreshold && value < minThreshold)
-            {
-                int rampDownLength = jmin(roundToInt(rampToZeroCycles_ * cycleLength), config_.WindowLength);
-                float rampFactor = 1.0f / rampDownLength;
-                for (int i = 0; i < rampDownLength; ++i)
-                {
-                    writePtr[i] += waveTable[waveTableOffset] * (1.0f - i * rampFactor);
-                    waveTableOffset = ++waveTableOffset % waveTableLength;
-                }
-            }
-            // Start or continue
-            else if (previousValue > minThreshold || value > minThreshold)
+            if (previousValue > minThreshold || value > minThreshold)
             {
                 int rampLength = jmin(roundToInt(rampTransitionCycles_ * cycleLength), config_.WindowLength);
-                std::cout << rampLength << std::endl;
                 float rampFactor = (value - previousValue) / rampLength;
                 for (int i = 0; i < rampLength; ++i)
                 {
                     writePtr[i] += waveTable[waveTableOffset] * (previousValue + i * rampFactor);
                     waveTableOffset = ++waveTableOffset % waveTableLength;
                 }
-                for (int i = rampLength; i < config_.WindowLength; ++i)
+                if (value > minThreshold)
                 {
-                    writePtr[i] += waveTable[waveTableOffset] * value;
-                    waveTableOffset = ++waveTableOffset % waveTableLength;
+                    for (int i = rampLength; i < config_.WindowLength; ++i)
+                    {
+                        writePtr[i] += waveTable[waveTableOffset] * value;
+                        waveTableOffset = ++waveTableOffset % waveTableLength;
+                    }
                 }
             }
             previousValue = value;
@@ -99,6 +78,6 @@ void WaveletReconstructor::createBinInformation()
             binInformation.Waveform.set(j, freqScaleFactor * sinf(static_cast<float>(j) * scaleFactor));
         }
 
-        std::cout << freq << "\t" << minRequiredTableLength << "\t" << newWaveTableLength << "\t" << scaleFactor << "\t" << freqScaleFactor << std::endl;
+        //std::cout << freq << "\t" << minRequiredTableLength << "\t" << newWaveTableLength << "\t" << scaleFactor << "\t" << freqScaleFactor << std::endl;
     }
 }

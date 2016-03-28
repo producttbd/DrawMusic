@@ -40,8 +40,7 @@ private:
     const float minThreshold = 0.00001f;
     const float impulseThreshold = 0.1f;
     const float globalScalar_ = 0.1f;
-    const float rampToZeroCycles_ = 5.0f; // cycles
-    const float rampTransitionCycles_ = 5.0f; // cycles
+    const float rampTransitionCycles_ = 5.0f;
     const int minWaveTableLength_ = 512;
 };
 
