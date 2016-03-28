@@ -1,5 +1,7 @@
 #include "WaveletReconstructor.h"
 
+#include "EqualLoudnessCurve.h"
+
 WaveletReconstructor::WaveletReconstructor()
 {
     
@@ -18,15 +20,17 @@ void WaveletReconstructor::perform(const GridData& gridData, AudioSampleBuffer& 
     jassert(configured);
     for (int y = 0; y < gridData.getHeight(); ++y)
     {
-        int waveTableOffset = 0;
         float previousValue = 0.0f;
-        const Array<float>& waveTable = waveTables_.getReference(waveTables_.size() - y - 1);
-        auto waveTableLength = waveTable.size();
+        const auto& binInformation = waveTables_.getReference(waveTables_.size() - y - 1);
+        const Array<float>& waveTable = binInformation.Waveform;
+        const auto waveTableLength = waveTable.size();
+        const auto cycleLength = binInformation.CycleLength;
         for (int x = 0; x < gridData.getWidth(); ++x)
         {
             auto bufferOffset = x * config_.WindowLength;
             auto value = gridData.getXY(x, y);
             auto writePtr = buffer.getWritePointer(0, bufferOffset);
+            int waveTableOffset = (config_.WindowLength * x) % waveTableLength;
 
             /*
             // New impulse
@@ -38,11 +42,11 @@ void WaveletReconstructor::perform(const GridData& gridData, AudioSampleBuffer& 
                     writePtr[i] += waveTable[waveTableOffset];
                     waveTableOffset = ++waveTableOffset % waveTableLength;
                 }
-            }
+            }*/
             // Ramp down
-            else if (previousValue > minThreshold && value < minThreshold)
+            if (previousValue > minThreshold && value < minThreshold)
             {
-                int rampDownLength = jmin(roundToInt(rampToZeroTime_ * config_.SampleRate), config_.WindowLength);
+                int rampDownLength = jmin(roundToInt(rampToZeroCycles_ * cycleLength), config_.WindowLength);
                 float rampFactor = 1.0f / rampDownLength;
                 for (int i = 0; i < rampDownLength; ++i)
                 {
@@ -50,11 +54,11 @@ void WaveletReconstructor::perform(const GridData& gridData, AudioSampleBuffer& 
                     waveTableOffset = ++waveTableOffset % waveTableLength;
                 }
             }
-             */
-            // Continue
-            if (previousValue > minThreshold || value > minThreshold)
+            // Start or continue
+            else if (previousValue > minThreshold || value > minThreshold)
             {
-                int rampLength = jmin(roundToInt(rampTransitionTime_ * config_.SampleRate), config_.WindowLength);
+                int rampLength = jmin(roundToInt(rampTransitionCycles_ * cycleLength), config_.WindowLength);
+                std::cout << rampLength << std::endl;
                 float rampFactor = (value - previousValue) / rampLength;
                 for (int i = 0; i < rampLength; ++i)
                 {
@@ -63,7 +67,7 @@ void WaveletReconstructor::perform(const GridData& gridData, AudioSampleBuffer& 
                 }
                 for (int i = rampLength; i < config_.WindowLength; ++i)
                 {
-                    writePtr[i] += waveTable[waveTableOffset];
+                    writePtr[i] += waveTable[waveTableOffset] * value;
                     waveTableOffset = ++waveTableOffset % waveTableLength;
                 }
             }
@@ -77,14 +81,24 @@ void WaveletReconstructor::createBinInformation()
     waveTables_.resize(config_.NumberFrequencies);
     for (int i = 0; i < config_.NumberFrequencies; ++i)
     {
+        BinInformation& binInformation = waveTables_.getReference(i);
+
         auto freq = config_.MinimumFrequency * powf(2.0, i / config_.BinsPerOctave);
-        std::cout << freq << std::endl;
-        const int tableLength = roundToInt(floorf(config_.SampleRate / freq));
-        waveTables_.getReference(i).resize(tableLength);
-        float scaleFactor = 2.0f * float_Pi / static_cast<float>(tableLength);
-        for (int j = 0; j < tableLength; ++j)
+
+        const float repeatLength = config_.SampleRate / freq;
+        const int minRequiredTableLength = roundToInt(repeatLength);
+        binInformation.CycleLength = minRequiredTableLength;
+
+        const int newWaveTableLength = jmax(minRequiredTableLength, roundToInt(repeatLength * ceil(minWaveTableLength_ / repeatLength)));
+        binInformation.Waveform.resize(newWaveTableLength);
+
+        float scaleFactor = 2.0f * float_Pi * freq / config_.SampleRate;
+        auto freqScaleFactor = globalScalar_ * EqualLoudnessCurve::getScalarForFrequency(freq);
+        for (int j = 0; j < newWaveTableLength; ++j)
         {
-            waveTables_.getReference(i).set(j, globalScalar_ * sinf(static_cast<float>(j) * scaleFactor));
+            binInformation.Waveform.set(j, freqScaleFactor * sinf(static_cast<float>(j) * scaleFactor));
         }
+
+        std::cout << freq << "\t" << minRequiredTableLength << "\t" << newWaveTableLength << "\t" << scaleFactor << "\t" << freqScaleFactor << std::endl;
     }
 }

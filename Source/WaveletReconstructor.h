@@ -28,14 +28,21 @@ private:
     void createBinInformation();
 
     WaveletReconstructorConfiguration config_;
-    Array<Array<float>> waveTables_;
+
+    struct BinInformation
+    {
+        Array<float> Waveform;
+        int CycleLength;
+    };
+    Array<BinInformation> waveTables_;
     
     bool configured = false;
     const float minThreshold = 0.00001f;
     const float impulseThreshold = 0.1f;
     const float globalScalar_ = 0.1f;
-    const float rampToZeroTime_ = 0.005; // seconds
-    const float rampTransitionTime_ = 0.010; // seconds
+    const float rampToZeroCycles_ = 5.0f; // cycles
+    const float rampTransitionCycles_ = 5.0f; // cycles
+    const int minWaveTableLength_ = 512;
 };
 
 #endif // WAVELETRECONSTRUCTOR_H_INCLUDED

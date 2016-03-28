@@ -54,7 +54,7 @@ private:
     static constexpr float binsPerOctave_ = 128.0f;
     
     static constexpr int gridHeight_ = 800;
-    static constexpr int totalNumberWindows_ = 1000;
+    static constexpr int totalNumberWindows_ = 1500;
     
     static constexpr int thumbnailSampleWindow_ = 256;
     

@@ -33,12 +33,11 @@ void BrushFactory::getAllBrushes(BrushCollection& brushCollection)
     brushCollection.add(new BasicCompleteBrush(TRANS("Hann point"), action, control));
 
     // Percussion
-    Array<float> xPercussive({0.65f,
-        1.0f, 0.8535533905932738f, 0.5000000000000001f, 0.14644660940672627f});
+    Array<float> xPercussive({1.0f, 0.8535533905932738f, 0.5000000000000001f, 0.14644660940672627f});
     Array<float> yPercussive;
-    for (float i = 250.0f; i > 0.0f; i -= 1.0f)
+    for (float i = 800.0f; i > 0.0f; i -= 1.0f)
     {
-        yPercussive.add(i / 500.0f);
+        yPercussive.add(i / 800.0f);
     }
     action = new XYProfileBrush(xPercussive, yPercussive, -1, 0);
     control = new BasicBrushControls();

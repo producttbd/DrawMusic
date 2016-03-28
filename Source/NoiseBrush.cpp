@@ -2,7 +2,7 @@
 
 NoiseBrush::NoiseBrush()
 {
-    AbstractBrushControls::ControlSpec spec({"Size", 1.0f, 50.0f, 5.0f});
+    AbstractBrushControls::ControlSpec spec({"Size", 1.0f, 150.0f, 15.0f});
     supportedControls_.add(spec);
     controlWirings_.set(spec.name, &size_);
 }

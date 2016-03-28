@@ -21,7 +21,7 @@ CombBrush::CombBrush()
     supportedControls_.add(spec);
     controlWirings_.set(spec.name, &taper_);
 
-    spec = ControlSpec({"Spacing", 5.0f, 50.0f, spacing_});
+    spec = ControlSpec({"Spacing", 2.0f, 200.0f, spacing_});
     supportedControls_.add(spec);
     controlWirings_.set(spec.name, &spacing_);
 }

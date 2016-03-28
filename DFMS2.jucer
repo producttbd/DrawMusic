@@ -64,6 +64,8 @@
             file="Source/DFMSLookAndFeel.h"/>
       <FILE id="zYCyS7" name="DrawGrid.cpp" compile="1" resource="0" file="Source/DrawGrid.cpp"/>
       <FILE id="zPU404" name="DrawGrid.h" compile="0" resource="0" file="Source/DrawGrid.h"/>
+      <FILE id="dec7C7" name="EqualLoudnessCurve.h" compile="0" resource="0"
+            file="Source/EqualLoudnessCurve.h"/>
       <FILE id="dwAmZi" name="EraserBrush.cpp" compile="1" resource="0" file="Source/EraserBrush.cpp"/>
       <FILE id="FJXBDN" name="EraserBrush.h" compile="0" resource="0" file="Source/EraserBrush.h"/>
       <FILE id="ZxeLht" name="GridAudioRendererAudioSource.cpp" compile="1"
