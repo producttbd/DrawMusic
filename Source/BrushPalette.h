@@ -14,6 +14,8 @@ public:
     BrushPalette(const String& componentName,
                  const GridColourScheme& colourScheme) noexcept;
 
+    ~BrushPalette();
+
     AbstractBrushAction* getCurrentBrushAction() const;    
     
     // Component overrides

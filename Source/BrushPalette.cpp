@@ -11,6 +11,14 @@ BrushPalette::BrushPalette(const String& componentName, const GridColourScheme& 
     brushCollection_.addChangeListener(this);
 }
 
+BrushPalette::~BrushPalette()
+{
+    if (brushPaletteWindow_ != nullptr)
+    {
+        brushPaletteWindow_.deleteAndZero();
+    }
+}
+
 AbstractBrushAction* BrushPalette::getCurrentBrushAction() const
 {
     return brushCollection_.getCurrentBrush()->getBrushAction();
