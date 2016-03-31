@@ -50,11 +50,12 @@ private:
     static constexpr int waveformViewHeight_ = 120;
 
     static constexpr int reconstructionWindowLength_ = 2048;
-    static constexpr float minimumFrequency_ = 100.0f;
-    static constexpr float binsPerOctave_ = 128.0f;
+    static constexpr float minimumFrequency_ = 80.0f;
+    static constexpr float maxiumTargetFrequency = 10000.0f;
+    static constexpr float binsPerOctave_ = 160.0f;
     
-    static constexpr int gridHeight_ = 800;
-    static constexpr int totalNumberWindows_ = 1500;
+    static constexpr int gridHeight_ = 1200;
+    static constexpr int totalNumberWindows_ = 2500;
     
     static constexpr int thumbnailSampleWindow_ = 256;
     
