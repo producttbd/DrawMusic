@@ -124,9 +124,13 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
     }
     else if (buttonThatWasClicked == &clearButton_)
     {
-        stopPlayback();
-        gridData_.clear();
-        drawGrid_.refreshAll();
+        if (AlertWindow::showOkCancelBox(AlertWindow::AlertIconType::WarningIcon, TRANS("Clear"),
+                                     TRANS("Clear the whole piece?"), TRANS("CLEAR"), TRANS("Cancel"), this))
+        {
+            stopPlayback();
+            gridData_.clear();
+            drawGrid_.refreshAll();
+        }
     }
     else if (buttonThatWasClicked == &exportButton_)
     {
