@@ -23,7 +23,6 @@ const AudioSampleBuffer& GridAudioRendererAudioSource::getOutputBuffer()
 void GridAudioRendererAudioSource::rerender()
 {
     reconstructor_.perform(gridData_, fullPieceAudioBuffer_);
-    currentOutputOffset_ = 0;
     readyToPlay_ = true;
     newAudioListeners_.call(&GridAudioRendererAudioSource::NewAudioListener::newAudioCallback,
                             fullPieceAudioBuffer_);

@@ -74,7 +74,8 @@ MainComponent::MainComponent ()
     thread_.startThread(3);
     deviceManager_.addAudioCallback(&audioSourcePlayer_);
     audioSourcePlayer_.setSource(&transportSource_);
-    transportSource_.setSource(nullptr);
+    transportSource_.setSource(&gridAudioSource_);
+    //transportSource_.setSource(nullptr);
 }
 
 MainComponent::~MainComponent()
@@ -100,8 +101,10 @@ void MainComponent::resized()
     waveformView_.setBounds(outsideMargin, 2 * outsideMargin + gridHeight,
                             gridWidth, Configuration::getWaveformViewHeight());
     
-    playbackTimeline_.setBounds(outsideMargin, 2 * outsideMargin + gridHeight,
-                                gridWidth, Configuration::getWaveformViewHeight());
+    playbackTimeline_.setBounds(outsideMargin, outsideMargin,
+                                gridWidth, gridHeight + outsideMargin + Configuration::getWaveformViewHeight());
+    auto clickBoundsForWaveformView = playbackTimeline_.getLocalArea(this, waveformView_.getBounds());
+    playbackTimeline_.setToControlAudioSource(clickBoundsForWaveformView, &gridAudioSource_);
 
     const int buttonWidth = 80;
     const int buttonHeight = 24;
@@ -170,8 +173,6 @@ void MainComponent::togglePlayback()
 
 void MainComponent::startPlayback()
 {
-    transportSource_.setSource(&gridAudioSource_);
-    transportSource_.setPosition (0);
     playStopButton_.setButtonText (TRANS("stop"));
     playStopButton_.setToggleState(true, NotificationType::dontSendNotification);
     playbackTimer_.startTimer(Configuration::getPlaybackTimerInterval());
@@ -182,7 +183,6 @@ void MainComponent::stopPlayback()
 {
     transportSource_.stop();
     playbackTimer_.stopTimer();
-    transportSource_.setSource(nullptr);
     playStopButton_.setButtonText (TRANS("play"));
     playStopButton_.setToggleState(false, NotificationType::dontSendNotification);
 }
