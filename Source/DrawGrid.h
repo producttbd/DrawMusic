@@ -31,7 +31,7 @@ private:
     const GridColourScheme& colourScheme_;
     Image theImage_;
     GridImageRenderer gridImageRenderer_;
-    
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DrawGrid)
 };
 

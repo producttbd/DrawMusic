@@ -49,9 +49,16 @@ void DrawGrid::mouseDown(const MouseEvent& event)
 
 void DrawGrid::mouseDrag(const juce::MouseEvent& event)
 {
+    if (event.mods.isShiftDown() && event.y != event.getMouseDownY())
+    {
+        MouseInputSource inputSource = event.source;
+        inputSource.setScreenPosition(Point<float>(event.getScreenX(), event.getMouseDownScreenY()));
+        return;
+    }
     auto currentBrush = brushPalette_.getCurrentBrushAction();
     auto affectedPixels = currentBrush->continueStroke(GridPoint(event.x, event.y), gridData_);
     gridImageRenderer_.renderSelectPointsToImage(gridData_, affectedPixels, theImage_);
+    std::cout << std::endl;
 }
 
 void DrawGrid::mouseUp(const juce::MouseEvent& event)
