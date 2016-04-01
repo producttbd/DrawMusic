@@ -64,7 +64,7 @@ private:
     static constexpr float maxGridValue_ = 1.0f;
 
     static constexpr int newWindowWidth_ = 500;
-    static constexpr int newWindowHeight_ = 600;
+    static constexpr int newWindowHeight_ = 1000;
 
     static constexpr int playbackTimerInterval_ = 50;
 

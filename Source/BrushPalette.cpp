@@ -48,9 +48,9 @@ void BrushPalette::changeListenerCallback(juce::ChangeBroadcaster* /*source*/)
 
 void BrushPalette::openBrushPaletteWindow()
 {
-    if (brushPaletteWindow_ != nullptr)
+    if (brushPaletteWindow_ == nullptr)
     {
-        return;
+        brushPaletteWindow_ = new BrushPaletteWindow("brushPalettewindow", brushCollection_);
     }
-    brushPaletteWindow_ = new BrushPaletteWindow("brushPalettewindow", brushCollection_);
+    brushPaletteWindow_->toFront(true);
 }
