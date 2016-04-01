@@ -63,6 +63,7 @@ void WaveletReconstructor::createBinInformation()
         BinInformation& binInformation = waveTables_.getReference(i);
 
         auto freq = config_.MinimumFrequency * powf(2.0, i / config_.BinsPerOctave);
+        jassert(freq < config_.SampleRate / 2);
 
         const float repeatLength = config_.SampleRate / freq;
         const int minRequiredTableLength = roundToInt(repeatLength);
