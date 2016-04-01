@@ -5,7 +5,7 @@
 using ControlSpec = AbstractBrushControls::ControlSpec;
 
 BasicBrushBase::BasicBrushBase()
-: intensityScalar_(1.0f),
+: intensityScalar_(0.5f),
   pointsInStroke_()
 {
     ControlSpec spec({"Intensity", 0.0f, 1.0f, intensityScalar_});

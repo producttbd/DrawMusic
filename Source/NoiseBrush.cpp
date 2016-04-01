@@ -1,10 +1,15 @@
 #include "NoiseBrush.h"
 
 NoiseBrush::NoiseBrush()
+: size_(25.0f), density_(0.2)
 {
-    AbstractBrushControls::ControlSpec spec({"Size", 1.0f, 150.0f, 15.0f});
+    AbstractBrushControls::ControlSpec spec({"Size", 1.0f, 150.0f, size_});
     supportedControls_.add(spec);
     controlWirings_.set(spec.name, &size_);
+
+    spec = AbstractBrushControls::ControlSpec({"Density", 0.0f, 1.0f, density_});
+    supportedControls_.add(spec);
+    controlWirings_.set(spec.name, &density_);
 }
 
 void NoiseBrush::drawPreviewInto(Graphics& g, const Rectangle<int>& bounds) const
@@ -23,9 +28,12 @@ void NoiseBrush::drawPreviewInto(Graphics& g, const Rectangle<int>& bounds) cons
         {
             if (x >= 0 && x < width && y >= 0 && y < height)
             {
-                const float value = clampOutputValue(random.nextFloat() * intensityScalar_);
-                g.setColour(GridColourScheme::convertToColour(value));
-                g.setPixel(x, y);
+                if (random.nextFloat() < density_)
+                {
+                    const float value = clampOutputValue(random.nextFloat() * intensityScalar_);
+                    g.setColour(GridColourScheme::convertToColour(value));
+                    g.setPixel(x, y);
+                }
             }
         }
     }
@@ -46,12 +54,15 @@ Array<GridPoint> NoiseBrush::applyBrushToPoint(GridPoint p, GridData& gridData) 
         {
             if (x >= 0 && x < width && y >= 0 && y < height)
             {
-                const float value = clampOutputValue(random.nextFloat() * intensityScalar_);
-                GridPoint affectedPoint(x, y);
-                if (value > gridData[affectedPoint])
+                if (random.nextFloat() < density_)
                 {
-                    gridData[affectedPoint] = value;
-                    affectedPoints.add(affectedPoint);
+                    const float value = clampOutputValue(random.nextFloat() * intensityScalar_);
+                    GridPoint affectedPoint(x, y);
+                    if (value > gridData[affectedPoint])
+                    {
+                        gridData[affectedPoint] = value;
+                        affectedPoints.add(affectedPoint);
+                    }
                 }
             }
         }

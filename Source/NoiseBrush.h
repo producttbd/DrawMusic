@@ -15,6 +15,7 @@ protected:
 
 private:
     double size_;
+    double density_;
 };
 
 #endif // NOISEBRUSH_H_INCLUDED
