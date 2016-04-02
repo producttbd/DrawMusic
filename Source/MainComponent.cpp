@@ -131,6 +131,7 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
                                      TRANS("Clear the whole piece?"), TRANS("CLEAR"), TRANS("Cancel"), this))
         {
             stopPlayback();
+            transportSource_.setPosition(0);
             gridData_.clear();
             drawGrid_.refreshAll();
         }
