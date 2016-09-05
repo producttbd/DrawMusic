@@ -11,7 +11,7 @@ public:
     void drawPreviewInto(Graphics& g, const Rectangle<int>& bounds) const override;
 
 protected:
-    virtual Array<GridPoint> applyBrushToPoint(GridPoint p, GridData& gridData) const override;
+    virtual Array<GridPoint> applyBrushToPoint(StrokePoint p, GridData& gridData) const override;
 
 private:
     double size_;

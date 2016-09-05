@@ -23,10 +23,13 @@ public:
     static constexpr int getNumberChannels() { return 1; }
     static constexpr int getSamplesPerThumbnailSample() { return thumbnailSampleWindow_; }
 
+    static constexpr int getGridComponentHeight() { return 500; }
+    static constexpr int getGridComponentWidth() { return 800; }
     static constexpr int getGridHeight() { return gridHeight_; }
     static constexpr int getGridWidth() { return totalNumberWindows_; }
     static constexpr float getMinGridValue() { return minGridValue_; }
     static constexpr float getMaxGridValue() { return maxGridValue_; }
+    static constexpr float getDefaultPressure() { return defaultPressure_; }
 
     static constexpr int getNewWindowWidth() { return newWindowWidth_; }
     static constexpr int getNewWindowHeight() { return newWindowHeight_; }
@@ -43,9 +46,8 @@ public:
 
 private:
 
-
     static constexpr int buttonWidth_ = 80;
-    static constexpr int buttonHeight_ = 24;
+    static constexpr int buttonHeight_ = 80;
     static constexpr int guiMargin_ = 10;
     static constexpr int waveformViewHeight_ = 120;
 
@@ -62,11 +64,12 @@ private:
     static constexpr int paletteSide_ = 100;
     static constexpr float minGridValue_ = 0.0f;
     static constexpr float maxGridValue_ = 1.0f;
+    static constexpr float defaultPressure_ = 1.0f;
 
     static constexpr int newWindowWidth_ = 500;
     static constexpr int newWindowHeight_ = 1000;
 
-    static constexpr int playbackTimerInterval_ = 50;
+    static constexpr int playbackTimerInterval_ = 100;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Configuration);
 };

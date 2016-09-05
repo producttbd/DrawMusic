@@ -39,7 +39,7 @@ void NoiseBrush::drawPreviewInto(Graphics& g, const Rectangle<int>& bounds) cons
     }
 }
 
-Array<GridPoint> NoiseBrush::applyBrushToPoint(GridPoint p, GridData& gridData) const
+Array<GridPoint> NoiseBrush::applyBrushToPoint(StrokePoint p, GridData& gridData) const
 {
     Random random;
     Array<GridPoint> affectedPoints;
@@ -48,9 +48,9 @@ Array<GridPoint> NoiseBrush::applyBrushToPoint(GridPoint p, GridData& gridData) 
 
     const int size = roundDoubleToInt(size_);
 
-    for (int x = p.x - size; x <= p.x + size; ++x)
+    for (int x = p.gridPoint.x - size; x <= p.gridPoint.x + size; ++x)
     {
-        for (int y = p.y - size; y <= p.y + size; ++y)
+        for (int y = p.gridPoint.y - size; y <= p.gridPoint.y + size; ++y)
         {
             if (x >= 0 && x < width && y >= 0 && y < height)
             {

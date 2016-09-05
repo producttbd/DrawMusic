@@ -53,7 +53,7 @@ void CombBrush::drawPreviewInto(juce::Graphics& g, const Rectangle<int>& bounds)
     }
 }
 
-Array<GridPoint> CombBrush::applyBrushToPoint(GridPoint p, GridData& gridData) const
+Array<GridPoint> CombBrush::applyBrushToPoint(StrokePoint p, GridData& gridData) const
 {
     Array<GridPoint> affectedPoints;
     const auto width = gridData.getWidth();
@@ -64,26 +64,25 @@ Array<GridPoint> CombBrush::applyBrushToPoint(GridPoint p, GridData& gridData) c
 
     const auto taperBase = taper_ / (numberHarmonics_ - 1.0f);
 
-    float value = intensityScalar_;
-    if (p.x >= 0 && p.x < width && p.y >= 0 && p.y < height)
+    float value = intensityScalar_ * p.pressure;
+    if (p.gridPoint.x >= 0 && p.gridPoint.x < width && p.gridPoint.y >= 0 && p.gridPoint.y < height)
     {
-        GridPoint affectedPoint(p.x, p.y);
-        if (value > gridData[affectedPoint])
+        if (value > gridData[p.gridPoint])
         {
-            gridData[affectedPoint] = value;
-            affectedPoints.add(affectedPoint);
+            gridData[p.gridPoint] = value;
+            affectedPoints.add(p.gridPoint);
         }
     }
 
     for (int i = 1; i < numberHarmonics; ++i)
     {
-        const auto y = p.y - i * spacing;
-        if (p.x >= 0 && p.x < width && y >= 0 && y < height)
+        const auto y = p.gridPoint.y - i * spacing;
+        if (p.gridPoint.x >= 0 && p.gridPoint.x < width && y >= 0 && y < height)
         {
             const float taperAmount = 1.0f - (taperBase * i);
-            const float intensity = i % 2 == 0 ? evenIntensity_ : oddIntensity_;
-            value = taperAmount * intensity * intensityScalar_;
-            GridPoint affectedPoint(p.x, y);
+            const float harmonicIntensity = i % 2 == 0 ? evenIntensity_ : oddIntensity_;
+            value = taperAmount * harmonicIntensity * value;
+            GridPoint affectedPoint(p.gridPoint.x, y);
             if (value > gridData[affectedPoint])
             {
                 gridData[affectedPoint] = value;

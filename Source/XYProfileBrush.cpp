@@ -30,16 +30,16 @@ void XYProfileBrush::drawPreviewInto(juce::Graphics& g, const Rectangle<int>& bo
     }
 }
 
-Array<GridPoint> XYProfileBrush::applyBrushToPoint(GridPoint p, GridData& gridData) const
+Array<GridPoint> XYProfileBrush::applyBrushToPoint(StrokePoint p, GridData& gridData) const
 {
     Array<GridPoint> affectedPoints;
     const auto width = gridData.getWidth();
     const auto height = gridData.getHeight();
 
-    int y = p.y + yOffset_;
+    int y = p.gridPoint.y + yOffset_;
     for (const auto& yP : yProfile_)
     {
-        int x = p.x + xOffset_;
+        int x = p.gridPoint.x + xOffset_;
         for (const auto& xP : xProfile_)
         {
             if (x >= 0 && x < width && y >= 0 && y < height)

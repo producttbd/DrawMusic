@@ -7,47 +7,28 @@
 #include "AbstractBrushControls.h"
 #include "Configuration.h"
 #include "GridData.h"
-#include "GridPoint.h"
+#include "StrokePoint.h"
 
 class BasicBrushBase : public AbstractBrushAction
 {
 public:
-    enum class PointType
-    {
-        Absolute,
-        Additive
-    };
-
-    struct BrushPoint : public GridPoint
-    {
-        BrushPoint(int x, int y, float z, PointType type)
-        : GridPoint(x, y),
-          z(z),
-          type(type)
-        {
-        }
-
-        float z;
-        PointType type;
-    };
-
     BasicBrushBase();
     virtual ~BasicBrushBase();
 
     virtual Array<AbstractBrushControls::ControlSpec> getSupportedControls();
     void controlChanged(AbstractBrushControls::ControlSpec spec) override;
     
-    Array<GridPoint> startStroke(GridPoint p, GridData& gridData) override;
-    Array<GridPoint> continueStroke(GridPoint p, GridData& gridData) override;
-    Array<GridPoint> finishStroke(GridPoint p, GridData& gridData) override;
+    Array<GridPoint> startStroke(StrokePoint p, GridData& gridData) override;
+    Array<GridPoint> continueStroke(StrokePoint p, GridData& gridData) override;
+    Array<GridPoint> finishStroke(StrokePoint p, GridData& gridData) override;
 
 protected:
     virtual void recreateBrush(AbstractBrushControls::ControlSpec specChanged);
 
-    virtual Array<GridPoint> getIntermediaryPoints(GridPoint start, GridPoint end) const;
+    virtual Array<StrokePoint> getIntermediaryPoints(StrokePoint start, StrokePoint end) const;
     virtual Array<GridPoint> applyBrushToStroke(
-        const Array<GridPoint>& pointsInStroke,  GridData& gridData) const;
-    virtual Array<GridPoint> applyBrushToPoint(GridPoint p, GridData& gridData) const = 0;
+        const Array<StrokePoint>& pointsInStroke,  GridData& gridData) const;
+    virtual Array<GridPoint> applyBrushToPoint(StrokePoint p, GridData& gridData) const = 0;
 
     static inline float clampOutputValue(float value)
     {
@@ -61,7 +42,7 @@ protected:
     static constexpr float minIntensityScalar_ = 0.0f;
     static constexpr float maxIntensityScalar_ = 1.0f;
 
-    Array<GridPoint> pointsInStroke_;
+    Array<StrokePoint> pointsInStroke_;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BasicBrushBase)
 };

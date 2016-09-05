@@ -13,7 +13,7 @@ public:
     void drawPreviewInto(Graphics& g, const Rectangle<int>& bounds) const override;
 
 protected:
-    Array<GridPoint> applyBrushToPoint(GridPoint p, GridData& gridData) const override;
+    Array<GridPoint> applyBrushToPoint(StrokePoint p, GridData& gridData) const override;
 
     double numberHarmonics_;
     double evenIntensity_;

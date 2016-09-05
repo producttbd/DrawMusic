@@ -43,7 +43,8 @@ void DrawGrid::resized()
 void DrawGrid::mouseDown(const MouseEvent& event)
 {
     auto currentBrush = brushPalette_.getCurrentBrushAction();
-    auto affectedPixels = currentBrush->startStroke(GridPoint(event.x, event.y), gridData_);
+    float pressure = event.isPressureValid() ? event.pressure : Configuration::getDefaultPressure();
+    auto affectedPixels = currentBrush->startStroke(StrokePoint(event.x, event.y, pressure), gridData_);
     gridImageRenderer_.renderSelectPointsToImage(gridData_, affectedPixels, theImage_);
 }
 
@@ -56,15 +57,16 @@ void DrawGrid::mouseDrag(const juce::MouseEvent& event)
         return;
     }
     auto currentBrush = brushPalette_.getCurrentBrushAction();
-    auto affectedPixels = currentBrush->continueStroke(GridPoint(event.x, event.y), gridData_);
+    float pressure = event.isPressureValid() ? event.pressure : Configuration::getDefaultPressure();
+    auto affectedPixels = currentBrush->continueStroke(StrokePoint(event.x, event.y, pressure), gridData_);
     gridImageRenderer_.renderSelectPointsToImage(gridData_, affectedPixels, theImage_);
-    std::cout << std::endl;
 }
 
 void DrawGrid::mouseUp(const juce::MouseEvent& event)
 {
     auto currentBrush = brushPalette_.getCurrentBrushAction();
-    auto affectedPixels = currentBrush->finishStroke(GridPoint(event.x, event.y), gridData_);
+    float pressure = event.isPressureValid() ? event.pressure : Configuration::getDefaultPressure();
+    auto affectedPixels = currentBrush->finishStroke(StrokePoint(event.x, event.y, pressure), gridData_);
     gridImageRenderer_.renderSelectPointsToImage(gridData_, affectedPixels, theImage_);
     repaint();
     sendChangeMessage();

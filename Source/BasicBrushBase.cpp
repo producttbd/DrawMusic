@@ -31,20 +31,20 @@ void BasicBrushBase::controlChanged(AbstractBrushControls::ControlSpec spec)
     }
 }
 
-Array<GridPoint> BasicBrushBase::startStroke(GridPoint p, GridData &gridData)
+Array<GridPoint> BasicBrushBase::startStroke(StrokePoint p, GridData &gridData)
 {
     pointsInStroke_.clearQuick();
     pointsInStroke_.add(p);
     return Array<GridPoint>();
 }
 
-Array<GridPoint> BasicBrushBase::continueStroke(GridPoint p, GridData &gridData)
+Array<GridPoint> BasicBrushBase::continueStroke(StrokePoint p, GridData &gridData)
 {
     pointsInStroke_.add(p);
     return Array<GridPoint>();
 }
 
-Array<GridPoint> BasicBrushBase::finishStroke(GridPoint p, GridData &gridData)
+Array<GridPoint> BasicBrushBase::finishStroke(StrokePoint p, GridData &gridData)
 {
     pointsInStroke_.add(p);
 
@@ -57,48 +57,48 @@ void BasicBrushBase::recreateBrush(AbstractBrushControls::ControlSpec specChange
 {
 }
 
-Array<GridPoint> BasicBrushBase::getIntermediaryPoints(GridPoint start, GridPoint end) const
+Array<StrokePoint> BasicBrushBase::getIntermediaryPoints(StrokePoint start, StrokePoint end) const
 {
-    Array<GridPoint> intermediaryPoints;
+    Array<StrokePoint> intermediaryPoints;
 
-    if (start == end)
+    if (start.gridPoint == end.gridPoint)
     {
         intermediaryPoints.add(start);
         return intermediaryPoints;
     }
 
     // Bresenham's line algorithm
-    auto steep = abs(end.y - start.y) > abs(end.x - start.x);
+    auto steep = abs(end.gridPoint.y - start.gridPoint.y) > abs(end.gridPoint.x - start.gridPoint.x);
 
     if (steep)
     {
-        std::swap(start.x, start.y);
-        std::swap(end.x, end.y);
+        std::swap(start.gridPoint.x, start.gridPoint.y);
+        std::swap(end.gridPoint.x, end.gridPoint.y);
     }
 
-    if(start.x > end.x)
+    if(start.gridPoint.x > end.gridPoint.x)
     {
         std::swap(start, end);
     }
 
     // dx must be positive because of the above swap
-    const float dx = static_cast<float>(end.x - start.x);
-    const float dy = static_cast<float>(abs(end.y - start.y));
+    const float dx = static_cast<float>(end.gridPoint.x - start.gridPoint.x);
+    const float dy = static_cast<float>(abs(end.gridPoint.y - start.gridPoint.y));
 
     float error = dx / 2.0f;
-    const int ystep = (start.y < end.y) ? 1 : -1;
-    int y = start.y;
-    const int maxX = end.x;
+    const int ystep = (start.gridPoint.y < end.gridPoint.y) ? 1 : -1;
+    int y = start.gridPoint.y;
+    const int maxX = end.gridPoint.x;
 
-    for(int x = start.x; x < maxX; ++x)
+    for(int x = start.gridPoint.x; x < maxX; ++x)
     {
         if(steep)
         {
-            intermediaryPoints.add(GridPoint(y,x));
+            intermediaryPoints.add(StrokePoint(y, x, start.pressure));
         }
         else
         {
-            intermediaryPoints.add(GridPoint(x,y));
+            intermediaryPoints.add(StrokePoint(x, y, start.pressure));
         }
             
         error -= dy;
@@ -112,12 +112,12 @@ Array<GridPoint> BasicBrushBase::getIntermediaryPoints(GridPoint start, GridPoin
     return intermediaryPoints;
 }
 
-Array<GridPoint> BasicBrushBase::applyBrushToStroke(const Array<GridPoint>& pointsInStroke, GridData& gridData) const
+Array<GridPoint> BasicBrushBase::applyBrushToStroke(const Array<StrokePoint>& pointsInStroke, GridData& gridData) const
 {
     jassert(pointsInStroke.size() > 1);
     Array<GridPoint> allAffectedPoints;
 
-    GridPoint start = pointsInStroke[0];
+    StrokePoint start = pointsInStroke[0];
     for (int i = 1; i < pointsInStroke.size(); ++i)
     {
         const auto intermediatePoints = getIntermediaryPoints(start, pointsInStroke[i]);

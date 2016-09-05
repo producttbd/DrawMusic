@@ -11,8 +11,8 @@
 #include "PointClusterBrush.h"
 #include "XYProfileBrush.h"
 
-using BrushPoint = BasicBrushBase::BrushPoint;
-using PointType = BasicBrushBase::PointType;
+using BrushPoint = PointClusterBrush::BrushPoint;
+using PointType = PointClusterBrush::PointType;
 
 void BrushFactory::getAllBrushes(BrushCollection& brushCollection)
 {
