@@ -4,6 +4,8 @@
 #include "JuceHeader.h"
 
 #include "BasicBrushBase.h"
+#include "GridData.h"
+#include "StrokePoint.h"
 
 class CombBrush : public BasicBrushBase
 {

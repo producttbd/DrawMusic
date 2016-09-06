@@ -4,6 +4,8 @@
 #include "JuceHeader.h"
 
 #include "BasicBrushBase.h"
+#include "GridPoint.h"
+#include "StrokePoint.h"
 
 class XYProfileBrush : public BasicBrushBase
 {

@@ -7,6 +7,7 @@
 #include "AbstractBrushControls.h"
 #include "Configuration.h"
 #include "GridData.h"
+#include "GridPoint.h"
 #include "StrokePoint.h"
 
 class BasicBrushBase : public AbstractBrushAction

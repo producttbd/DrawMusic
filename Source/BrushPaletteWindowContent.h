@@ -3,6 +3,7 @@
 
 #include "JuceHeader.h"
 
+#include "AbstractBrushControls.h"
 #include "AbstractCompleteBrush.h"
 #include "BrushCollection.h"
 #include "BrushPreviewButton.h"
@@ -13,7 +14,7 @@ class BrushPaletteWindowContent : public Component, Button::Listener,
 public:
     explicit BrushPaletteWindowContent(BrushCollection& brushCollection);
 
-    // AbstractBrushControls::Listener
+    // AbstractBrushControls::Listener overrides
     void controlChanged(AbstractBrushControls::ControlSpec spec) override;
 
     // Button::Listener override

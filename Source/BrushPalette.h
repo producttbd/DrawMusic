@@ -5,6 +5,7 @@
 
 #include "AbstractBrushAction.h"
 #include "AbstractCompleteBrush.h"
+#include "BrushCollection.h"
 #include "BrushPaletteWindow.h"
 #include "GridColourScheme.h"
 

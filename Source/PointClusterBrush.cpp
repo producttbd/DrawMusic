@@ -1,5 +1,7 @@
 #include "PointClusterBrush.h"
 
+#include "GridColourScheme.h"
+
 PointClusterBrush::PointClusterBrush(Array<BrushPoint> brushPattern)
 : BasicBrushBase(),
   brushPattern_(brushPattern)

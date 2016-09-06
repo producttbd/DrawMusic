@@ -2,6 +2,8 @@
 #define NOISEBRUSH_H_INCLUDED
 
 #include "BasicBrushBase.h"
+#include "GridPoint.h"
+#include "StrokePoint.h"
 
 class NoiseBrush : public BasicBrushBase
 {

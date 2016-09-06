@@ -1,5 +1,8 @@
 #include "EraserBrush.h"
 
+#include "AbstractBrushControls.h"
+#include "GridColourScheme.h"
+
 EraserBrush::EraserBrush()
 : size_(5.0f)
 {

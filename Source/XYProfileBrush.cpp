@@ -1,5 +1,7 @@
 #include "XYProfileBrush.h"
 
+#include "GridColourScheme.h"
+
 XYProfileBrush::XYProfileBrush(Array<float> xProfile, Array<float> yProfile,
                                int xOffset, int yOffset)
 : BasicBrushBase(),
