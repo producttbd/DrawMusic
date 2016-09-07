@@ -37,8 +37,8 @@ protected:
     }
 
     Array<AbstractBrushControls::ControlSpec> supportedControls_;
-    HashMap<String, double*> controlWirings_;
-    double intensityScalar_; // TODO Discrepancy between types in brush values and control values
+    HashMap<String, float*> controlWirings_;
+    float intensityScalar_;
 
     static constexpr float minIntensityScalar_ = 0.0f;
     static constexpr float maxIntensityScalar_ = 1.0f;

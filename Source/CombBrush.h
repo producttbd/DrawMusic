@@ -17,11 +17,11 @@ public:
 protected:
     Array<GridPoint> applyBrushToPoint(StrokePoint p, GridData& gridData) const override;
 
-    double numberHarmonics_;
-    double evenIntensity_;
-    double oddIntensity_;
-    double taper_;
-    double spacing_;
+    float numberHarmonics_;
+    float evenIntensity_;
+    float oddIntensity_;
+    float taper_;
+    float spacing_;
 };
 
 #endif // COMBBRUSH_H_INCLUDED

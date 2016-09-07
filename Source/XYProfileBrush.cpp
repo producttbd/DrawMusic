@@ -46,7 +46,7 @@ Array<GridPoint> XYProfileBrush::applyBrushToPoint(StrokePoint p, GridData& grid
         {
             if (x >= 0 && x < width && y >= 0 && y < height)
             {
-                const float value = clampOutputValue(xP * yP * intensityScalar_);
+                const float value = clampOutputValue(xP * yP * intensityScalar_ * p.pressure);
                 GridPoint affectedPoint(x, y);
                 gridData[affectedPoint] = jmax(value, gridData[affectedPoint]);
                 affectedPoints.add(affectedPoint);

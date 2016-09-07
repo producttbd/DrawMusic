@@ -57,6 +57,7 @@ void DrawGrid::mouseDrag(const juce::MouseEvent& event)
         return;
     }
     auto currentBrush = brushPalette_.getCurrentBrushAction();
+    std::cout << (event.isPressureValid() ? "valid pressure" : "not valid pressure") << std::endl;
     float pressure = event.isPressureValid() ? event.pressure : Configuration::getDefaultPressure();
     auto affectedPixels = currentBrush->continueStroke(StrokePoint(event.x, event.y, pressure), gridData_);
     gridImageRenderer_.renderSelectPointsToImage(gridData_, affectedPixels, theImage_);

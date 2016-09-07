@@ -9,9 +9,9 @@ public:
     struct ControlSpec
     {
         String name;
-        double minValue;
-        double maxValue;
-        double currentValue;
+        float minValue;
+        float maxValue;
+        float currentValue;
     };
     
     class Listener

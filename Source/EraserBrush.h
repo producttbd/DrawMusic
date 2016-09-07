@@ -17,7 +17,7 @@ public:
 protected:
     Array<GridPoint> applyBrushToPoint(StrokePoint p, GridData& gridData) const override;
 
-    double size_;
+    float size_;
 };
 
 #endif // ERASERBRUSH_H_INCLUDED

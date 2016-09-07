@@ -39,11 +39,11 @@ Array<GridPoint> PointClusterBrush::applyBrushToPoint(StrokePoint p, GridData& g
             switch(brushPoint.type)
             {
                 case PointType::Additive:
-                    gridData[affectedPoint] += (brushPoint.z * intensityScalar_);
+                    gridData[affectedPoint] += (brushPoint.z * intensityScalar_ * p.pressure);
                     break;
                 default:
                 case PointType::Absolute:
-                    gridData[affectedPoint] = jmax(gridData[affectedPoint], brushPoint.z * (float)intensityScalar_);
+                    gridData[affectedPoint] = jmax(gridData[affectedPoint], brushPoint.z * intensityScalar_ * p.pressure);
                     break;
             }
             gridData[affectedPoint] = clampOutputValue(gridData[affectedPoint]);

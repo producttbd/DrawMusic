@@ -16,8 +16,8 @@ protected:
     virtual Array<GridPoint> applyBrushToPoint(StrokePoint p, GridData& gridData) const override;
 
 private:
-    double size_;
-    double density_;
+    float size_;
+    float density_;
 };
 
 #endif // NOISEBRUSH_H_INCLUDED

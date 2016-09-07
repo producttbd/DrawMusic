@@ -84,21 +84,22 @@ Array<StrokePoint> BasicBrushBase::getIntermediaryPoints(StrokePoint start, Stro
     // dx must be positive because of the above swap
     const float dx = static_cast<float>(end.gridPoint.x - start.gridPoint.x);
     const float dy = static_cast<float>(abs(end.gridPoint.y - start.gridPoint.y));
+    const float dPressure = (end.pressure - start.pressure) / dx;
 
     float error = dx / 2.0f;
     const int ystep = (start.gridPoint.y < end.gridPoint.y) ? 1 : -1;
     int y = start.gridPoint.y;
-    const int maxX = end.gridPoint.x;
+    float pressure = start.pressure;
 
-    for(int x = start.gridPoint.x; x < maxX; ++x)
+    for(int x = start.gridPoint.x; x < end.gridPoint.x; ++x)
     {
         if(steep)
         {
-            intermediaryPoints.add(StrokePoint(y, x, start.pressure));
+            intermediaryPoints.add(StrokePoint(y, x, pressure));
         }
         else
         {
-            intermediaryPoints.add(StrokePoint(x, y, start.pressure));
+            intermediaryPoints.add(StrokePoint(x, y, pressure));
         }
             
         error -= dy;
@@ -107,6 +108,7 @@ Array<StrokePoint> BasicBrushBase::getIntermediaryPoints(StrokePoint start, Stro
             y += ystep;
             error += dx;
         }
+        pressure += dPressure;
     }
 
     return intermediaryPoints;

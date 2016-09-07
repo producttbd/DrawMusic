@@ -59,7 +59,7 @@ Array<GridPoint> NoiseBrush::applyBrushToPoint(StrokePoint p, GridData& gridData
             {
                 if (random.nextFloat() < density_)
                 {
-                    const float value = clampOutputValue(random.nextFloat() * intensityScalar_);
+                    const float value = clampOutputValue(random.nextFloat() * intensityScalar_ * p.pressure);
                     GridPoint affectedPoint(x, y);
                     if (value > gridData[affectedPoint])
                     {
