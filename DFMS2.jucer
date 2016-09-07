@@ -2,7 +2,7 @@
 
 <JUCERPROJECT id="juga0a" name="DFMS2" projectType="guiapp" version="1.0.0"
               bundleIdentifier="com.yourcompany.DFMS2" includeBinaryInAppConfig="1"
-              jucerVersion="4.1.0">
+              jucerVersion="4.2.3">
   <MAINGROUP id="BvMvtA" name="DFMS2">
     <GROUP id="{157F435B-C817-59C4-B8EE-094D6D6F9F9C}" name="Source">
       <FILE id="sPQu2j" name="AbstractBrushAction.h" compile="0" resource="0"
@@ -151,4 +151,7 @@
     <MODULES id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
   </MODULES>
   <JUCEOPTIONS/>
+  <LIVE_SETTINGS>
+    <OSX/>
+  </LIVE_SETTINGS>
 </JUCERPROJECT>
