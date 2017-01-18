@@ -2,61 +2,75 @@
 
 <JUCERPROJECT id="juga0a" name="DFMS2" projectType="guiapp" version="1.0.0"
               bundleIdentifier="com.yourcompany.DFMS2" includeBinaryInAppConfig="1"
-              jucerVersion="4.2.3">
+              jucerVersion="4.3.0">
   <MAINGROUP id="BvMvtA" name="DFMS2">
     <GROUP id="{157F435B-C817-59C4-B8EE-094D6D6F9F9C}" name="Source">
-      <FILE id="sPQu2j" name="AbstractBrushAction.h" compile="0" resource="0"
-            file="Source/AbstractBrushAction.h"/>
-      <FILE id="kOVY8H" name="AbstractBrushControls.h" compile="0" resource="0"
-            file="Source/AbstractBrushControls.h"/>
-      <FILE id="aAmScr" name="AbstractCompleteBrush.h" compile="0" resource="0"
-            file="Source/AbstractCompleteBrush.h"/>
-      <FILE id="oi8q4O" name="AudioBufferThumbnail.cpp" compile="1" resource="0"
+      <GROUP id="{FD428970-AF74-7038-A12B-9CB89B960355}" name="Brushes">
+        <FILE id="AmvuFn" name="AbstractBrushAction.h" compile="0" resource="0"
+              file="Source/Brushes/AbstractBrushAction.h"/>
+        <FILE id="K186py" name="AbstractBrushControls.h" compile="0" resource="0"
+              file="Source/Brushes/AbstractBrushControls.h"/>
+        <FILE id="RxO7eE" name="AbstractCompleteBrush.h" compile="0" resource="0"
+              file="Source/Brushes/AbstractCompleteBrush.h"/>
+        <FILE id="SHVCzO" name="BasicBrushBase.cpp" compile="1" resource="0"
+              file="Source/Brushes/BasicBrushBase.cpp"/>
+        <FILE id="NNYRmU" name="BasicBrushBase.h" compile="0" resource="0"
+              file="Source/Brushes/BasicBrushBase.h"/>
+        <FILE id="tO49Tr" name="BasicBrushControls.cpp" compile="1" resource="0"
+              file="Source/Brushes/BasicBrushControls.cpp"/>
+        <FILE id="yR0Why" name="BasicBrushControls.h" compile="0" resource="0"
+              file="Source/Brushes/BasicBrushControls.h"/>
+        <FILE id="onurjX" name="BasicCompleteBrush.cpp" compile="1" resource="0"
+              file="Source/Brushes/BasicCompleteBrush.cpp"/>
+        <FILE id="k6Hs6R" name="BasicCompleteBrush.h" compile="0" resource="0"
+              file="Source/Brushes/BasicCompleteBrush.h"/>
+        <FILE id="l957jV" name="BrushCollection.cpp" compile="1" resource="0"
+              file="Source/Brushes/BrushCollection.cpp"/>
+        <FILE id="khA6cb" name="BrushCollection.h" compile="0" resource="0"
+              file="Source/Brushes/BrushCollection.h"/>
+        <FILE id="ApSzdz" name="BrushFactory.cpp" compile="1" resource="0"
+              file="Source/Brushes/BrushFactory.cpp"/>
+        <FILE id="umyGHX" name="BrushFactory.h" compile="0" resource="0" file="Source/Brushes/BrushFactory.h"/>
+        <FILE id="IPgFaU" name="BrushPalette.cpp" compile="1" resource="0"
+              file="Source/Brushes/BrushPalette.cpp"/>
+        <FILE id="nx1oev" name="BrushPalette.h" compile="0" resource="0" file="Source/Brushes/BrushPalette.h"/>
+        <FILE id="Xp2qtb" name="BrushPaletteWindow.cpp" compile="1" resource="0"
+              file="Source/Brushes/BrushPaletteWindow.cpp"/>
+        <FILE id="QTmXTw" name="BrushPaletteWindow.h" compile="0" resource="0"
+              file="Source/Brushes/BrushPaletteWindow.h"/>
+        <FILE id="QaGlPK" name="BrushPaletteWindowContent.cpp" compile="1"
+              resource="0" file="Source/Brushes/BrushPaletteWindowContent.cpp"/>
+        <FILE id="EbbjTe" name="BrushPaletteWindowContent.h" compile="0" resource="0"
+              file="Source/Brushes/BrushPaletteWindowContent.h"/>
+        <FILE id="TZMwLs" name="BrushPreviewButton.cpp" compile="1" resource="0"
+              file="Source/Brushes/BrushPreviewButton.cpp"/>
+        <FILE id="iqvJQ2" name="BrushPreviewButton.h" compile="0" resource="0"
+              file="Source/Brushes/BrushPreviewButton.h"/>
+        <FILE id="b2af4a" name="CombBrush.cpp" compile="1" resource="0" file="Source/Brushes/CombBrush.cpp"/>
+        <FILE id="jBtspU" name="CombBrush.h" compile="0" resource="0" file="Source/Brushes/CombBrush.h"/>
+        <FILE id="nOBgA4" name="EraserBrush.cpp" compile="1" resource="0" file="Source/Brushes/EraserBrush.cpp"/>
+        <FILE id="ji947o" name="EraserBrush.h" compile="0" resource="0" file="Source/Brushes/EraserBrush.h"/>
+        <FILE id="mHt2lk" name="NoiseBrush.cpp" compile="1" resource="0" file="Source/Brushes/NoiseBrush.cpp"/>
+        <FILE id="Nn2kkx" name="NoiseBrush.h" compile="0" resource="0" file="Source/Brushes/NoiseBrush.h"/>
+        <FILE id="iXmYOB" name="PointClusterBrush.cpp" compile="1" resource="0"
+              file="Source/Brushes/PointClusterBrush.cpp"/>
+        <FILE id="w2LkOj" name="PointClusterBrush.h" compile="0" resource="0"
+              file="Source/Brushes/PointClusterBrush.h"/>
+        <FILE id="P5aC4R" name="XYProfileBrush.cpp" compile="1" resource="0"
+              file="Source/Brushes/XYProfileBrush.cpp"/>
+        <FILE id="z7vpoY" name="XYProfileBrush.h" compile="0" resource="0"
+              file="Source/Brushes/XYProfileBrush.h"/>
+      </GROUP>
+      <FILE id="wlZWZs" name="AudioBufferThumbnail.cpp" compile="1" resource="0"
             file="Source/AudioBufferThumbnail.cpp"/>
-      <FILE id="fKG5Ox" name="AudioBufferThumbnail.h" compile="0" resource="0"
+      <FILE id="En5Gdb" name="AudioBufferThumbnail.h" compile="0" resource="0"
             file="Source/AudioBufferThumbnail.h"/>
-      <FILE id="KfGaQB" name="AudioSettingsWindow.cpp" compile="1" resource="0"
+      <FILE id="qheWWw" name="AudioSettingsWindow.cpp" compile="1" resource="0"
             file="Source/AudioSettingsWindow.cpp"/>
-      <FILE id="lfN6p1" name="AudioSettingsWindow.h" compile="0" resource="0"
+      <FILE id="FuriOp" name="AudioSettingsWindow.h" compile="0" resource="0"
             file="Source/AudioSettingsWindow.h"/>
-      <FILE id="truvez" name="BaseWindow.cpp" compile="1" resource="0" file="Source/BaseWindow.cpp"/>
-      <FILE id="KQX9Ca" name="BaseWindow.h" compile="0" resource="0" file="Source/BaseWindow.h"/>
-      <FILE id="MQy6ob" name="BasicBrushBase.cpp" compile="1" resource="0"
-            file="Source/BasicBrushBase.cpp"/>
-      <FILE id="UZm0Mi" name="BasicBrushBase.h" compile="0" resource="0"
-            file="Source/BasicBrushBase.h"/>
-      <FILE id="emLEdn" name="BasicBrushControls.cpp" compile="1" resource="0"
-            file="Source/BasicBrushControls.cpp"/>
-      <FILE id="tZ9ros" name="BasicBrushControls.h" compile="0" resource="0"
-            file="Source/BasicBrushControls.h"/>
-      <FILE id="tBw35K" name="BasicCompleteBrush.cpp" compile="1" resource="0"
-            file="Source/BasicCompleteBrush.cpp"/>
-      <FILE id="tkT0b7" name="BasicCompleteBrush.h" compile="0" resource="0"
-            file="Source/BasicCompleteBrush.h"/>
-      <FILE id="QW8rWB" name="BrushCollection.cpp" compile="1" resource="0"
-            file="Source/BrushCollection.cpp"/>
-      <FILE id="mPKKyn" name="BrushCollection.h" compile="0" resource="0"
-            file="Source/BrushCollection.h"/>
-      <FILE id="qpqOpz" name="BrushFactory.cpp" compile="1" resource="0"
-            file="Source/BrushFactory.cpp"/>
-      <FILE id="sl07iy" name="BrushFactory.h" compile="0" resource="0" file="Source/BrushFactory.h"/>
-      <FILE id="IOqWyB" name="BrushPalette.cpp" compile="1" resource="0"
-            file="Source/BrushPalette.cpp"/>
-      <FILE id="hoqts4" name="BrushPalette.h" compile="0" resource="0" file="Source/BrushPalette.h"/>
-      <FILE id="Wab7CL" name="BrushPaletteWindow.cpp" compile="1" resource="0"
-            file="Source/BrushPaletteWindow.cpp"/>
-      <FILE id="LUrRMT" name="BrushPaletteWindow.h" compile="0" resource="0"
-            file="Source/BrushPaletteWindow.h"/>
-      <FILE id="NYGKv7" name="BrushPaletteWindowContent.cpp" compile="1"
-            resource="0" file="Source/BrushPaletteWindowContent.cpp"/>
-      <FILE id="q77PF2" name="BrushPaletteWindowContent.h" compile="0" resource="0"
-            file="Source/BrushPaletteWindowContent.h"/>
-      <FILE id="d9bNmD" name="BrushPreviewButton.cpp" compile="1" resource="0"
-            file="Source/BrushPreviewButton.cpp"/>
-      <FILE id="drcgF2" name="BrushPreviewButton.h" compile="0" resource="0"
-            file="Source/BrushPreviewButton.h"/>
-      <FILE id="jx10qm" name="CombBrush.cpp" compile="1" resource="0" file="Source/CombBrush.cpp"/>
-      <FILE id="Rt1O7q" name="CombBrush.h" compile="0" resource="0" file="Source/CombBrush.h"/>
+      <FILE id="RyZben" name="BaseWindow.cpp" compile="1" resource="0" file="Source/BaseWindow.cpp"/>
+      <FILE id="zTy4U8" name="BaseWindow.h" compile="0" resource="0" file="Source/BaseWindow.h"/>
       <FILE id="eSpdYn" name="Configuration.h" compile="0" resource="0" file="Source/Configuration.h"/>
       <FILE id="Cb5ZWw" name="DFMSLookAndFeel.cpp" compile="1" resource="0"
             file="Source/DFMSLookAndFeel.cpp"/>
@@ -66,8 +80,6 @@
       <FILE id="zPU404" name="DrawGrid.h" compile="0" resource="0" file="Source/DrawGrid.h"/>
       <FILE id="dec7C7" name="EqualLoudnessCurve.h" compile="0" resource="0"
             file="Source/EqualLoudnessCurve.h"/>
-      <FILE id="dwAmZi" name="EraserBrush.cpp" compile="1" resource="0" file="Source/EraserBrush.cpp"/>
-      <FILE id="FJXBDN" name="EraserBrush.h" compile="0" resource="0" file="Source/EraserBrush.h"/>
       <FILE id="ZxeLht" name="GridAudioRendererAudioSource.cpp" compile="1"
             resource="0" file="Source/GridAudioRendererAudioSource.cpp"/>
       <FILE id="XbKIAt" name="GridAudioRendererAudioSource.h" compile="0"
@@ -86,16 +98,11 @@
       <FILE id="AXA7kk" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>
       <FILE id="GOq5mL" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
-      <FILE id="QDXrdR" name="NoiseBrush.cpp" compile="1" resource="0" file="Source/NoiseBrush.cpp"/>
-      <FILE id="kTtT6N" name="NoiseBrush.h" compile="0" resource="0" file="Source/NoiseBrush.h"/>
       <FILE id="OWMJkd" name="PlaybackTimeline.cpp" compile="1" resource="0"
             file="Source/PlaybackTimeline.cpp"/>
       <FILE id="ZgFpnH" name="PlaybackTimeline.h" compile="0" resource="0"
             file="Source/PlaybackTimeline.h"/>
-      <FILE id="z2bjrT" name="PointClusterBrush.cpp" compile="1" resource="0"
-            file="Source/PointClusterBrush.cpp"/>
-      <FILE id="vFPiiJ" name="PointClusterBrush.h" compile="0" resource="0"
-            file="Source/PointClusterBrush.h"/>
+      <FILE id="gxAs4l" name="StrokePoint.h" compile="0" resource="0" file="Source/StrokePoint.h"/>
       <FILE id="oHjjCo" name="ToDo.txt" compile="0" resource="0" file="Source/ToDo.txt"/>
       <FILE id="Sb9fZ4" name="WaveformView.cpp" compile="1" resource="0"
             file="Source/WaveformView.cpp"/>
@@ -108,10 +115,6 @@
             file="Source/WindowBoundsManager.cpp"/>
       <FILE id="D8EXnj" name="WindowBoundsManager.h" compile="0" resource="0"
             file="Source/WindowBoundsManager.h"/>
-      <FILE id="TnfMdw" name="XYProfileBrush.cpp" compile="1" resource="0"
-            file="Source/XYProfileBrush.cpp"/>
-      <FILE id="uuQxcc" name="XYProfileBrush.h" compile="0" resource="0"
-            file="Source/XYProfileBrush.h"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
