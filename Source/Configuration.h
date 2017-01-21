@@ -46,6 +46,8 @@ public:
     static constexpr int getPlaybackTimerInterval() { return playbackTimerInterval_; }
 
 private:
+    static constexpr int gridWidths[] = {300, 600, 1200, 1500, 1800, 2400};
+    static constexpr int gridHeights[] = {200, 400, 800, 1000, 1200, 1800};
 
     static constexpr int buttonWidth_ = 80;
     static constexpr int buttonHeight_ = 80;
@@ -56,7 +58,7 @@ private:
     static constexpr float minimumFrequency_ = 80.0f;
     static constexpr float maxiumTargetFrequency = 10000.0f;
     static constexpr float binsPerOctave_ = 160.0f;
-    
+
     static constexpr int gridHeight_ = 1200;
     static constexpr int totalNumberWindows_ = 2500;
     

@@ -19,12 +19,24 @@ MainComponent::MainComponent ()
     playbackTimer_(playbackTimeline_),
     thread_("audio file preview"),
     waveformView_("waveform view"),
+    gridBiggerButton_("gridBiggerButton"),
+    gridSmallerButton_("gridSmallerButton"),
     playStopButton_("playStopButton"),
     clearButton_("clearButton"),
     exportButton_("exportButton"),
     settingsButton_("settingsButton")
 {
     addAndMakeVisible(&brushPalette_);
+
+    addAndMakeVisible(&gridSmallerButton_)
+    gridSmallerButton_.setButtonText(TRANS("smaller"));
+    gridSmallerButton_.setConnectedEdges(Button::ConnectedOnRight);
+    gridSmallerButton_.addListener(this);
+
+    addAndMakeVisible(&gridBiggerButton_);
+    gridBiggerButton_.setButtonText(TRANS("bigger"));
+    gridBiggerButton_.setConnectedEdges(Button::ConnectedOnLeft);
+    gridBiggerButton_.addListener(this);
 
     addAndMakeVisible(&playStopButton_);
     playStopButton_.setButtonText (TRANS("play"));

@@ -62,6 +62,9 @@ private:
     
     Component::SafePointer<Component> audioSettingsWindow_;
 
+    TextButton gridBiggerButton_;
+    TextButton gridSmallerButton_;
+
     TextButton playStopButton_;
     TextButton clearButton_;
     TextButton exportButton_;

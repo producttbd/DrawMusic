@@ -46,7 +46,7 @@ void GridAudioRendererAudioSource::addNewPositionListener(
     newPositionListeners_.add(listener);
 }
 
-void GridAudioRendererAudioSource::removeNewPositionListener(                                                          GridAudioRendererAudioSource::NewPositionListener* listener)
+void GridAudioRendererAudioSource::removeNewPositionListener(GridAudioRendererAudioSource::NewPositionListener* listener)
 {
     newPositionListeners_.remove(listener);
 }
