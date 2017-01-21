@@ -1,23 +1,8 @@
+- Different size canvases (for smaller screens)
+- Undo function
+- rectangular copy and paste tool
+- Save/load
 - Continuity of drawing
   - Moving applying brushes to background thread
   - real-time drawing
-- Look and Feel
-  - Figure out how the general LookAndFeel stuff works
-  - Make my code conform to that
-  - Gradient ColourScheme
-  - GridColourScheme plumbed through properly
-  - ColourScheme selectable
-- Brushes
-  - Names above controls
-  - Controls and preview buttons in view port
-  - Eraser brush
-  - Noise brush really random
-  - Size for each of the brushes
-- Lim/Griffin:
-  - Clean up last window stuff
-  - Check spectrum of output audio
-  - Verify implementation
-  - Clean out slider junk (move to settings menu?)
-- Log scale of vertical axis
 - Background audio rendering
-- Save/load
