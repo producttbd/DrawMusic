@@ -1,5 +1,16 @@
 #include "AudioBufferThumbnail.h"
 
+AudioBufferThumbnail::AudioBufferThumbnail()
+{
+    zeroOut();
+}
+
+void AudioBufferThumbnail::zeroOut()
+{
+    data.resize(1);
+    data.getReference(0).setFloat(0.0, 0.0);
+}
+
 void AudioBufferThumbnail::refresh(const juce::AudioSampleBuffer& source, int samplesPerSample)
 {
     const auto numSamples = source.getNumSamples();

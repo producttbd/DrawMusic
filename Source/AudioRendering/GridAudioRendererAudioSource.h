@@ -26,7 +26,7 @@ public:
     };
     
     
-    explicit GridAudioRendererAudioSource(const GridData& gridData, WaveletReconstructor& reconstructor) noexcept;
+    explicit GridAudioRendererAudioSource(const GridData* gridData) noexcept;
     ~GridAudioRendererAudioSource();
     
     const AudioSampleBuffer& getOutputBuffer();
@@ -56,12 +56,12 @@ public:
 private:
     void callDeviceChangeListeners();
 
-    const GridData& gridData_;
+    const GridData* gridData_;
     bool readyToPlay_;
     AudioSampleBuffer fullPieceAudioBuffer_;
     int currentOutputOffset_;
 
-    WaveletReconstructor& reconstructor_;
+    WaveletReconstructor reconstructor_;
 
     ListenerList<NewAudioListener> newAudioListeners_;
     ListenerList<NewPositionListener> newPositionListeners_;

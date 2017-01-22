@@ -31,6 +31,8 @@ private:
     
     void openAudioSettingsWindow();
 
+    void recreateEverything();
+
     class PlaybackTimer : public Timer
     {
     public:
@@ -45,16 +47,15 @@ private:
         PlaybackTimeline& playbackTimeline_;
     };
     
-    GridData gridData_;
+    ScopedPointer<GridData> gridData_;
     GridColourScheme colourScheme_;
     BrushPalette brushPalette_;
-    DrawGrid drawGrid_;
-    WaveletReconstructor reconstructor_;
+    ScopedPointer<DrawGrid> drawGrid_;
 
     AudioDeviceManager deviceManager_;
     AudioSourcePlayer audioSourcePlayer_;
     AudioTransportSource transportSource_;
-    GridAudioRendererAudioSource gridAudioSource_;
+    ScopedPointer<GridAudioRendererAudioSource> gridAudioSource_;
     PlaybackTimeline playbackTimeline_;
     PlaybackTimer playbackTimer_;
     TimeSliceThread thread_;
@@ -62,13 +63,13 @@ private:
     
     Component::SafePointer<Component> audioSettingsWindow_;
 
-    TextButton gridBiggerButton_;
-    TextButton gridSmallerButton_;
-
     TextButton playStopButton_;
     TextButton clearButton_;
     TextButton exportButton_;
     TextButton settingsButton_;
+    TextButton gridSmallerButton_;
+    TextButton gridLargerButton_;
+    Array<Button*> allButtons_;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };

@@ -6,7 +6,9 @@
 class AudioBufferThumbnail
 {
 public:
-    AudioBufferThumbnail() {}
+    AudioBufferThumbnail();
+
+    void zeroOut();
 
     void refresh(const AudioSampleBuffer& source, int samplesPerSample);
 

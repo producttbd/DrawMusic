@@ -3,16 +3,18 @@
 
 #include "JuceHeader.h"
 
+#include <tgmath.h>
+
 class Configuration
 {
 public:
-    static constexpr int getMainWindowHeight()
+    static int getMainWindowHeight()
     {
         return getGridHeight() + 4 * guiMargin_ + waveformViewHeight_+ paletteSide_;
     }
-    static constexpr int getMainWindowWidth()
+    static int getMainWindowWidth()
     {
-        return totalNumberWindows_ + 2 * guiMargin_;
+        return getGridWidth() + 2 * guiMargin_;
     }
 
     static constexpr int getGuiMargin() { return guiMargin_; }
@@ -24,10 +26,44 @@ public:
     static constexpr int getNumberChannels() { return 1; }
     static constexpr int getSamplesPerThumbnailSample() { return thumbnailSampleWindow_; }
 
-    static constexpr int getGridComponentHeight() { return 500; }
-    static constexpr int getGridComponentWidth() { return 800; }
-    static constexpr int getGridHeight() { return gridHeight_; }
-    static constexpr int getGridWidth() { return totalNumberWindows_; }
+    static int getGridHeight()
+    {
+
+        constexpr static const int gridHeights_[numGridSizes_] = {400, 800, 1000, 1200, 1400};
+        return gridHeights_[currentGridSize_];
+    }
+    static int getGridWidth()
+    {
+
+        constexpr static const int gridWidths_[numGridSizes_] = {800, 1600, 2000, 2400, 2800};
+        return gridWidths_[currentGridSize_];
+    }
+    static bool increaseGridSize()
+    {
+        auto oldSize = currentGridSize_;
+        return oldSize != (currentGridSize_ = jmin(numGridSizes_ - 1, currentGridSize_ + 1));
+    }
+    static bool decreaseGridSize()
+    {
+        auto oldSize = currentGridSize_;
+        return oldSize != (currentGridSize_ = jmax(0, currentGridSize_ - 1));
+    }
+
+    static constexpr float getMinimumFrequency() { return minimumFrequency_; }
+
+    // Highest freq will be lowestFreq * 2^(gridHeight / binsPerOctave) = highestFreq
+    // highestFreq / lowestFreq = 2^(gridHeight / binsPerOctave)
+    // log2(highestFreq / lowestFreq) = gridHeight / binsPerOctave
+    // binsPerOctave = gridHeight / log2(highestFreq / lowestFreq)
+    static float getBinsPerOctave()
+    {
+        return getGridHeight() / log2(maxiumTargetFrequency_ / minimumFrequency_);
+    }
+
+
+    static constexpr int getReconstructionWindowLength() { return reconstructionWindowLength_; }
+    static constexpr int getPlaybackTimerInterval() { return playbackTimerInterval_; }
+
     static constexpr float getMinGridValue() { return minGridValue_; }
     static constexpr float getMaxGridValue() { return maxGridValue_; }
     static constexpr float getDefaultPressure() { return defaultPressure_; }
@@ -35,32 +71,24 @@ public:
     static constexpr int getNewWindowWidth() { return newWindowWidth_; }
     static constexpr int getNewWindowHeight() { return newWindowHeight_; }
 
-    static constexpr int getTotalAudioSampleLength()
+    static int getTotalAudioSampleLength()
     {
-        return totalNumberWindows_ * reconstructionWindowLength_;
+        return getGridWidth() * reconstructionWindowLength_;
     }
 
-    static constexpr float getMinimumFrequency() { return minimumFrequency_; }
-    static constexpr float getBinsPerOctave() { return binsPerOctave_; }
-    static constexpr int getReconstructionWindowLength() { return reconstructionWindowLength_; }
-    static constexpr int getPlaybackTimerInterval() { return playbackTimerInterval_; }
-
 private:
-    static constexpr int gridWidths[] = {300, 600, 1200, 1500, 1800, 2400};
-    static constexpr int gridHeights[] = {200, 400, 800, 1000, 1200, 1800};
+    static int currentGridSize_;
+    static constexpr int numGridSizes_ = 5;
 
     static constexpr int buttonWidth_ = 80;
-    static constexpr int buttonHeight_ = 80;
+    static constexpr int buttonHeight_ = 24;
     static constexpr int guiMargin_ = 10;
     static constexpr int waveformViewHeight_ = 120;
 
     static constexpr int reconstructionWindowLength_ = 2048;
-    static constexpr float minimumFrequency_ = 80.0f;
-    static constexpr float maxiumTargetFrequency = 10000.0f;
-    static constexpr float binsPerOctave_ = 160.0f;
 
-    static constexpr int gridHeight_ = 1200;
-    static constexpr int totalNumberWindows_ = 2500;
+    static constexpr float minimumFrequency_ = 80.0f;
+    static constexpr float maxiumTargetFrequency_ = 10000.0f;
     
     static constexpr int thumbnailSampleWindow_ = 256;
     

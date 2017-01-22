@@ -8,26 +8,13 @@
 class WaveletReconstructor
 {
 public:
-    struct WaveletReconstructorConfiguration
-    {
-        int NumberFrequencies;
-        float MinimumFrequency;
-        float BinsPerOctave;
-        int WindowLength;
-        double SampleRate;
-    };
+    explicit WaveletReconstructor(const GridData* gridData);
 
-    WaveletReconstructor();
-    
-    void configure(WaveletReconstructorConfiguration config);
-
-    void perform(const GridData& gridData, AudioSampleBuffer& buffer) const;
+    void perform(AudioSampleBuffer& buffer) const;
     
 
 private:
     void createBinInformation();
-
-    WaveletReconstructorConfiguration config_;
 
     struct BinInformation
     {
@@ -35,8 +22,12 @@ private:
         int CycleLength;
     };
     Array<BinInformation> waveTables_;
-    
-    bool configured = false;
+
+    const GridData* gridData_;
+    float minimumFrequency_;
+    float binsPerOctave_;
+    int windowLength_;
+    double sampleRate_;
     const float minThreshold = 0.00001f;
     const float impulseThreshold = 0.1f;
     const float globalScalar_ = 0.1f;

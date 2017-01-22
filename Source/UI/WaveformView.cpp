@@ -11,6 +11,7 @@ WaveformView::WaveformView(const String& name)
 // Component overrides
 void WaveformView::resized()
 {
+    thumbnail_.zeroOut();
 }
 
 void WaveformView::paint(Graphics& g)
