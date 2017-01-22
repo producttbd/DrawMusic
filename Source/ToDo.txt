@@ -1,4 +1,3 @@
-- Different size canvases (for smaller screens)
 - Undo function
 - rectangular copy and paste tool
 - Save/load

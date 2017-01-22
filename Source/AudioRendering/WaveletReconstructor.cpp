@@ -8,7 +8,7 @@ gridData_(gridData),
 minimumFrequency_(Configuration::getMinimumFrequency()),
 binsPerOctave_(Configuration::getBinsPerOctave()),
 windowLength_(Configuration::getReconstructionWindowLength()),
-sampleRate_(44100.0)
+sampleRate_(44100.0) // TODO fix this
 {
     createBinInformation();
 }
@@ -69,7 +69,8 @@ void WaveletReconstructor::createBinInformation()
         const int minRequiredTableLength = roundToInt(repeatLength);
         binInformation.CycleLength = minRequiredTableLength;
 
-        const int newWaveTableLength = jmax(minRequiredTableLength, roundToInt(repeatLength * ceil(minWaveTableLength_ / repeatLength)));
+        const int newWaveTableLength =
+                jmax(minRequiredTableLength, roundToInt(repeatLength * ceil(minWaveTableLength_ / repeatLength)));
         binInformation.Waveform.resize(newWaveTableLength);
 
         float scaleFactor = 2.0f * float_Pi * freq / sampleRate_;
@@ -79,6 +80,7 @@ void WaveletReconstructor::createBinInformation()
             binInformation.Waveform.set(j, freqScaleFactor * sinf(static_cast<float>(j) * scaleFactor));
         }
 
-        std::cout << freq << "\t" << minRequiredTableLength << "\t" << newWaveTableLength << "\t" << scaleFactor << "\t" << freqScaleFactor << std::endl;
+        // std::cout << freq << "\t" << minRequiredTableLength << "\t" << newWaveTableLength
+        //           << "\t" << scaleFactor << "\t" << freqScaleFactor << std::endl;
     }
 }
