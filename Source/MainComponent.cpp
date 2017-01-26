@@ -1,5 +1,6 @@
 #include "MainComponent.h"
 
+#include "AudioFileWriter.h"
 #include "AudioSettingsWindow.h"
 #include "BrushPaletteWindow.h"
 #include "Configuration.h"
@@ -131,22 +132,7 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
     }
     else if (buttonThatWasClicked == &exportButton_)
     {
-        AudioFormatManager afManager;
-        afManager.registerBasicFormats();
-        AudioFormat* format = afManager.getDefaultFormat();
-        
-        FileChooser fileChooser(TRANS("Select output file"),
-                                File::nonexistent,
-                                format->getFileExtensions().joinIntoString(";"));
-        if (fileChooser.browseForFileToSave(true))
-        {
-            File file(fileChooser.getResult());
-            auto buffer = gridAudioSource_->getOutputBuffer();
-            ScopedPointer<AudioFormatWriter> writer =
-                    format->createWriterFor(file.createOutputStream(), 44100, buffer.getNumChannels(), 16, NULL, 0);
-            writer->writeFromAudioSampleBuffer(buffer, 0, buffer.getNumSamples());
-        }
-        
+        AudioFileWriter::saveToFileWithDialogBox(gridAudioSource_->getOutputBuffer());
     }
     else if (buttonThatWasClicked == &settingsButton_)
     {
