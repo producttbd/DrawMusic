@@ -25,15 +25,17 @@ void BrushFactory::getAllBrushes(BrushCollection& brushCollection)
     brushCollection.add(new BasicCompleteBrush(TRANS("Single dot brush"), action, control));
 
     // Hann brush
-    Array<float> hannProfile = {0.1464466094067262f, 0.49999999999999994f, 0.8535533905932737f,
+    float hannPoints[] = {0.1464466094067262f, 0.49999999999999994f, 0.8535533905932737f,
         1.0f, 0.8535533905932738f, 0.5000000000000001f, 0.14644660940672627f};
+    Array<float> hannProfile(&hannPoints[0], 7);
     action = new XYProfileBrush(hannProfile, hannProfile, -3, -3);
     control = new BasicBrushControls();
     control->addControls(action->getSupportedControls());
     brushCollection.add(new BasicCompleteBrush(TRANS("Hann point"), action, control));
 
     // Percussion
-    Array<float> xPercussive = {1.0f, 0.8535533905932738f, 0.5000000000000001f, 0.14644660940672627f};
+    float xPoints[] = {1.0f, 0.8535533905932738f, 0.5000000000000001f, 0.14644660940672627f};
+    Array<float> xPercussive(&xPoints[0], 4);
     Array<float> yPercussive;
     for (float i = 800.0f; i > 0.0f; i -= 1.0f)
     {
