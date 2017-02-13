@@ -69,6 +69,7 @@ private:
     TextButton settingsButton_;
     TextButton gridSmallerButton_;
     TextButton gridLargerButton_;
+    TextButton undoButton_;
     Array<Button*> allButtons_;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)

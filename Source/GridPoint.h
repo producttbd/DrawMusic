@@ -1,5 +1,5 @@
-#ifndef GridPoint_h
-#define GridPoint_h
+#ifndef GRIDPOINT_H_INCLUDED
+#define GRIDPOINT_H_INCLUDED
 
 struct GridPoint
 {
@@ -18,4 +18,4 @@ struct GridPoint
     int y;
 };
 
-#endif /* GridPoint_h */
+#endif // GRIDPOINT_H_INCLUDED

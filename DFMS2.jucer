@@ -5,7 +5,21 @@
               jucerVersion="4.3.0">
   <MAINGROUP id="BvMvtA" name="DFMS2">
     <GROUP id="{157F435B-C817-59C4-B8EE-094D6D6F9F9C}" name="Source">
+      <GROUP id="{2BA984EC-88C8-651A-AEDD-D903ED206962}" name="GridData">
+        <FILE id="B3q3N9" name="GridActionManager.cpp" compile="1" resource="0"
+              file="Source/GridActionManager.cpp"/>
+        <FILE id="uNYHje" name="GridActionManager.h" compile="0" resource="0"
+              file="Source/GridActionManager.h"/>
+        <FILE id="bK1Vro" name="GridAction.cpp" compile="1" resource="0" file="Source/GridAction.cpp"/>
+        <FILE id="fT4FoH" name="GridAction.h" compile="0" resource="0" file="Source/GridAction.h"/>
+        <FILE id="rjPYaw" name="GridPoint.h" compile="0" resource="0" file="Source/GridPoint.h"/>
+        <FILE id="XYaZa0" name="GridData.h" compile="0" resource="0" file="Source/GridData.h"/>
+      </GROUP>
       <GROUP id="{79F7E17E-0BC8-E4C0-DBF4-F35E6AAC569E}" name="AudioRendering">
+        <FILE id="LBCSHP" name="AudioFileWriter.cpp" compile="1" resource="0"
+              file="Source/AudioRendering/AudioFileWriter.cpp"/>
+        <FILE id="y3ToXj" name="AudioFileWriter.h" compile="0" resource="0"
+              file="Source/AudioRendering/AudioFileWriter.h"/>
         <FILE id="tnplvO" name="EqualLoudnessCurve.h" compile="0" resource="0"
               file="Source/AudioRendering/EqualLoudnessCurve.h"/>
         <FILE id="CjX5jv" name="GridAudioRendererAudioSource.cpp" compile="1"
@@ -111,9 +125,9 @@
         <FILE id="nBe092" name="WindowBoundsManager.h" compile="0" resource="0"
               file="Source/UI/WindowBoundsManager.h"/>
       </GROUP>
+      <FILE id="Cp756d" name="Configuration.cpp" compile="1" resource="0"
+            file="Source/Configuration.cpp"/>
       <FILE id="eSpdYn" name="Configuration.h" compile="0" resource="0" file="Source/Configuration.h"/>
-      <FILE id="XYaZa0" name="GridData.h" compile="0" resource="0" file="Source/GridData.h"/>
-      <FILE id="rjPYaw" name="GridPoint.h" compile="0" resource="0" file="Source/GridPoint.h"/>
       <FILE id="Bs9Qmy" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
       <FILE id="AXA7kk" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>
@@ -126,7 +140,7 @@
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" osxSDK="default" osxCompatibility="default" osxArchitecture="default"
                        isDebug="1" optimisation="1" targetName="DFMS2"/>
-        <CONFIGURATION name="Release" osxSDK="default" osxCompatibility="default" osxArchitecture="default"
+        <CONFIGURATION name="Release" osxSDK="default" osxCompatibility="10.9 SDK" osxArchitecture="default"
                        isDebug="0" optimisation="2" targetName="DFMS2"/>
       </CONFIGURATIONS>
       <MODULEPATHS>

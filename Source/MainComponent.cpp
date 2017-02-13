@@ -25,8 +25,9 @@ MainComponent::MainComponent ()
     settingsButton_("settingsButton"),
     gridSmallerButton_("gridSmallerButton"),
     gridLargerButton_("gridBiggerButton"),
-    allButtons_({&playStopButton_, &clearButton_, &exportButton_,
-                 &settingsButton_, &gridSmallerButton_, &gridLargerButton_})
+    undoButton_("undoButton"),
+    allButtons_({&playStopButton_, &clearButton_, &exportButton_, &settingsButton_, &gridSmallerButton_,
+                 &gridLargerButton_, &undoButton_})
 {
     // Buttons
     playStopButton_.setButtonText (TRANS("play"));
@@ -40,7 +41,9 @@ MainComponent::MainComponent ()
     gridSmallerButton_.setButtonText(TRANS("smaller"));
     gridSmallerButton_.setConnectedEdges(Button::ConnectedOnLeft & Button::ConnectedOnRight);
     gridLargerButton_.setButtonText(TRANS("bigger"));
-    gridLargerButton_.setConnectedEdges(Button::ConnectedOnLeft);
+    gridLargerButton_.setConnectedEdges(Button::ConnectedOnLeft & Button::ConnectedOnRight);
+    undoButton_.setButtonText(TRANS("undo"));
+    undoButton_.setConnectedEdges(Button::ConnectedOnLeft);
 
     for (Button* button : allButtons_)
     {
@@ -110,6 +113,9 @@ void MainComponent::resized()
     const int paletteSide = Configuration::getPaletteSide();
     brushPalette_.setBounds(getWidth() - paletteSide - outsideMargin, getHeight() - paletteSide - outsideMargin,
                             paletteSide, paletteSide);
+
+    gridSmallerButton_.setEnabled(Configuration::canDecreaseGridSize());
+    gridLargerButton_.setEnabled(Configuration::canIncreaseGridSize());
 }
 
 void MainComponent::buttonClicked (Button* buttonThatWasClicked)
@@ -120,9 +126,8 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
     }
     else if (buttonThatWasClicked == &clearButton_)
     {
-        if (AlertWindow::showOkCancelBox(
-                AlertWindow::AlertIconType::WarningIcon, TRANS("Clear"), TRANS("Clear the whole piece?"),
-                TRANS("CLEAR"), TRANS("Cancel"), this))
+        if (AlertWindow::showOkCancelBox(AlertWindow::AlertIconType::WarningIcon, TRANS("Clear"),
+                                         TRANS("Clear the whole piece?"), TRANS("CLEAR"), TRANS("Cancel"), this))
         {
             stopPlayback();
             transportSource_.setPosition(0);
@@ -140,18 +145,34 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
     }
     else if (buttonThatWasClicked == &gridSmallerButton_)
     {
-        if (Configuration::decreaseGridSize())
+        if (Configuration::canDecreaseGridSize()
+            && AlertWindow::showOkCancelBox(
+                   AlertWindow::AlertIconType::WarningIcon, TRANS("Resize?"),
+                   TRANS("Resizing the grid will clear the whole piece. Clear the whole piece?"),
+                   TRANS("CLEAR"), TRANS("Cancel"), this))
         {
-            recreateEverything();
-            setSize(Configuration::getMainWindowWidth(), Configuration::getMainWindowHeight());
+            if (Configuration::decreaseGridSize())
+            {
+                stopPlayback();
+                recreateEverything();
+                setSize(Configuration::getMainWindowWidth(), Configuration::getMainWindowHeight());
+            }
         }
     }
     else if (buttonThatWasClicked == &gridLargerButton_)
     {
-        if (Configuration::increaseGridSize())
+        if (Configuration::canIncreaseGridSize()
+            && AlertWindow::showOkCancelBox(
+                   AlertWindow::AlertIconType::WarningIcon, TRANS("Resize?"),
+                   TRANS("Resizing the grid will clear the whole piece. Clear the whole piece?"),
+                   TRANS("CLEAR"), TRANS("Cancel"), this))
         {
-            recreateEverything();
-            setSize(Configuration::getMainWindowWidth(), Configuration::getMainWindowHeight());
+            if (Configuration::increaseGridSize())
+            {
+                stopPlayback();
+                recreateEverything();
+                setSize(Configuration::getMainWindowWidth(), Configuration::getMainWindowHeight());
+            }
         }
     }
 }
