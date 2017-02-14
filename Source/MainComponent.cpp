@@ -34,15 +34,15 @@ MainComponent::MainComponent ()
     playStopButton_.setButtonText (TRANS("play"));
     playStopButton_.setConnectedEdges (Button::ConnectedOnRight);
     clearButton_.setButtonText(TRANS("clear"));
-    clearButton_.setConnectedEdges(Button::ConnectedOnLeft & Button::ConnectedOnRight);
+    clearButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
     exportButton_.setButtonText(TRANS("export"));
-    exportButton_.setConnectedEdges(Button::ConnectedOnLeft & Button::ConnectedOnRight);
+    exportButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
     settingsButton_.setButtonText(TRANS("settings"));
-    settingsButton_.setConnectedEdges(Button::ConnectedOnLeft & Button::ConnectedOnRight);
+    settingsButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
     gridSmallerButton_.setButtonText(TRANS("smaller"));
-    gridSmallerButton_.setConnectedEdges(Button::ConnectedOnLeft & Button::ConnectedOnRight);
+    gridSmallerButton_.setConnectedEdges(Button::ConnectedOnLeft| Button::ConnectedOnRight);
     gridLargerButton_.setButtonText(TRANS("bigger"));
-    gridLargerButton_.setConnectedEdges(Button::ConnectedOnLeft & Button::ConnectedOnRight);
+    gridLargerButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
     undoButton_.setButtonText(TRANS("undo"));
     undoButton_.setConnectedEdges(Button::ConnectedOnLeft);
 
