@@ -19,7 +19,9 @@ public:
         {
             File file(fileChooser.getResult());
             ScopedPointer<AudioFormatWriter> writer =
-            format->createWriterFor(file.createOutputStream(), 44100, buffer.getNumChannels(), 16, NULL, 0);
+                    format->createWriterFor(
+                        file.createOutputStream(), 44100, buffer.getNumChannels(),
+                        16 /* bitsPerSample */, NULL /* metadataValues */, 0 /* qualityOptionIndex */);
             writer->writeFromAudioSampleBuffer(buffer, 0, buffer.getNumSamples());
         }
     }

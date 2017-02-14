@@ -6,6 +6,7 @@
 
 #include "BrushPalette.h"
 #include "DrawGrid.h"
+#include "GridActionManager.h"
 #include "GridAudioRendererAudioSource.h"
 #include "GridColourScheme.h"
 #include "GridData.h"
@@ -28,10 +29,9 @@ private:
     void togglePlayback();
     void stopPlayback();
     void startPlayback();
-    
-    void openAudioSettingsWindow();
+    void resizeGrid();
 
-    void recreateEverything();
+    void openAudioSettingsWindow();
 
     class PlaybackTimer : public Timer
     {
@@ -42,20 +42,21 @@ private:
         {
             playbackTimeline_.repaint();
         }
-        
+
     private:
         PlaybackTimeline& playbackTimeline_;
     };
-    
-    ScopedPointer<GridData> gridData_;
-    GridColourScheme colourScheme_;
+
+    GridData gridData_;
     BrushPalette brushPalette_;
-    ScopedPointer<DrawGrid> drawGrid_;
+    GridActionManager gridActionManager_;
+    GridColourScheme gridColourScheme_;
+    DrawGrid drawGrid_;
 
     AudioDeviceManager deviceManager_;
     AudioSourcePlayer audioSourcePlayer_;
     AudioTransportSource transportSource_;
-    ScopedPointer<GridAudioRendererAudioSource> gridAudioSource_;
+    GridAudioRendererAudioSource gridAudioSource_;
     PlaybackTimeline playbackTimeline_;
     PlaybackTimer playbackTimer_;
     TimeSliceThread thread_;

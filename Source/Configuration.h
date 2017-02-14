@@ -38,7 +38,8 @@ public:
         constexpr static const int gridWidths_[numGridSizes_] = {800, 1600, 2000, 2400, 2800};
         return gridWidths_[currentGridSize_];
     }
-    static bool canIncreaseGridSize() {
+    static bool canIncreaseGridSize()
+    {
         return currentGridSize_ < numGridSizes_ - 1;
     }
     static bool increaseGridSize()
@@ -46,7 +47,8 @@ public:
         auto oldSize = currentGridSize_;
         return oldSize != (currentGridSize_ = jmin(numGridSizes_ - 1, currentGridSize_ + 1));
     }
-    static bool canDecreaseGridSize() {
+    static bool canDecreaseGridSize()
+    {
         return currentGridSize_ > 0;
     }
     static bool decreaseGridSize()

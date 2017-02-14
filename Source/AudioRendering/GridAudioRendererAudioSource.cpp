@@ -2,7 +2,7 @@
 
 #include "Configuration.h"
 
-GridAudioRendererAudioSource::GridAudioRendererAudioSource(const GridData* gridData) noexcept
+GridAudioRendererAudioSource::GridAudioRendererAudioSource(const GridData& gridData) noexcept
 : gridData_(gridData),
   readyToPlay_(true),
   fullPieceAudioBuffer_(Configuration::getNumberChannels(), Configuration::getTotalAudioSampleLength()),
@@ -14,6 +14,14 @@ GridAudioRendererAudioSource::GridAudioRendererAudioSource(const GridData* gridD
 
 GridAudioRendererAudioSource::~GridAudioRendererAudioSource()
 {
+}
+
+void GridAudioRendererAudioSource::reinitialize()
+{
+    reconstructor_.reinitialize();
+    readyToPlay_ = false;
+    fullPieceAudioBuffer_.setSize(Configuration::getNumberChannels(), Configuration::getTotalAudioSampleLength());
+    rerender();
 }
 
 const AudioSampleBuffer& GridAudioRendererAudioSource::getOutputBuffer()

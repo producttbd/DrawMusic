@@ -3,7 +3,7 @@
 #include "Configuration.h"
 #include "EqualLoudnessCurve.h"
 
-WaveletReconstructor::WaveletReconstructor(const GridData* gridData) :
+WaveletReconstructor::WaveletReconstructor(const GridData& gridData) :
 gridData_(gridData),
 minimumFrequency_(Configuration::getMinimumFrequency()),
 binsPerOctave_(Configuration::getBinsPerOctave()),
@@ -13,21 +13,28 @@ sampleRate_(44100.0) // TODO fix this
     createBinInformation();
 }
 
+void WaveletReconstructor::reinitialize()
+{
+    minimumFrequency_ = Configuration::getMinimumFrequency();
+    binsPerOctave_ = Configuration::getBinsPerOctave();
+    windowLength_ = Configuration::getReconstructionWindowLength();
+    createBinInformation();
+}
 
 void WaveletReconstructor::perform(AudioSampleBuffer& buffer) const
 {
     buffer.clear();
-    for (int y = 0; y < gridData_->getHeight(); ++y)
+    for (int y = 0; y < gridData_.getHeight(); ++y)
     {
         float previousValue = 0.0f;
         const auto& binInformation = waveTables_.getReference(waveTables_.size() - y - 1);
         const Array<float>& waveTable = binInformation.Waveform;
         const auto waveTableLength = waveTable.size();
         const auto cycleLength = binInformation.CycleLength;
-        for (int x = 0; x < gridData_->getWidth(); ++x)
+        for (int x = 0; x < gridData_.getWidth(); ++x)
         {
             auto bufferOffset = x * windowLength_;
-            auto value = gridData_->getXY(x, y);
+            auto value = gridData_.getXY(x, y);
             auto writePtr = buffer.getWritePointer(0, bufferOffset);
             int waveTableOffset = (windowLength_ * x) % waveTableLength;
 
@@ -56,7 +63,7 @@ void WaveletReconstructor::perform(AudioSampleBuffer& buffer) const
 
 void WaveletReconstructor::createBinInformation()
 {
-    const int numberFrequencies = gridData_->getHeight();
+    const int numberFrequencies = gridData_.getHeight();
     waveTables_.resize(numberFrequencies);
     for (int i = 0; i < numberFrequencies; ++i)
     {

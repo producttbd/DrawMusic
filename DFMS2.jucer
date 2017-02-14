@@ -6,14 +6,15 @@
   <MAINGROUP id="BvMvtA" name="DFMS2">
     <GROUP id="{157F435B-C817-59C4-B8EE-094D6D6F9F9C}" name="Source">
       <GROUP id="{2BA984EC-88C8-651A-AEDD-D903ED206962}" name="GridData">
-        <FILE id="B3q3N9" name="GridActionManager.cpp" compile="1" resource="0"
-              file="Source/GridActionManager.cpp"/>
-        <FILE id="uNYHje" name="GridActionManager.h" compile="0" resource="0"
-              file="Source/GridActionManager.h"/>
-        <FILE id="bK1Vro" name="GridAction.cpp" compile="1" resource="0" file="Source/GridAction.cpp"/>
-        <FILE id="fT4FoH" name="GridAction.h" compile="0" resource="0" file="Source/GridAction.h"/>
-        <FILE id="rjPYaw" name="GridPoint.h" compile="0" resource="0" file="Source/GridPoint.h"/>
-        <FILE id="XYaZa0" name="GridData.h" compile="0" resource="0" file="Source/GridData.h"/>
+        <FILE id="xPZBzX" name="GridAction.cpp" compile="1" resource="0" file="Source/GridData/GridAction.cpp"/>
+        <FILE id="gyVlRt" name="GridAction.h" compile="0" resource="0" file="Source/GridData/GridAction.h"/>
+        <FILE id="RLlbKB" name="GridActionManager.cpp" compile="1" resource="0"
+              file="Source/GridData/GridActionManager.cpp"/>
+        <FILE id="Pu9mj6" name="GridActionManager.h" compile="0" resource="0"
+              file="Source/GridData/GridActionManager.h"/>
+        <FILE id="PoDOAh" name="GridData.cpp" compile="1" resource="0" file="Source/GridData/GridData.cpp"/>
+        <FILE id="YIk00E" name="GridData.h" compile="0" resource="0" file="Source/GridData/GridData.h"/>
+        <FILE id="IOLoHI" name="GridPoint.h" compile="0" resource="0" file="Source/GridData/GridPoint.h"/>
       </GROUP>
       <GROUP id="{79F7E17E-0BC8-E4C0-DBF4-F35E6AAC569E}" name="AudioRendering">
         <FILE id="LBCSHP" name="AudioFileWriter.cpp" compile="1" resource="0"

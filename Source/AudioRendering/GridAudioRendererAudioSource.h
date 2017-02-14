@@ -25,10 +25,12 @@ public:
         virtual ~NewPositionListener() {}
     };
     
-    
-    explicit GridAudioRendererAudioSource(const GridData* gridData) noexcept;
+    explicit GridAudioRendererAudioSource(const GridData& gridData) noexcept;
     ~GridAudioRendererAudioSource();
-    
+
+    // TODO make the dependencies on Configuration explicit
+    void reinitialize();
+
     const AudioSampleBuffer& getOutputBuffer();
 
     void rerender();
@@ -56,7 +58,7 @@ public:
 private:
     void callDeviceChangeListeners();
 
-    const GridData* gridData_;
+    const GridData& gridData_;
     bool readyToPlay_;
     AudioSampleBuffer fullPieceAudioBuffer_;
     int currentOutputOffset_;

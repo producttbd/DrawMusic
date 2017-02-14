@@ -3,13 +3,13 @@
 
 #include "JuceHeader.h"
 
-class DFMSLookAndFeel : public LookAndFeel_V1 {
+class DFMSLookAndFeel : public LookAndFeel_V3 {
 public:
     DFMSLookAndFeel();
 
-    void drawButtonBackground(Graphics& g, Button& button, const Colour& backgroundColour,
-                              bool isMouseOverButton, bool isButtonDown) override;
-    
+//    void drawButtonBackground(Graphics& g, Button& button, const Colour& backgroundColour,
+//                              bool isMouseOverButton, bool isButtonDown) override;
+
     static void drawOutline(Graphics& g, Component& c,
                             bool isMouseOver=false, bool isSelected=false);
     static void drawOutline(Graphics& g, Rectangle<int> bounds,

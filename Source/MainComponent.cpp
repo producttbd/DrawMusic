@@ -7,14 +7,15 @@
 #include "DFMSLookAndFeel.h"
 
 MainComponent::MainComponent ()
-  : gridData_(new GridData(Configuration::getGridWidth(), Configuration::getGridHeight())),
-    colourScheme_(),
-    brushPalette_("brushPalette", colourScheme_),
-    drawGrid_(nullptr),
+  : gridData_(Configuration::getGridWidth(), Configuration::getGridHeight()),
+    brushPalette_("brushPalette", gridColourScheme_),
+    gridActionManager_(brushPalette_, gridData_),
+    gridColourScheme_(),
+    drawGrid_(gridActionManager_, gridData_, gridColourScheme_),
     deviceManager_(),
     audioSourcePlayer_(),
     transportSource_(),
-    gridAudioSource_(nullptr),
+    gridAudioSource_(gridData_),
     playbackTimeline_("playbackTimeline"),
     playbackTimer_(playbackTimeline_),
     thread_("audio file preview"),
@@ -58,13 +59,18 @@ MainComponent::MainComponent ()
     addAndMakeVisible(&playbackTimeline_);
 
     // Audio
-    deviceManager_.initialise (0, 2, 0, true, String::empty, 0); // TODO channels?
-    thread_.startThread(3);
+    // TODO channels?
+    deviceManager_.initialise(0 /* numInputChannelsNeeded */, 2 /* numOutputChannelsNeeded */, 0 /* savedState */,
+                              true /* selectDefaultDeviceOnFailure */);
+    thread_.startThread(3 /* priority */);
     deviceManager_.addAudioCallback(&audioSourcePlayer_);
     audioSourcePlayer_.setSource(&transportSource_);
+    transportSource_.setSource(&gridAudioSource_);
+    gridAudioSource_.addNewAudioListener(&waveformView_);
+    gridAudioSource_.addNewPositionListener(&playbackTimeline_);
 
-    // Grid-size dependent things
-    recreateEverything();
+    gridActionManager_.addChangeListener(&drawGrid_);
+    gridActionManager_.addChangeListener(&gridAudioSource_);
 
     // Finally set size
     setSize(Configuration::getMainWindowWidth(), Configuration::getMainWindowHeight());
@@ -90,7 +96,7 @@ void MainComponent::resized()
     const int gridHeight = Configuration::getGridHeight();
 
     const int outsideMargin = Configuration::getGuiMargin();
-    drawGrid_->setBounds(outsideMargin, outsideMargin, gridWidth, gridHeight);
+    drawGrid_.setBounds(outsideMargin, outsideMargin, gridWidth, gridHeight);
 
     waveformView_.setBounds(outsideMargin, 2 * outsideMargin + gridHeight,
                             gridWidth, Configuration::getWaveformViewHeight());
@@ -98,7 +104,7 @@ void MainComponent::resized()
     playbackTimeline_.setBounds(outsideMargin, outsideMargin,
                                 gridWidth, gridHeight + outsideMargin + Configuration::getWaveformViewHeight());
     auto clickBoundsForWaveformView = playbackTimeline_.getLocalArea(this, waveformView_.getBounds());
-    playbackTimeline_.setToControlAudioSource(clickBoundsForWaveformView, gridAudioSource_);
+    playbackTimeline_.setToControlAudioSource(clickBoundsForWaveformView, &gridAudioSource_);
 
     const int buttonWidth = Configuration::getButtonWidth();
     const int buttonHeight = Configuration::getButtonHeight();
@@ -131,13 +137,13 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
         {
             stopPlayback();
             transportSource_.setPosition(0);
-            gridData_->clear();
-            drawGrid_->refreshAll();
+            gridActionManager_.clearGrid();
+            drawGrid_.refreshAll();
         }
     }
     else if (buttonThatWasClicked == &exportButton_)
     {
-        AudioFileWriter::saveToFileWithDialogBox(gridAudioSource_->getOutputBuffer());
+        AudioFileWriter::saveToFileWithDialogBox(gridAudioSource_.getOutputBuffer());
     }
     else if (buttonThatWasClicked == &settingsButton_)
     {
@@ -154,7 +160,7 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
             if (Configuration::decreaseGridSize())
             {
                 stopPlayback();
-                recreateEverything();
+                resizeGrid();
                 setSize(Configuration::getMainWindowWidth(), Configuration::getMainWindowHeight());
             }
         }
@@ -170,25 +176,17 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
             if (Configuration::increaseGridSize())
             {
                 stopPlayback();
-                recreateEverything();
+                resizeGrid();
                 setSize(Configuration::getMainWindowWidth(), Configuration::getMainWindowHeight());
             }
         }
     }
 }
 
-void MainComponent::recreateEverything()
+void MainComponent::resizeGrid()
 {
-    transportSource_.setSource(nullptr);
-    gridData_ = new GridData(Configuration::getGridWidth(), Configuration::getGridHeight());
-    drawGrid_ = new DrawGrid(*gridData_, colourScheme_, brushPalette_);
-    addAndMakeVisible(drawGrid_);
-    drawGrid_->toBack();
-    gridAudioSource_ = new GridAudioRendererAudioSource(gridData_.get());
-    drawGrid_->addChangeListener(gridAudioSource_);
-    gridAudioSource_->addNewAudioListener(&waveformView_);
-    gridAudioSource_->addNewPositionListener(&playbackTimeline_);
-    transportSource_.setSource(gridAudioSource_);
+    gridActionManager_.resize(Configuration::getGridWidth(), Configuration::getGridHeight());
+    gridAudioSource_.reinitialize();
 }
 
 void MainComponent::togglePlayback()

@@ -14,34 +14,34 @@ DFMSLookAndFeel::DFMSLookAndFeel()
     setColour(Slider::trackColourId,               Colours::white);
 }
 
-void DFMSLookAndFeel::drawButtonBackground(Graphics& g, Button& button, const Colour& backgroundColour,
-                                           bool isMouseOverButton, bool isButtonDown)
-{
-    const int width = button.getWidth();
-    const int height = button.getHeight();
-
-    const float indent = 1.0f;
-
-    Path outline;
-    outline.addRectangle(indent, indent, width - indent * 2.0f, height - indent * 2.0f);
-
-    Colour bc (backgroundColour);//.withMultipliedSaturation (0.3f));
-
-    if (isMouseOverButton)
-    {
-        if (isButtonDown)
-            bc = bc.brighter();
-        else if (bc.getBrightness() > 0.5f)
-            bc = bc.darker (0.1f);
-        else
-            bc = bc.brighter (0.1f);
-    }
-
-    g.setColour (bc);
-    g.fillPath (outline);
-
-    drawOutline(g, button);
-}
+//void DFMSLookAndFeel::drawButtonBackground(Graphics& g, Button& button, const Colour& backgroundColour,
+//                                           bool isMouseOverButton, bool isButtonDown)
+//{
+//    const int width = button.getWidth();
+//    const int height = button.getHeight();
+//
+//    const float indent = 1.0f;
+//
+//    Path outline;
+//    outline.addRectangle(indent, indent, width - indent * 2.0f, height - indent * 2.0f);
+//
+//    Colour bc (backgroundColour);//.withMultipliedSaturation (0.3f));
+//
+//    if (isMouseOverButton)
+//    {
+//        if (isButtonDown)
+//            bc = bc.brighter();
+//        else if (bc.getBrightness() > 0.5f)
+//            bc = bc.darker (0.1f);
+//        else
+//            bc = bc.brighter (0.1f);
+//    }
+//
+//    g.setColour (bc);
+//    g.fillPath (outline);
+//
+//    drawOutline(g, button);
+//}
 
 void DFMSLookAndFeel::drawOutline(juce::Graphics& g, juce::Component& c, bool isMouseOver, bool isSelected)
 {

@@ -2,50 +2,38 @@
 #include "DFMSLookAndFeel.h"
 #include "DrawGrid.h"
 
-DrawGrid::DrawGrid(GridData& gridData, const GridColourScheme& colourScheme,
-                   const BrushPalette& brushPalette)
-: gridData_(gridData),
-  brushPalette_(brushPalette),
+DrawGrid::DrawGrid(GridActionManager& gridActionManager, const GridData& gridData, const GridColourScheme& colourScheme)
+: gridActionManager_(gridActionManager),
   colourScheme_(colourScheme),
   theImage_(Image::PixelFormat::ARGB, Configuration::getGridWidth(),
             Configuration::getGridHeight(), true),
-  gridImageRenderer_(colourScheme)
+  gridImageRenderer_(gridData, colourScheme)
 {
     setOpaque(true);
-    
     setMouseCursor(MouseCursor::CrosshairCursor);
-    
-    gridImageRenderer_.renderGridDataToImage(gridData_, theImage_);
-}
-
-DrawGrid::~DrawGrid()
-{
 }
 
 void DrawGrid::refreshAll()
 {
-    gridImageRenderer_.renderGridDataToImage(gridData_, theImage_);
+    gridImageRenderer_.renderGridDataToImage(theImage_);
     repaint();
-    sendChangeMessage();
 }
 
 void DrawGrid::paint (Graphics& g)
 {
     g.drawImageAt(theImage_, 0, 0);
     DFMSLookAndFeel::drawOutline(g, *this);
-    //TODO Allow grid and image to be different sizes
 }
 
 void DrawGrid::resized()
 {
+    theImage_ = Image(Image::PixelFormat::ARGB, Configuration::getGridWidth(), Configuration::getGridHeight(), true);
+    refreshAll();
 }
 
 void DrawGrid::mouseDown(const MouseEvent& event)
 {
-    auto currentBrush = brushPalette_.getCurrentBrushAction();
-    float pressure = event.isPressureValid() ? event.pressure : Configuration::getDefaultPressure();
-    auto affectedPixels = currentBrush->startStroke(StrokePoint(event.x, event.y, pressure), gridData_);
-    gridImageRenderer_.renderSelectPointsToImage(gridData_, affectedPixels, theImage_);
+    gridActionManager_.mouseDown(event);
 }
 
 void DrawGrid::mouseDrag(const juce::MouseEvent& event)
@@ -56,18 +44,15 @@ void DrawGrid::mouseDrag(const juce::MouseEvent& event)
         inputSource.setScreenPosition(Point<float>(event.getScreenX(), event.getMouseDownScreenY()));
         return;
     }
-    auto currentBrush = brushPalette_.getCurrentBrushAction();
-    float pressure = event.isPressureValid() ? event.pressure : Configuration::getDefaultPressure();
-    auto affectedPixels = currentBrush->continueStroke(StrokePoint(event.x, event.y, pressure), gridData_);
-    gridImageRenderer_.renderSelectPointsToImage(gridData_, affectedPixels, theImage_);
+    gridActionManager_.mouseDrag(event);
 }
 
 void DrawGrid::mouseUp(const juce::MouseEvent& event)
 {
-    auto currentBrush = brushPalette_.getCurrentBrushAction();
-    float pressure = event.isPressureValid() ? event.pressure : Configuration::getDefaultPressure();
-    auto affectedPixels = currentBrush->finishStroke(StrokePoint(event.x, event.y, pressure), gridData_);
-    gridImageRenderer_.renderSelectPointsToImage(gridData_, affectedPixels, theImage_);
-    repaint();
-    sendChangeMessage();
+    gridActionManager_.mouseUp(event);
+}
+
+void DrawGrid::changeListenerCallback(juce::ChangeBroadcaster* /* source */)
+{
+    refreshAll();
 }

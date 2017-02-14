@@ -3,21 +3,21 @@
 
 #include "JuceHeader.h"
 
-#include "BrushPalette.h"
+#include "GridActionManager.h"
 #include "GridColourScheme.h"
 #include "GridData.h"
 #include "GridImageRenderer.h"
 
-class DrawGrid : public Component,
-                 public ChangeBroadcaster
+class DrawGrid : public Component, public ChangeListener
 {
 public:
-    DrawGrid(GridData& gridData,
-             const GridColourScheme& colourScheme,
-             const BrushPalette& brushPalette);
-    ~DrawGrid();
-
+    DrawGrid(GridActionManager& gridActionManager, const GridData& gridData,
+             const GridColourScheme& colourScheme);
+    ~DrawGrid() override {};
+    
     void refreshAll();
+
+    // Component overrides
     void paint (Graphics&) override;
     void resized() override;
     
@@ -25,9 +25,11 @@ public:
     void mouseDrag(const MouseEvent& event) override;
     void mouseUp(const MouseEvent& event) override;
 
+    // ChangeListener overrides
+    void changeListenerCallback(ChangeBroadcaster* source) override;
+
 private:
-    GridData& gridData_;
-    const BrushPalette& brushPalette_;
+    GridActionManager& gridActionManager_;
     const GridColourScheme& colourScheme_;
     Image theImage_;
     GridImageRenderer gridImageRenderer_;

@@ -8,7 +8,10 @@
 class WaveletReconstructor
 {
 public:
-    explicit WaveletReconstructor(const GridData* gridData);
+    explicit WaveletReconstructor(const GridData& gridData);
+
+    // TODO make the dependencies on Configuration explicit
+    void reinitialize();
 
     void perform(AudioSampleBuffer& buffer) const;
     
@@ -23,7 +26,7 @@ private:
     };
     Array<BinInformation> waveTables_;
 
-    const GridData* gridData_;
+    const GridData& gridData_;
     float minimumFrequency_;
     float binsPerOctave_;
     int windowLength_;

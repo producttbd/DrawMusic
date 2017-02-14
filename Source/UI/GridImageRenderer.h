@@ -9,12 +9,13 @@
 class GridImageRenderer
 {
 public:
-    explicit GridImageRenderer(const GridColourScheme& colourScheme);
+    explicit GridImageRenderer(const GridData& gridData, const GridColourScheme& colourScheme);
 
-    void renderGridDataToImage(const GridData& gridData, Image& image);
-    void renderSelectPointsToImage(const GridData& gridData, const Array<GridPoint>& points, Image& image);
+    void renderGridDataToImage(Image& image);
+    void renderSelectPointsToImage(const Array<GridPoint>& points, Image& image);
 
 private:
+    const GridData& gridData_;
     const GridColourScheme& colourScheme_;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GridImageRenderer);
