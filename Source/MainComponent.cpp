@@ -69,8 +69,10 @@ MainComponent::MainComponent ()
     gridAudioSource_.addNewAudioListener(&waveformView_);
     gridAudioSource_.addNewPositionListener(&playbackTimeline_);
 
-    gridActionManager_.addChangeListener(&drawGrid_);
-    gridActionManager_.addChangeListener(&gridAudioSource_);
+    gridActionManager_.addGridDataResizedListener(&drawGrid_);
+    gridActionManager_.addGridDataResizedListener(&gridAudioSource_);
+    gridActionManager_.addGridDataUpdatedListener(&drawGrid_);
+    gridActionManager_.addGridDataUpdatedListener(&gridAudioSource_);
 
     // Finally set size
     setSize(Configuration::getMainWindowWidth(), Configuration::getMainWindowHeight());
@@ -186,7 +188,6 @@ void MainComponent::buttonClicked (Button* buttonThatWasClicked)
 void MainComponent::resizeGrid()
 {
     gridActionManager_.resize(Configuration::getGridWidth(), Configuration::getGridHeight());
-    gridAudioSource_.reinitialize();
 }
 
 void MainComponent::togglePlayback()

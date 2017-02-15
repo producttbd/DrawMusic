@@ -52,7 +52,13 @@ void DrawGrid::mouseUp(const juce::MouseEvent& event)
     gridActionManager_.mouseUp(event);
 }
 
-void DrawGrid::changeListenerCallback(juce::ChangeBroadcaster* /* source */)
+void DrawGrid::newGridDataCallback()
 {
+    // TODO selectively re-render
     refreshAll();
+}
+
+void DrawGrid::gridDataResizedCallback()
+{
+    resized();
 }

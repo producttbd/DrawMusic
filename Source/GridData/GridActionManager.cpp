@@ -7,16 +7,34 @@ GridActionManager::GridActionManager(const BrushPalette& brushPalette, GridData&
 {
 }
 
+void GridActionManager::addGridDataResizedListener(GridDataResizedListener* listener)
+{
+    gridDataResizedListeners_.add(listener);
+}
+
+void GridActionManager::removeGridDataResizedListener(GridDataResizedListener* listener)
+{
+    gridDataResizedListeners_.remove(listener);
+}
+void GridActionManager::addGridDataUpdatedListener(GridDataUpdatedListener* listener)
+{
+    gridDataUpdatedListeners_.add(listener);
+}
+void GridActionManager::removeGridDataUpdatedListener(GridDataUpdatedListener* listener)
+{
+    gridDataUpdatedListeners_.remove(listener);
+}
+
 void GridActionManager::resize(int width, int height)
 {
     gridData_.resize(width, height);
-    sendChangeMessage();
+    callGridResizedListeners();
 }
 
 void GridActionManager::clearGrid()
 {
     gridData_.zero();
-    sendChangeMessage();
+    callGridUpdatedListeners();
 }
 
 void GridActionManager::mouseDown(const juce::MouseEvent& event)
@@ -38,6 +56,17 @@ void GridActionManager::mouseUp(const juce::MouseEvent& event)
     auto currentBrush = brushPalette_.getCurrentBrushAction();
     float pressure = event.isPressureValid() ? event.pressure : Configuration::getDefaultPressure();
     auto affectedPixels = currentBrush->finishStroke(StrokePoint(event.x, event.y, pressure), gridData_);
-    sendChangeMessage();
+    callGridUpdatedListeners();
 }
+
+void GridActionManager::callGridResizedListeners()
+{
+    gridDataResizedListeners_.call(&GridDataResizedListener::gridDataResizedCallback);
+}
+
+void GridActionManager::callGridUpdatedListeners()
+{
+    gridDataUpdatedListeners_.call(&GridDataUpdatedListener::newGridDataCallback);
+}
+
 

@@ -4,11 +4,13 @@
 #include "JuceHeader.h"
 
 #include "Configuration.h"
+#include "GridActionManager.h"
 #include "GridData.h"
 #include "WaveletReconstructor.h"
 
 class GridAudioRendererAudioSource : public PositionableAudioSource,
-                                     public ChangeListener
+                                     public GridActionManager::GridDataResizedListener,
+                                     public GridActionManager::GridDataUpdatedListener
 {
 public:
     class NewAudioListener
@@ -28,9 +30,6 @@ public:
     explicit GridAudioRendererAudioSource(const GridData& gridData) noexcept;
     ~GridAudioRendererAudioSource();
 
-    // TODO make the dependencies on Configuration explicit
-    void reinitialize();
-
     const AudioSampleBuffer& getOutputBuffer();
 
     void rerender();
@@ -39,9 +38,10 @@ public:
     void addNewPositionListener(NewPositionListener* listener);
     void removeNewPositionListener(NewPositionListener* listener);
     
-    // ChangeListener method
+    // GridActionManagerListener methods
     // Called when new gridData is available and needs rerendering
-    void changeListenerCallback(ChangeBroadcaster *source) override;
+    void newGridDataCallback() override;
+    void gridDataResizedCallback() override;
 
     // AudioSource methods
     void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;
@@ -56,6 +56,9 @@ public:
     void setLooping(bool shouldLoop) override;
 
 private:
+    // TODO make dependencies on Configuration explicit
+    void reinitialize();
+
     void callDeviceChangeListeners();
 
     const GridData& gridData_;

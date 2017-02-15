@@ -16,14 +16,6 @@ GridAudioRendererAudioSource::~GridAudioRendererAudioSource()
 {
 }
 
-void GridAudioRendererAudioSource::reinitialize()
-{
-    reconstructor_.reinitialize();
-    readyToPlay_ = false;
-    fullPieceAudioBuffer_.setSize(Configuration::getNumberChannels(), Configuration::getTotalAudioSampleLength());
-    rerender();
-}
-
 const AudioSampleBuffer& GridAudioRendererAudioSource::getOutputBuffer()
 {
     return fullPieceAudioBuffer_;
@@ -60,11 +52,17 @@ void GridAudioRendererAudioSource::removeNewPositionListener(GridAudioRendererAu
     newPositionListeners_.remove(listener);
 }
 
-// ChangeListener method
-void GridAudioRendererAudioSource::changeListenerCallback(juce::ChangeBroadcaster* /*source*/)
+// GridActionManagerListener methods
+void GridAudioRendererAudioSource::newGridDataCallback()
 {
     readyToPlay_ = false;
     rerender();
+}
+
+void GridAudioRendererAudioSource::gridDataResizedCallback()
+{
+    readyToPlay_ = false;
+    reinitialize();
 }
 
 // AudioSource methods
@@ -138,4 +136,13 @@ bool GridAudioRendererAudioSource::isLooping() const
 void GridAudioRendererAudioSource::setLooping(bool shouldLoop)
 {
     jassert(false);
-};
+}
+
+// private methods
+void GridAudioRendererAudioSource::reinitialize()
+{
+    reconstructor_.reinitialize();
+    readyToPlay_ = false;
+    fullPieceAudioBuffer_.setSize(Configuration::getNumberChannels(), Configuration::getTotalAudioSampleLength());
+    rerender();
+}

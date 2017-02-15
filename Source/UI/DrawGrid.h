@@ -8,7 +8,8 @@
 #include "GridData.h"
 #include "GridImageRenderer.h"
 
-class DrawGrid : public Component, public ChangeListener
+class DrawGrid : public Component, public GridActionManager::GridDataResizedListener,
+public GridActionManager::GridDataUpdatedListener
 {
 public:
     DrawGrid(GridActionManager& gridActionManager, const GridData& gridData,
@@ -25,8 +26,9 @@ public:
     void mouseDrag(const MouseEvent& event) override;
     void mouseUp(const MouseEvent& event) override;
 
-    // ChangeListener overrides
-    void changeListenerCallback(ChangeBroadcaster* source) override;
+    // GridActionManager Listeners overrides
+    void newGridDataCallback() override;
+    void gridDataResizedCallback() override;
 
 private:
     GridActionManager& gridActionManager_;
