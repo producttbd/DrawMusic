@@ -23,7 +23,10 @@ AbstractBrushAction* BrushPalette::getCurrentBrushAction() const
   return brushCollection_.getCurrentBrush()->getBrushAction();
 }
 
-void BrushPalette::mouseDown(const MouseEvent& event) { openBrushPaletteWindow(); }
+void BrushPalette::mouseDown(const MouseEvent& event)
+{
+  openBrushPaletteWindow();
+}
 
 void BrushPalette::paint(Graphics& g)
 {
@@ -33,9 +36,14 @@ void BrushPalette::paint(Graphics& g)
   DFMSLookAndFeel::drawOutline(g, *this);
 }
 
-void BrushPalette::resized() {}
+void BrushPalette::resized()
+{
+}
 
-void BrushPalette::changeListenerCallback(juce::ChangeBroadcaster* /*source*/) { repaint(); }
+void BrushPalette::changeListenerCallback(juce::ChangeBroadcaster* /*source*/)
+{
+  repaint();
+}
 
 void BrushPalette::openBrushPaletteWindow()
 {

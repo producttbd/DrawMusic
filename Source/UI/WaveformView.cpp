@@ -3,10 +3,15 @@
 #include "Configuration.h"
 #include "DFMSLookAndFeel.h"
 
-WaveformView::WaveformView(const String& name) : Component(name) {}
+WaveformView::WaveformView(const String& name) : Component(name)
+{
+}
 
 // Component overrides
-void WaveformView::resized() { thumbnail_.zeroOut(); }
+void WaveformView::resized()
+{
+  thumbnail_.zeroOut();
+}
 
 void WaveformView::paint(Graphics& g)
 {

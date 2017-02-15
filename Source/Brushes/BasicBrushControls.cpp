@@ -2,7 +2,9 @@
 
 #include "Configuration.h"
 
-BasicBrushControls::BasicBrushControls() {}
+BasicBrushControls::BasicBrushControls()
+{
+}
 
 void BasicBrushControls::addControl(ControlSpec spec)
 {

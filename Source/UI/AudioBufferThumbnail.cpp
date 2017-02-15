@@ -1,6 +1,9 @@
 #include "AudioBufferThumbnail.h"
 
-AudioBufferThumbnail::AudioBufferThumbnail() { zeroOut(); }
+AudioBufferThumbnail::AudioBufferThumbnail()
+{
+  zeroOut();
+}
 
 void AudioBufferThumbnail::zeroOut()
 {

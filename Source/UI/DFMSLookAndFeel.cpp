@@ -72,4 +72,7 @@ void DFMSLookAndFeel::drawOutline(juce::Graphics& g, Rectangle<int> bounds, bool
   g.drawRect(bounds);
 }
 
-Colour DFMSLookAndFeel::getDefaultBackgroundColour() { return Colours::white; }
+Colour DFMSLookAndFeel::getDefaultBackgroundColour()
+{
+  return Colours::white;
+}

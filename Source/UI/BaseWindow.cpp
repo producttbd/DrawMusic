@@ -23,7 +23,9 @@ BaseWindow::BaseWindow(String name)
   setVisible(true);
 }
 
-BaseWindow::~BaseWindow() {}
+BaseWindow::~BaseWindow()
+{
+}
 
 void BaseWindow::closeButtonPressed()
 {

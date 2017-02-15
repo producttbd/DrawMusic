@@ -1,6 +1,8 @@
 #include "PlaybackTimeline.h"
 
-PlaybackTimeline::PlaybackTimeline(const String name) {}
+PlaybackTimeline::PlaybackTimeline(const String name)
+{
+}
 
 void PlaybackTimeline::setToControlAudioSource(Rectangle<int> activeClickArea,
                                                PositionableAudioSource* audioSource)
@@ -15,7 +17,10 @@ void PlaybackTimeline::newPositionCallback(float playFraction)
   currentPlayFraction_ = playFraction;
 }
 
-bool PlaybackTimeline::hitTest(int x, int y) { return activeClickArea_.contains(x, y); }
+bool PlaybackTimeline::hitTest(int x, int y)
+{
+  return activeClickArea_.contains(x, y);
+}
 
 void PlaybackTimeline::mouseDown(const juce::MouseEvent& event)
 {

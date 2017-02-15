@@ -11,7 +11,9 @@ BasicBrushBase::BasicBrushBase() : intensityScalar_(0.5f), pointsInStroke_()
   controlWirings_.set(spec.name, &intensityScalar_);
 }
 
-BasicBrushBase::~BasicBrushBase() {}
+BasicBrushBase::~BasicBrushBase()
+{
+}
 
 Array<AbstractBrushControls::ControlSpec> BasicBrushBase::getSupportedControls()
 {
@@ -49,7 +51,9 @@ Array<GridPoint> BasicBrushBase::finishStroke(StrokePoint p, GridData& gridData)
   return affectedPixels;
 }
 
-void BasicBrushBase::recreateBrush(AbstractBrushControls::ControlSpec specChanged) {}
+void BasicBrushBase::recreateBrush(AbstractBrushControls::ControlSpec specChanged)
+{
+}
 
 Array<StrokePoint> BasicBrushBase::getIntermediaryPoints(StrokePoint start, StrokePoint end) const
 {

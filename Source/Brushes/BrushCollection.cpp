@@ -1,11 +1,20 @@
 #include "BrushCollection.h"
 #include "BrushFactory.h"
 
-BrushCollection::BrushCollection() : currentBrush_(0) { BrushFactory::getAllBrushes(*this); }
+BrushCollection::BrushCollection() : currentBrush_(0)
+{
+  BrushFactory::getAllBrushes(*this);
+}
 
-void BrushCollection::add(const AbstractCompleteBrush* newBrush) { brushes_.add(newBrush); }
+void BrushCollection::add(const AbstractCompleteBrush* newBrush)
+{
+  brushes_.add(newBrush);
+}
 
-int BrushCollection::getCurrentBrushIndex() const { return currentBrush_; }
+int BrushCollection::getCurrentBrushIndex() const
+{
+  return currentBrush_;
+}
 
 void BrushCollection::setCurrentBrush(int index)
 {
@@ -14,7 +23,10 @@ void BrushCollection::setCurrentBrush(int index)
   sendChangeMessage();
 }
 
-int BrushCollection::size() const { return brushes_.size(); }
+int BrushCollection::size() const
+{
+  return brushes_.size();
+}
 
 const AbstractCompleteBrush* BrushCollection::getCurrentBrush() const
 {
