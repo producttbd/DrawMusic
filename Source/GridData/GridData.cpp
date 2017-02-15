@@ -2,8 +2,14 @@
 
 namespace
 {
-inline int pointToLinear(GridPoint p, int gridHeight) { return p.x * gridHeight + p.y; }
-inline int pointToLinear(int x, int y, int gridHeight) { return x * gridHeight + y; }
+inline int pointToLinear(GridPoint p, int gridHeight)
+{
+  return p.x * gridHeight + p.y;
+}
+inline int pointToLinear(int x, int y, int gridHeight)
+{
+  return x * gridHeight + y;
+}
 }
 
 GridData::GridData(int gridWidth, int gridHeight)
@@ -30,9 +36,15 @@ void GridData::resize(int newWidth, int newHeight)
   data_.insertMultiple(0, 0.0f, gridWidth_ * gridHeight_);
 }
 
-int GridData::getWidth() const { return gridWidth_; }
+int GridData::getWidth() const
+{
+  return gridWidth_;
+}
 
-int GridData::getHeight() const { return gridHeight_; }
+int GridData::getHeight() const
+{
+  return gridHeight_;
+}
 
 float GridData::getXY(int x, int y) const
 {

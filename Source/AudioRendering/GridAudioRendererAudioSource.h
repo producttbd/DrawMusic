@@ -40,7 +40,8 @@ class GridAudioRendererAudioSource : public PositionableAudioSource,
 
   // GridActionManagerListener methods
   // Called when new gridData is available and needs rerendering
-  void newGridDataCallback() override;
+  void entireGridDataUpdatedCallback() override;
+  void partialGridDataUpdatedCallback(const Array<GridPoint>& affectedPoints) override;
   void gridDataResizedCallback() override;
 
   // AudioSource methods

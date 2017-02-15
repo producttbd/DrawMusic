@@ -139,7 +139,6 @@ void MainComponent::buttonClicked(Button* buttonThatWasClicked)
       stopPlayback();
       transportSource_.setPosition(0);
       gridActionManager_.clearGrid();
-      drawGrid_.refreshAll();
     }
   }
   else if (buttonThatWasClicked == &exportButton_)

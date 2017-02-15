@@ -17,8 +17,6 @@ class DrawGrid : public Component,
            const GridColourScheme& colourScheme);
   ~DrawGrid() override{};
 
-  void refreshAll();
-
   // Component overrides
   void paint(Graphics&) override;
   void resized() override;
@@ -28,10 +26,13 @@ class DrawGrid : public Component,
   void mouseUp(const MouseEvent& event) override;
 
   // GridActionManager Listeners overrides
-  void newGridDataCallback() override;
+  void entireGridDataUpdatedCallback() override;
+  void partialGridDataUpdatedCallback(const Array<GridPoint>& affectedPoints) override;
   void gridDataResizedCallback() override;
 
  private:
+  void refreshAll();
+
   GridActionManager& gridActionManager_;
   const GridColourScheme& colourScheme_;
   Image theImage_;

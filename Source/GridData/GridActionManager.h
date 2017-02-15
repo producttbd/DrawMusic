@@ -21,7 +21,8 @@ class GridActionManager
   class GridDataUpdatedListener
   {
    public:
-    virtual void newGridDataCallback() = 0;
+    virtual void entireGridDataUpdatedCallback() = 0;
+    virtual void partialGridDataUpdatedCallback(const Array<GridPoint>& affectedPoints) = 0;
     virtual ~GridDataUpdatedListener() {}
   };
 
@@ -39,6 +40,7 @@ class GridActionManager
  private:
   void callGridResizedListeners();
   void callGridUpdatedListeners();
+  void callGridUpdatedListeners(const Array<GridPoint>& affectedPoints);
 
   const BrushPalette& brushPalette_;
   GridData& gridData_;

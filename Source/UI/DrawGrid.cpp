@@ -14,12 +14,6 @@ DrawGrid::DrawGrid(GridActionManager& gridActionManager, const GridData& gridDat
   setMouseCursor(MouseCursor::CrosshairCursor);
 }
 
-void DrawGrid::refreshAll()
-{
-  gridImageRenderer_.renderGridDataToImage(theImage_);
-  repaint();
-}
-
 void DrawGrid::paint(Graphics& g)
 {
   g.drawImageAt(theImage_, 0, 0);
@@ -33,7 +27,10 @@ void DrawGrid::resized()
   refreshAll();
 }
 
-void DrawGrid::mouseDown(const MouseEvent& event) { gridActionManager_.mouseDown(event); }
+void DrawGrid::mouseDown(const MouseEvent& event)
+{
+  gridActionManager_.mouseDown(event);
+}
 
 void DrawGrid::mouseDrag(const juce::MouseEvent& event)
 {
@@ -46,12 +43,28 @@ void DrawGrid::mouseDrag(const juce::MouseEvent& event)
   gridActionManager_.mouseDrag(event);
 }
 
-void DrawGrid::mouseUp(const juce::MouseEvent& event) { gridActionManager_.mouseUp(event); }
-
-void DrawGrid::newGridDataCallback()
+void DrawGrid::mouseUp(const juce::MouseEvent& event)
 {
-  // TODO selectively re-render
+  gridActionManager_.mouseUp(event);
+}
+
+void DrawGrid::entireGridDataUpdatedCallback()
+{
   refreshAll();
 }
 
-void DrawGrid::gridDataResizedCallback() { resized(); }
+void DrawGrid::partialGridDataUpdatedCallback(const Array<GridPoint>& affectedPoints)
+{
+  gridImageRenderer_.renderSelectPointsToImage(affectedPoints, theImage_);
+}
+
+void DrawGrid::gridDataResizedCallback()
+{
+  resized();
+}
+
+void DrawGrid::refreshAll()
+{
+  gridImageRenderer_.renderGridDataToImage(theImage_);
+  repaint();
+}

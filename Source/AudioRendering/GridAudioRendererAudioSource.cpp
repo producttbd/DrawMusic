@@ -13,7 +13,9 @@ GridAudioRendererAudioSource::GridAudioRendererAudioSource(const GridData& gridD
   fullPieceAudioBuffer_.clear();
 }
 
-GridAudioRendererAudioSource::~GridAudioRendererAudioSource() {}
+GridAudioRendererAudioSource::~GridAudioRendererAudioSource()
+{
+}
 
 const AudioSampleBuffer& GridAudioRendererAudioSource::getOutputBuffer()
 {
@@ -53,9 +55,17 @@ void GridAudioRendererAudioSource::removeNewPositionListener(
 }
 
 // GridActionManagerListener methods
-void GridAudioRendererAudioSource::newGridDataCallback()
+void GridAudioRendererAudioSource::entireGridDataUpdatedCallback()
 {
   readyToPlay_ = false;
+  rerender();
+}
+
+void GridAudioRendererAudioSource::partialGridDataUpdatedCallback(
+    const Array<GridPoint>& affectedPoints)
+{
+  readyToPlay_ = false;
+  // TODO Partial rerender
   rerender();
 }
 
@@ -74,7 +84,9 @@ void GridAudioRendererAudioSource::prepareToPlay(int samplesPerBlockExpected, do
   }
 }
 
-void GridAudioRendererAudioSource::releaseResources() {}
+void GridAudioRendererAudioSource::releaseResources()
+{
+}
 
 void GridAudioRendererAudioSource::getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill)
 {
@@ -116,16 +128,25 @@ void GridAudioRendererAudioSource::setNextReadPosition(int64 newPosition)
       &GridAudioRendererAudioSource::NewPositionListener::newPositionCallback, fraction);
 }
 
-int64 GridAudioRendererAudioSource::getNextReadPosition() const { return currentOutputOffset_; }
+int64 GridAudioRendererAudioSource::getNextReadPosition() const
+{
+  return currentOutputOffset_;
+}
 
 int64 GridAudioRendererAudioSource::getTotalLength() const
 {
   return fullPieceAudioBuffer_.getNumSamples();
 }
 
-bool GridAudioRendererAudioSource::isLooping() const { return false; }
+bool GridAudioRendererAudioSource::isLooping() const
+{
+  return false;
+}
 
-void GridAudioRendererAudioSource::setLooping(bool shouldLoop) { jassert(false); }
+void GridAudioRendererAudioSource::setLooping(bool shouldLoop)
+{
+  jassert(false);
+}
 
 // private methods
 void GridAudioRendererAudioSource::reinitialize()

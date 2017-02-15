@@ -69,5 +69,11 @@ void GridActionManager::callGridResizedListeners()
 
 void GridActionManager::callGridUpdatedListeners()
 {
-  gridDataUpdatedListeners_.call(&GridDataUpdatedListener::newGridDataCallback);
+  gridDataUpdatedListeners_.call(&GridDataUpdatedListener::entireGridDataUpdatedCallback);
+}
+
+void GridActionManager::callGridUpdatedListeners(const Array<GridPoint>& affectedPoints)
+{
+  gridDataUpdatedListeners_.call(&GridDataUpdatedListener::partialGridDataUpdatedCallback,
+                                 affectedPoints);
 }
