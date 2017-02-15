@@ -7,23 +7,23 @@
 
 class BasicBrushControls : public AbstractBrushControls, Slider::Listener
 {
-public:
-    explicit BasicBrushControls();
-    
-    void addControl(ControlSpec spec);
-    void addControls(Array<ControlSpec> specs);
-    
-    // Slider::Listener override
-    void sliderValueChanged(Slider* slider) override;
-    
-    // Component overrides
-    void resized() override;
+ public:
+  explicit BasicBrushControls();
 
-private:
-    OwnedArray<Label> labels_;
-    OwnedArray<Slider> sliders_;
+  void addControl(ControlSpec spec);
+  void addControls(Array<ControlSpec> specs);
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BasicBrushControls);
+  // Slider::Listener override
+  void sliderValueChanged(Slider* slider) override;
+
+  // Component overrides
+  void resized() override;
+
+ private:
+  OwnedArray<Label> labels_;
+  OwnedArray<Slider> sliders_;
+
+  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BasicBrushControls);
 };
 
-#endif // BASICBRUSHCONTROLS_H_INCLUDED
+#endif  // BASICBRUSHCONTROLS_H_INCLUDED

@@ -7,13 +7,12 @@
 
 class AudioSettingsWindow : public BaseWindow
 {
-public:
-    AudioSettingsWindow(String name, AudioDeviceManager& audioDeviceManager);
-    
-private:
-    AudioDeviceSelectorComponent audioDeviceSelector_;
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(AudioSettingsWindow);
-};
+ public:
+  AudioSettingsWindow(String name, AudioDeviceManager& audioDeviceManager);
 
+ private:
+  AudioDeviceSelectorComponent audioDeviceSelector_;
+  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(AudioSettingsWindow);
+};
 
 #endif  // AUDIOSETTINGSWINDOW_H_INCLUDED

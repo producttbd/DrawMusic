@@ -9,22 +9,21 @@
 
 class XYProfileBrush : public BasicBrushBase
 {
-public:
-    XYProfileBrush(Array<float> xProfile, Array<float> yProfile,
-                   int xOffset, int yOffset);
+ public:
+  XYProfileBrush(Array<float> xProfile, Array<float> yProfile, int xOffset, int yOffset);
 
-    void drawPreviewInto(juce::Graphics& g, const Rectangle<int>& bounds) const override;
+  void drawPreviewInto(juce::Graphics& g, const Rectangle<int>& bounds) const override;
 
-protected:
-    Array<GridPoint> applyBrushToPoint(StrokePoint p, GridData& gridData) const override;
+ protected:
+  Array<GridPoint> applyBrushToPoint(StrokePoint p, GridData& gridData) const override;
 
-private:
-    int xOffset_;
-    int yOffset_;
-    Array<float> xProfile_;
-    Array<float> yProfile_;
+ private:
+  int xOffset_;
+  int yOffset_;
+  Array<float> xProfile_;
+  Array<float> yProfile_;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(XYProfileBrush)
+  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(XYProfileBrush)
 };
 
-#endif // XYPROFILEBRUSH_H_INCLUDED
+#endif  // XYPROFILEBRUSH_H_INCLUDED

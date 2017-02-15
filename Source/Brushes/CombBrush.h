@@ -9,19 +9,19 @@
 
 class CombBrush : public BasicBrushBase
 {
-public:
-    CombBrush();
+ public:
+  CombBrush();
 
-    void drawPreviewInto(Graphics& g, const Rectangle<int>& bounds) const override;
+  void drawPreviewInto(Graphics& g, const Rectangle<int>& bounds) const override;
 
-protected:
-    Array<GridPoint> applyBrushToPoint(StrokePoint p, GridData& gridData) const override;
+ protected:
+  Array<GridPoint> applyBrushToPoint(StrokePoint p, GridData& gridData) const override;
 
-    float numberHarmonics_;
-    float evenIntensity_;
-    float oddIntensity_;
-    float taper_;
-    float spacing_;
+  float numberHarmonics_;
+  float evenIntensity_;
+  float oddIntensity_;
+  float taper_;
+  float spacing_;
 };
 
-#endif // COMBBRUSH_H_INCLUDED
+#endif  // COMBBRUSH_H_INCLUDED

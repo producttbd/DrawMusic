@@ -11,31 +11,29 @@
 
 class BrushPalette : public Component, ChangeListener
 {
-public:
-    BrushPalette(const String& componentName,
-                 const GridColourScheme& colourScheme) noexcept;
+ public:
+  BrushPalette(const String& componentName, const GridColourScheme& colourScheme) noexcept;
 
-    ~BrushPalette();
+  ~BrushPalette();
 
-    AbstractBrushAction* getCurrentBrushAction() const;    
-    
-    // Component overrides
-    void mouseDown(const MouseEvent &event) override;
-    void paint (Graphics&) override;
-    void resized() override;
+  AbstractBrushAction* getCurrentBrushAction() const;
 
-    // ChangeListener
-    void changeListenerCallback(ChangeBroadcaster* source) override;
+  // Component overrides
+  void mouseDown(const MouseEvent& event) override;
+  void paint(Graphics&) override;
+  void resized() override;
 
-private:
-    void openBrushPaletteWindow();
+  // ChangeListener
+  void changeListenerCallback(ChangeBroadcaster* source) override;
 
-    const GridColourScheme& colourScheme_;
-    BrushCollection brushCollection_;
-    Component::SafePointer<BrushPaletteWindow> brushPaletteWindow_;
+ private:
+  void openBrushPaletteWindow();
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BrushPalette);
+  const GridColourScheme& colourScheme_;
+  BrushCollection brushCollection_;
+  Component::SafePointer<BrushPaletteWindow> brushPaletteWindow_;
+
+  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BrushPalette);
 };
-
 
 #endif  // BRUSHPALETTE_H_INCLUDED

@@ -5,17 +5,14 @@
 
 struct StrokePoint
 {
-    StrokePoint()
-    : gridPoint(0, 0), pressure(0) {}
+  StrokePoint() : gridPoint(0, 0), pressure(0) {}
 
-    StrokePoint(int x, int y, float pressure)
-    : gridPoint(x, y), pressure(pressure) {}
+  StrokePoint(int x, int y, float pressure) : gridPoint(x, y), pressure(pressure) {}
 
-    StrokePoint(GridPoint gridPoint, float pressure)
-    : gridPoint(gridPoint), pressure(pressure) {}
+  StrokePoint(GridPoint gridPoint, float pressure) : gridPoint(gridPoint), pressure(pressure) {}
 
-    GridPoint gridPoint;
-    float pressure;
+  GridPoint gridPoint;
+  float pressure;
 };
 
-#endif //STROKEPOINT_H_INCLUDED
+#endif  // STROKEPOINT_H_INCLUDED

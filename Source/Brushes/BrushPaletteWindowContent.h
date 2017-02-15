@@ -8,29 +8,31 @@
 #include "BrushCollection.h"
 #include "BrushPreviewButton.h"
 
-class BrushPaletteWindowContent : public Component, Button::Listener,
-                                         AbstractBrushControls::Listener, ChangeBroadcaster
+class BrushPaletteWindowContent : public Component,
+                                  Button::Listener,
+                                  AbstractBrushControls::Listener,
+                                  ChangeBroadcaster
 {
-public:
-    explicit BrushPaletteWindowContent(BrushCollection& brushCollection);
+ public:
+  explicit BrushPaletteWindowContent(BrushCollection& brushCollection);
 
-    // AbstractBrushControls::Listener overrides
-    void controlChanged(AbstractBrushControls::ControlSpec spec) override;
+  // AbstractBrushControls::Listener overrides
+  void controlChanged(AbstractBrushControls::ControlSpec spec) override;
 
-    // Button::Listener override
-    void buttonClicked(Button* button) override;
-    
-    // Component override
-    void paint(Graphics& g) override;
-    void resized() override;
+  // Button::Listener override
+  void buttonClicked(Button* button) override;
 
-private:
-    Rectangle<int> mainPreviewArea_;
-    Rectangle<int> controlsArea_;
-    
-    BrushCollection& brushCollection_;
-    OwnedArray<BrushPreviewButton> sidePreviewButtons_;
-    AbstractBrushControls* currentControls_;
+  // Component override
+  void paint(Graphics& g) override;
+  void resized() override;
+
+ private:
+  Rectangle<int> mainPreviewArea_;
+  Rectangle<int> controlsArea_;
+
+  BrushCollection& brushCollection_;
+  OwnedArray<BrushPreviewButton> sidePreviewButtons_;
+  AbstractBrushControls* currentControls_;
 };
 
-#endif // BRUSHPALETTEWINDOWCONTENT_H_INCLUDED
+#endif  // BRUSHPALETTEWINDOWCONTENT_H_INCLUDED

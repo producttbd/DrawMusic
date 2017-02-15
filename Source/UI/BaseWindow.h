@@ -5,15 +5,14 @@
 
 class BaseWindow : public DocumentWindow
 {
-public:
-    BaseWindow(String name);
-    virtual ~BaseWindow();
+ public:
+  BaseWindow(String name);
+  virtual ~BaseWindow();
 
-    void closeButtonPressed() override;
+  void closeButtonPressed() override;
 
-private:
-
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BaseWindow);
+ private:
+  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BaseWindow);
 };
 
-#endif // BASEWINDOW_H_INCLUDED
+#endif  // BASEWINDOW_H_INCLUDED

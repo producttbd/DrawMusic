@@ -5,12 +5,12 @@
 
 class WindowBoundsManager
 {
-public:
-    static void saveBounds(String windowName, Rectangle<int> bounds);
-    static Rectangle<int> getBounds(String windowName);
+ public:
+  static void saveBounds(String windowName, Rectangle<int> bounds);
+  static Rectangle<int> getBounds(String windowName);
 
-//private:
-//    static HashMap<String, Rectangle<int>> storedBounds_;
+  // private:
+  //    static HashMap<String, Rectangle<int>> storedBounds_;
 };
 
-#endif // WINDOWSBOUNDSMANAGER_H_INCLUDED
+#endif  // WINDOWSBOUNDSMANAGER_H_INCLUDED

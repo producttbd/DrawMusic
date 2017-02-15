@@ -8,11 +8,11 @@
 
 class BrushPaletteWindow : public BaseWindow
 {
-public:
-    BrushPaletteWindow(String name, BrushCollection& brushCollection);
+ public:
+  BrushPaletteWindow(String name, BrushCollection& brushCollection);
 
-private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BrushPaletteWindow);
+ private:
+  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BrushPaletteWindow);
 };
 
-#endif // BRUSHPALETTEWINDOW_H_INCLUDED
+#endif  // BRUSHPALETTEWINDOW_H_INCLUDED

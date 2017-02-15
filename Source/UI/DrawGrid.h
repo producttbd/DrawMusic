@@ -8,36 +8,36 @@
 #include "GridData.h"
 #include "GridImageRenderer.h"
 
-class DrawGrid : public Component, public GridActionManager::GridDataResizedListener,
-public GridActionManager::GridDataUpdatedListener
+class DrawGrid : public Component,
+                 public GridActionManager::GridDataResizedListener,
+                 public GridActionManager::GridDataUpdatedListener
 {
-public:
-    DrawGrid(GridActionManager& gridActionManager, const GridData& gridData,
-             const GridColourScheme& colourScheme);
-    ~DrawGrid() override {};
-    
-    void refreshAll();
+ public:
+  DrawGrid(GridActionManager& gridActionManager, const GridData& gridData,
+           const GridColourScheme& colourScheme);
+  ~DrawGrid() override{};
 
-    // Component overrides
-    void paint (Graphics&) override;
-    void resized() override;
-    
-    void mouseDown(const MouseEvent& event) override;
-    void mouseDrag(const MouseEvent& event) override;
-    void mouseUp(const MouseEvent& event) override;
+  void refreshAll();
 
-    // GridActionManager Listeners overrides
-    void newGridDataCallback() override;
-    void gridDataResizedCallback() override;
+  // Component overrides
+  void paint(Graphics&) override;
+  void resized() override;
 
-private:
-    GridActionManager& gridActionManager_;
-    const GridColourScheme& colourScheme_;
-    Image theImage_;
-    GridImageRenderer gridImageRenderer_;
+  void mouseDown(const MouseEvent& event) override;
+  void mouseDrag(const MouseEvent& event) override;
+  void mouseUp(const MouseEvent& event) override;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DrawGrid)
+  // GridActionManager Listeners overrides
+  void newGridDataCallback() override;
+  void gridDataResizedCallback() override;
+
+ private:
+  GridActionManager& gridActionManager_;
+  const GridColourScheme& colourScheme_;
+  Image theImage_;
+  GridImageRenderer gridImageRenderer_;
+
+  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DrawGrid)
 };
-
 
 #endif  // DRAWGRID_H_INCLUDED

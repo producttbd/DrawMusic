@@ -12,40 +12,40 @@
 
 class BasicBrushBase : public AbstractBrushAction
 {
-public:
-    BasicBrushBase();
-    virtual ~BasicBrushBase();
+ public:
+  BasicBrushBase();
+  virtual ~BasicBrushBase();
 
-    virtual Array<AbstractBrushControls::ControlSpec> getSupportedControls();
-    void controlChanged(AbstractBrushControls::ControlSpec spec) override;
-    
-    Array<GridPoint> startStroke(StrokePoint p, GridData& gridData) override;
-    Array<GridPoint> continueStroke(StrokePoint p, GridData& gridData) override;
-    Array<GridPoint> finishStroke(StrokePoint p, GridData& gridData) override;
+  virtual Array<AbstractBrushControls::ControlSpec> getSupportedControls();
+  void controlChanged(AbstractBrushControls::ControlSpec spec) override;
 
-protected:
-    virtual void recreateBrush(AbstractBrushControls::ControlSpec specChanged);
+  Array<GridPoint> startStroke(StrokePoint p, GridData& gridData) override;
+  Array<GridPoint> continueStroke(StrokePoint p, GridData& gridData) override;
+  Array<GridPoint> finishStroke(StrokePoint p, GridData& gridData) override;
 
-    virtual Array<StrokePoint> getIntermediaryPoints(StrokePoint start, StrokePoint end) const;
-    virtual Array<GridPoint> applyBrushToStroke(
-        const Array<StrokePoint>& pointsInStroke,  GridData& gridData) const;
-    virtual Array<GridPoint> applyBrushToPoint(StrokePoint p, GridData& gridData) const = 0;
+ protected:
+  virtual void recreateBrush(AbstractBrushControls::ControlSpec specChanged);
 
-    static inline float clampOutputValue(float value)
-    {
-        return jmax(jmin(value, Configuration::getMaxGridValue()), Configuration::getMinGridValue());
-    }
+  virtual Array<StrokePoint> getIntermediaryPoints(StrokePoint start, StrokePoint end) const;
+  virtual Array<GridPoint> applyBrushToStroke(const Array<StrokePoint>& pointsInStroke,
+                                              GridData& gridData) const;
+  virtual Array<GridPoint> applyBrushToPoint(StrokePoint p, GridData& gridData) const = 0;
 
-    Array<AbstractBrushControls::ControlSpec> supportedControls_;
-    HashMap<String, float*> controlWirings_;
-    float intensityScalar_;
+  static inline float clampOutputValue(float value)
+  {
+    return jmax(jmin(value, Configuration::getMaxGridValue()), Configuration::getMinGridValue());
+  }
 
-    static constexpr float minIntensityScalar_ = 0.0f;
-    static constexpr float maxIntensityScalar_ = 1.0f;
+  Array<AbstractBrushControls::ControlSpec> supportedControls_;
+  HashMap<String, float*> controlWirings_;
+  float intensityScalar_;
 
-    Array<StrokePoint> pointsInStroke_;
+  static constexpr float minIntensityScalar_ = 0.0f;
+  static constexpr float maxIntensityScalar_ = 1.0f;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BasicBrushBase)
+  Array<StrokePoint> pointsInStroke_;
+
+  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BasicBrushBase)
 };
 
 #endif  // BasicBrushBase_H_INCLUDED

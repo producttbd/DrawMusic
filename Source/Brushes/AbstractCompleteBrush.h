@@ -8,16 +8,16 @@
 
 class AbstractCompleteBrush
 {
-public:
-    AbstractCompleteBrush() {}
-    virtual ~AbstractCompleteBrush() {}
+ public:
+  AbstractCompleteBrush() {}
+  virtual ~AbstractCompleteBrush() {}
 
-    virtual String getName() const = 0;
-    virtual AbstractBrushControls* getBrushControls() const = 0;
-    virtual AbstractBrushAction* getBrushAction() const = 0;
+  virtual String getName() const = 0;
+  virtual AbstractBrushControls* getBrushControls() const = 0;
+  virtual AbstractBrushAction* getBrushAction() const = 0;
 
-private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(AbstractCompleteBrush);
+ private:
+  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(AbstractCompleteBrush);
 };
 
-#endif // ABSTRACTCOMPLETEBRUSH_H_INCLUDED
+#endif  // ABSTRACTCOMPLETEBRUSH_H_INCLUDED

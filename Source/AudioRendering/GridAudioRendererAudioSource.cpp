@@ -3,146 +3,136 @@
 #include "Configuration.h"
 
 GridAudioRendererAudioSource::GridAudioRendererAudioSource(const GridData& gridData) noexcept
-: gridData_(gridData),
-  readyToPlay_(true),
-  fullPieceAudioBuffer_(Configuration::getNumberChannels(), Configuration::getTotalAudioSampleLength()),
-  currentOutputOffset_(0),
-  reconstructor_(gridData)
+    : gridData_(gridData),
+      readyToPlay_(true),
+      fullPieceAudioBuffer_(Configuration::getNumberChannels(),
+                            Configuration::getTotalAudioSampleLength()),
+      currentOutputOffset_(0),
+      reconstructor_(gridData)
 {
-    fullPieceAudioBuffer_.clear();
+  fullPieceAudioBuffer_.clear();
 }
 
-GridAudioRendererAudioSource::~GridAudioRendererAudioSource()
-{
-}
+GridAudioRendererAudioSource::~GridAudioRendererAudioSource() {}
 
 const AudioSampleBuffer& GridAudioRendererAudioSource::getOutputBuffer()
 {
-    return fullPieceAudioBuffer_;
+  return fullPieceAudioBuffer_;
 }
 
 void GridAudioRendererAudioSource::rerender()
 {
-    reconstructor_.perform(fullPieceAudioBuffer_);
-    readyToPlay_ = true;
-    newAudioListeners_.call(&GridAudioRendererAudioSource::NewAudioListener::newAudioCallback,
-                            fullPieceAudioBuffer_);
+  reconstructor_.perform(fullPieceAudioBuffer_);
+  readyToPlay_ = true;
+  newAudioListeners_.call(&GridAudioRendererAudioSource::NewAudioListener::newAudioCallback,
+                          fullPieceAudioBuffer_);
 }
 
 void GridAudioRendererAudioSource::addNewAudioListener(
-        GridAudioRendererAudioSource::NewAudioListener* listener)
+    GridAudioRendererAudioSource::NewAudioListener* listener)
 {
-    newAudioListeners_.add(listener);
+  newAudioListeners_.add(listener);
 }
 
 void GridAudioRendererAudioSource::removeNewAudioListener(
-        GridAudioRendererAudioSource::NewAudioListener* listener)
+    GridAudioRendererAudioSource::NewAudioListener* listener)
 {
-    newAudioListeners_.remove(listener);
+  newAudioListeners_.remove(listener);
 }
 
 void GridAudioRendererAudioSource::addNewPositionListener(
-        GridAudioRendererAudioSource::NewPositionListener* listener)
+    GridAudioRendererAudioSource::NewPositionListener* listener)
 {
-    newPositionListeners_.add(listener);
+  newPositionListeners_.add(listener);
 }
 
-void GridAudioRendererAudioSource::removeNewPositionListener(GridAudioRendererAudioSource::NewPositionListener* listener)
+void GridAudioRendererAudioSource::removeNewPositionListener(
+    GridAudioRendererAudioSource::NewPositionListener* listener)
 {
-    newPositionListeners_.remove(listener);
+  newPositionListeners_.remove(listener);
 }
 
 // GridActionManagerListener methods
 void GridAudioRendererAudioSource::newGridDataCallback()
 {
-    readyToPlay_ = false;
-    rerender();
+  readyToPlay_ = false;
+  rerender();
 }
 
 void GridAudioRendererAudioSource::gridDataResizedCallback()
 {
-    readyToPlay_ = false;
-    reinitialize();
+  readyToPlay_ = false;
+  reinitialize();
 }
 
 // AudioSource methods
 void GridAudioRendererAudioSource::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
 {
-    if (!readyToPlay_)
-    {
-        rerender();
-    }
+  if (!readyToPlay_)
+  {
+    rerender();
+  }
 }
 
-void GridAudioRendererAudioSource::releaseResources()
+void GridAudioRendererAudioSource::releaseResources() {}
+
+void GridAudioRendererAudioSource::getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill)
 {
-}
+  // TODO remove this hack
+  if (currentOutputOffset_ >= fullPieceAudioBuffer_.getNumSamples())
+  {
+    setNextReadPosition(0);
+  }
 
-void GridAudioRendererAudioSource::getNextAudioBlock (const AudioSourceChannelInfo &bufferToFill)
-{
-    // TODO remove this hack
-    if (currentOutputOffset_ >= fullPieceAudioBuffer_.getNumSamples())
-    {
-        setNextReadPosition(0);
-    }
-        
-    auto readPtr = fullPieceAudioBuffer_.getReadPointer(0, currentOutputOffset_);
-    auto leftWritePtr = bufferToFill.buffer->getWritePointer(0, bufferToFill.startSample);
-    auto rightWritePtr = bufferToFill.buffer->getWritePointer(1, bufferToFill.startSample);
+  auto readPtr = fullPieceAudioBuffer_.getReadPointer(0, currentOutputOffset_);
+  auto leftWritePtr = bufferToFill.buffer->getWritePointer(0, bufferToFill.startSample);
+  auto rightWritePtr = bufferToFill.buffer->getWritePointer(1, bufferToFill.startSample);
 
-    auto endPoint = jmin(bufferToFill.numSamples,
-                         fullPieceAudioBuffer_.getNumSamples() - currentOutputOffset_);
-    
-    for (int i = 0; i < endPoint; ++i)
-    {
-        leftWritePtr[i] = readPtr[i];
-        rightWritePtr[i] = readPtr[i];
-    }
+  auto endPoint =
+      jmin(bufferToFill.numSamples, fullPieceAudioBuffer_.getNumSamples() - currentOutputOffset_);
 
-    for (int i = endPoint; i < bufferToFill.numSamples; ++i)
-    {
-        leftWritePtr[i] = 0.0f;
-        rightWritePtr[i] = 0.0f;
-    }
+  for (int i = 0; i < endPoint; ++i)
+  {
+    leftWritePtr[i] = readPtr[i];
+    rightWritePtr[i] = readPtr[i];
+  }
 
-    setNextReadPosition(currentOutputOffset_ + endPoint);
+  for (int i = endPoint; i < bufferToFill.numSamples; ++i)
+  {
+    leftWritePtr[i] = 0.0f;
+    rightWritePtr[i] = 0.0f;
+  }
+
+  setNextReadPosition(currentOutputOffset_ + endPoint);
 }
 
 // PositionableAudioSource methods
 void GridAudioRendererAudioSource::setNextReadPosition(int64 newPosition)
 {
-    jassert(newPosition >= 0 && newPosition <= getTotalLength());
-    currentOutputOffset_ = newPosition;
-    auto fraction = static_cast<float>(newPosition) / static_cast<float>(getTotalLength());
-    newPositionListeners_.call(
-            &GridAudioRendererAudioSource::NewPositionListener::newPositionCallback, fraction);
+  jassert(newPosition >= 0 && newPosition <= getTotalLength());
+  currentOutputOffset_ = newPosition;
+  auto fraction = static_cast<float>(newPosition) / static_cast<float>(getTotalLength());
+  newPositionListeners_.call(
+      &GridAudioRendererAudioSource::NewPositionListener::newPositionCallback, fraction);
 }
 
-int64 GridAudioRendererAudioSource::getNextReadPosition () const
-{
-    return currentOutputOffset_;
-}
+int64 GridAudioRendererAudioSource::getNextReadPosition() const { return currentOutputOffset_; }
 
 int64 GridAudioRendererAudioSource::getTotalLength() const
 {
-    return fullPieceAudioBuffer_.getNumSamples();
+  return fullPieceAudioBuffer_.getNumSamples();
 }
 
-bool GridAudioRendererAudioSource::isLooping() const
-{
-    return false;
-}
+bool GridAudioRendererAudioSource::isLooping() const { return false; }
 
-void GridAudioRendererAudioSource::setLooping(bool shouldLoop)
-{
-    jassert(false);
-}
+void GridAudioRendererAudioSource::setLooping(bool shouldLoop) { jassert(false); }
 
 // private methods
 void GridAudioRendererAudioSource::reinitialize()
 {
-    reconstructor_.reinitialize();
-    readyToPlay_ = false;
-    fullPieceAudioBuffer_.setSize(Configuration::getNumberChannels(), Configuration::getTotalAudioSampleLength());
-    rerender();
+  reconstructor_.reinitialize();
+  readyToPlay_ = false;
+  fullPieceAudioBuffer_.setSize(Configuration::getNumberChannels(),
+                                Configuration::getTotalAudioSampleLength());
+  rerender();
 }

@@ -7,17 +7,17 @@
 
 class NoiseBrush : public BasicBrushBase
 {
-public:
-    NoiseBrush();
+ public:
+  NoiseBrush();
 
-    void drawPreviewInto(Graphics& g, const Rectangle<int>& bounds) const override;
+  void drawPreviewInto(Graphics& g, const Rectangle<int>& bounds) const override;
 
-protected:
-    virtual Array<GridPoint> applyBrushToPoint(StrokePoint p, GridData& gridData) const override;
+ protected:
+  virtual Array<GridPoint> applyBrushToPoint(StrokePoint p, GridData& gridData) const override;
 
-private:
-    float size_;
-    float density_;
+ private:
+  float size_;
+  float density_;
 };
 
-#endif // NOISEBRUSH_H_INCLUDED
+#endif  // NOISEBRUSH_H_INCLUDED

@@ -2,19 +2,20 @@
 
 DFMSLookAndFeel::DFMSLookAndFeel()
 {
-    setColour(TextButton::buttonColourId,          Colours::white);
-    setColour(TextButton::buttonOnColourId,        Colours::red.withAlpha(0.6f));
-    setColour(TextButton::textColourOffId,         Colours::black);
-    setColour(TextButton::textColourOnId,          Colours::white);
-    setColour(ListBox::outlineColourId,            findColour (ComboBox::outlineColourId));
-    setColour(ScrollBar::thumbColourId,            Colour (0xffbbbbdd));
-    setColour(ScrollBar::backgroundColourId,       Colours::transparentBlack);
-    //setColour(Slider::backgroundColourId,          Colours::darkgrey);
-    setColour(Slider::thumbColourId,               Colours::red);
-    setColour(Slider::trackColourId,               Colours::white);
+  setColour(TextButton::buttonColourId, Colours::white);
+  setColour(TextButton::buttonOnColourId, Colours::red.withAlpha(0.6f));
+  setColour(TextButton::textColourOffId, Colours::black);
+  setColour(TextButton::textColourOnId, Colours::white);
+  setColour(ListBox::outlineColourId, findColour(ComboBox::outlineColourId));
+  setColour(ScrollBar::thumbColourId, Colour(0xffbbbbdd));
+  setColour(ScrollBar::backgroundColourId, Colours::transparentBlack);
+  // setColour(Slider::backgroundColourId,          Colours::darkgrey);
+  setColour(Slider::thumbColourId, Colours::red);
+  setColour(Slider::trackColourId, Colours::white);
 }
 
-//void DFMSLookAndFeel::drawButtonBackground(Graphics& g, Button& button, const Colour& backgroundColour,
+// void DFMSLookAndFeel::drawButtonBackground(Graphics& g, Button& button, const Colour&
+// backgroundColour,
 //                                           bool isMouseOverButton, bool isButtonDown)
 //{
 //    const int width = button.getWidth();
@@ -43,33 +44,32 @@ DFMSLookAndFeel::DFMSLookAndFeel()
 //    drawOutline(g, button);
 //}
 
-void DFMSLookAndFeel::drawOutline(juce::Graphics& g, juce::Component& c, bool isMouseOver, bool isSelected)
+void DFMSLookAndFeel::drawOutline(juce::Graphics& g, juce::Component& c, bool isMouseOver,
+                                  bool isSelected)
 {
-    drawOutline(g, c.getLocalBounds(), isMouseOver, isSelected);
+  drawOutline(g, c.getLocalBounds(), isMouseOver, isSelected);
 }
 
-void DFMSLookAndFeel::drawOutline(juce::Graphics& g, Rectangle<int> bounds, bool isMouseOver, bool isSelected)
+void DFMSLookAndFeel::drawOutline(juce::Graphics& g, Rectangle<int> bounds, bool isMouseOver,
+                                  bool isSelected)
 {
-    Colour colour;
-    if (isSelected)
-    {
-        colour = Colours::red;
-    }
-    else
-    {
-        colour = Colours::black;
-    }
-    
-    if (!isMouseOver)
-    {
-        colour = colour.withAlpha(0.4f);
-    }
-    
-    g.setColour(colour);
-    g.drawRect(bounds);
+  Colour colour;
+  if (isSelected)
+  {
+    colour = Colours::red;
+  }
+  else
+  {
+    colour = Colours::black;
+  }
+
+  if (!isMouseOver)
+  {
+    colour = colour.withAlpha(0.4f);
+  }
+
+  g.setColour(colour);
+  g.drawRect(bounds);
 }
 
-Colour DFMSLookAndFeel::getDefaultBackgroundColour()
-{
-    return Colours::white;
-}
+Colour DFMSLookAndFeel::getDefaultBackgroundColour() { return Colours::white; }

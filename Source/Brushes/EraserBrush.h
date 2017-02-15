@@ -9,15 +9,15 @@
 
 class EraserBrush : public BasicBrushBase
 {
-public:
-    EraserBrush();
+ public:
+  EraserBrush();
 
-    void drawPreviewInto(Graphics& g, const Rectangle<int>& bounds) const override;
+  void drawPreviewInto(Graphics& g, const Rectangle<int>& bounds) const override;
 
-protected:
-    Array<GridPoint> applyBrushToPoint(StrokePoint p, GridData& gridData) const override;
+ protected:
+  Array<GridPoint> applyBrushToPoint(StrokePoint p, GridData& gridData) const override;
 
-    float size_;
+  float size_;
 };
 
-#endif // ERASERBRUSH_H_INCLUDED
+#endif  // ERASERBRUSH_H_INCLUDED

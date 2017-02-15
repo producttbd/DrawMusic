@@ -9,20 +9,20 @@
 #include "GridPoint.h"
 #include "StrokePoint.h"
 
-class AbstractBrushAction :  public AbstractBrushControls::Listener
+class AbstractBrushAction : public AbstractBrushControls::Listener
 {
-public:
-    AbstractBrushAction() {}
-    virtual ~AbstractBrushAction() {}
+ public:
+  AbstractBrushAction() {}
+  virtual ~AbstractBrushAction() {}
 
-    virtual Array<GridPoint> startStroke(StrokePoint p, GridData& gridData) = 0;
-    virtual Array<GridPoint> continueStroke(StrokePoint p, GridData& gridData) = 0;
-    virtual Array<GridPoint> finishStroke(StrokePoint p, GridData& gridData) = 0;
+  virtual Array<GridPoint> startStroke(StrokePoint p, GridData& gridData) = 0;
+  virtual Array<GridPoint> continueStroke(StrokePoint p, GridData& gridData) = 0;
+  virtual Array<GridPoint> finishStroke(StrokePoint p, GridData& gridData) = 0;
 
-    virtual void drawPreviewInto(Graphics& g, const Rectangle<int>& bounds) const = 0;
+  virtual void drawPreviewInto(Graphics& g, const Rectangle<int>& bounds) const = 0;
 
-private:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(AbstractBrushAction);
+ private:
+  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(AbstractBrushAction);
 };
 
-#endif // ABSTRACTBRUSHACTION_H_INCLUDED
+#endif  // ABSTRACTBRUSHACTION_H_INCLUDED

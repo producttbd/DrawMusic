@@ -5,29 +5,24 @@
 
 class AudioFileWriter
 {
-public:
-    static void saveToFileWithDialogBox(const AudioSampleBuffer& buffer)
+ public:
+  static void saveToFileWithDialogBox(const AudioSampleBuffer& buffer)
+  {
+    AudioFormatManager afManager;
+    afManager.registerBasicFormats();
+    AudioFormat* format = afManager.getDefaultFormat();
+
+    FileChooser fileChooser(TRANS("Select output file"), File::nonexistent,
+                            format->getFileExtensions().joinIntoString(";"));
+    if (fileChooser.browseForFileToSave(true))
     {
-        AudioFormatManager afManager;
-        afManager.registerBasicFormats();
-        AudioFormat* format = afManager.getDefaultFormat();
-
-        FileChooser fileChooser(TRANS("Select output file"),
-                                File::nonexistent,
-                                format->getFileExtensions().joinIntoString(";"));
-        if (fileChooser.browseForFileToSave(true))
-        {
-            File file(fileChooser.getResult());
-            ScopedPointer<AudioFormatWriter> writer =
-                    format->createWriterFor(
-                        file.createOutputStream(), 44100, buffer.getNumChannels(),
-                        16 /* bitsPerSample */, NULL /* metadataValues */, 0 /* qualityOptionIndex */);
-            writer->writeFromAudioSampleBuffer(buffer, 0, buffer.getNumSamples());
-        }
+      File file(fileChooser.getResult());
+      ScopedPointer<AudioFormatWriter> writer = format->createWriterFor(
+          file.createOutputStream(), 44100, buffer.getNumChannels(), 16 /* bitsPerSample */,
+          NULL /* metadataValues */, 0 /* qualityOptionIndex */);
+      writer->writeFromAudioSampleBuffer(buffer, 0, buffer.getNumSamples());
     }
+  }
 };
-
-
-
 
 #endif  // AUDIOFILEWRITER_H_INCLUDED

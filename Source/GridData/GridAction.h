@@ -3,13 +3,8 @@
 
 class GridAction
 {
-public:
-    GridAction();
-
-    
-
+ public:
+  GridAction();
 };
-
-
 
 #endif  // GRIDACTION_H_INCLUDED

@@ -12,67 +12,66 @@ class GridAudioRendererAudioSource : public PositionableAudioSource,
                                      public GridActionManager::GridDataResizedListener,
                                      public GridActionManager::GridDataUpdatedListener
 {
-public:
-    class NewAudioListener
-    {
-    public:
-        virtual void newAudioCallback(const AudioSampleBuffer& updatedAudio) =0;
-        virtual ~NewAudioListener() {}
-    };
-    
-    class NewPositionListener
-    {
-    public:
-        virtual void newPositionCallback(float fraction) =0;
-        virtual ~NewPositionListener() {}
-    };
-    
-    explicit GridAudioRendererAudioSource(const GridData& gridData) noexcept;
-    ~GridAudioRendererAudioSource();
+ public:
+  class NewAudioListener
+  {
+   public:
+    virtual void newAudioCallback(const AudioSampleBuffer& updatedAudio) = 0;
+    virtual ~NewAudioListener() {}
+  };
 
-    const AudioSampleBuffer& getOutputBuffer();
+  class NewPositionListener
+  {
+   public:
+    virtual void newPositionCallback(float fraction) = 0;
+    virtual ~NewPositionListener() {}
+  };
 
-    void rerender();
-    void addNewAudioListener(NewAudioListener* listener);
-    void removeNewAudioListener(NewAudioListener* listener);
-    void addNewPositionListener(NewPositionListener* listener);
-    void removeNewPositionListener(NewPositionListener* listener);
-    
-    // GridActionManagerListener methods
-    // Called when new gridData is available and needs rerendering
-    void newGridDataCallback() override;
-    void gridDataResizedCallback() override;
+  explicit GridAudioRendererAudioSource(const GridData& gridData) noexcept;
+  ~GridAudioRendererAudioSource();
 
-    // AudioSource methods
-    void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;
-    void releaseResources() override;
-    void getNextAudioBlock (const AudioSourceChannelInfo &bufferToFill) override;
-    
-    // PositionableAudioSource methods
-    void setNextReadPosition (int64 newPosition) override;
-    int64 getNextReadPosition () const override;
-    int64 getTotalLength() const override;
-    bool isLooping() const override;
-    void setLooping(bool shouldLoop) override;
+  const AudioSampleBuffer& getOutputBuffer();
 
-private:
-    // TODO make dependencies on Configuration explicit
-    void reinitialize();
+  void rerender();
+  void addNewAudioListener(NewAudioListener* listener);
+  void removeNewAudioListener(NewAudioListener* listener);
+  void addNewPositionListener(NewPositionListener* listener);
+  void removeNewPositionListener(NewPositionListener* listener);
 
-    void callDeviceChangeListeners();
+  // GridActionManagerListener methods
+  // Called when new gridData is available and needs rerendering
+  void newGridDataCallback() override;
+  void gridDataResizedCallback() override;
 
-    const GridData& gridData_;
-    bool readyToPlay_;
-    AudioSampleBuffer fullPieceAudioBuffer_;
-    int currentOutputOffset_;
+  // AudioSource methods
+  void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;
+  void releaseResources() override;
+  void getNextAudioBlock(const AudioSourceChannelInfo& bufferToFill) override;
 
-    WaveletReconstructor reconstructor_;
+  // PositionableAudioSource methods
+  void setNextReadPosition(int64 newPosition) override;
+  int64 getNextReadPosition() const override;
+  int64 getTotalLength() const override;
+  bool isLooping() const override;
+  void setLooping(bool shouldLoop) override;
 
-    ListenerList<NewAudioListener> newAudioListeners_;
-    ListenerList<NewPositionListener> newPositionListeners_;
-    
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GridAudioRendererAudioSource);
+ private:
+  // TODO make dependencies on Configuration explicit
+  void reinitialize();
+
+  void callDeviceChangeListeners();
+
+  const GridData& gridData_;
+  bool readyToPlay_;
+  AudioSampleBuffer fullPieceAudioBuffer_;
+  int currentOutputOffset_;
+
+  WaveletReconstructor reconstructor_;
+
+  ListenerList<NewAudioListener> newAudioListeners_;
+  ListenerList<NewPositionListener> newPositionListeners_;
+
+  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GridAudioRendererAudioSource);
 };
 
-
-#endif // GRIDAUDIORENDERERAUDIOSOURCE_H_INCLUDED
+#endif  // GRIDAUDIORENDERERAUDIOSOURCE_H_INCLUDED
