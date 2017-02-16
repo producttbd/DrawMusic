@@ -4,13 +4,13 @@
 #include "JuceHeader.h"
 
 #include "Configuration.h"
-#include "GridActionManager.h"
 #include "GridData.h"
+#include "GridDataChangedNotifier.h"
 #include "WaveletReconstructor.h"
 
 class GridAudioRendererAudioSource : public PositionableAudioSource,
-                                     public GridActionManager::GridDataResizedListener,
-                                     public GridActionManager::GridDataUpdatedListener
+                                     public GridDataChangedNotifier::GridDataResizedListener,
+                                     public GridDataChangedNotifier::GridDataUpdatedListener
 {
  public:
   class NewAudioListener

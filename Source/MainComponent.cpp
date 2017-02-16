@@ -5,11 +5,13 @@
 #include "BrushPaletteWindow.h"
 #include "Configuration.h"
 #include "DFMSLookAndFeel.h"
+#include "GridDataChangedNotifier.h"
 
 MainComponent::MainComponent()
     : gridData_(Configuration::getGridWidth(), Configuration::getGridHeight()),
       brushPalette_("brushPalette", gridColourScheme_),
-      gridActionManager_(brushPalette_, gridData_),
+      gridDataChangedNotifier_(),
+      gridActionManager_(brushPalette_, gridData_, gridDataChangedNotifier_),
       gridColourScheme_(),
       drawGrid_(gridActionManager_, gridData_, gridColourScheme_),
       deviceManager_(),
@@ -27,8 +29,9 @@ MainComponent::MainComponent()
       gridSmallerButton_("gridSmallerButton"),
       gridLargerButton_("gridBiggerButton"),
       undoButton_("undoButton"),
+      redoButton_("redoButton"),
       allButtons_({&playStopButton_, &clearButton_, &exportButton_, &settingsButton_,
-                   &gridSmallerButton_, &gridLargerButton_, &undoButton_})
+                   &gridSmallerButton_, &gridLargerButton_, &undoButton_, &redoButton_})
 {
   // Buttons
   playStopButton_.setButtonText(TRANS("play"));
@@ -44,7 +47,9 @@ MainComponent::MainComponent()
   gridLargerButton_.setButtonText(TRANS("bigger"));
   gridLargerButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
   undoButton_.setButtonText(TRANS("undo"));
-  undoButton_.setConnectedEdges(Button::ConnectedOnLeft);
+  undoButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
+  redoButton_.setButtonText(TRANS("redo"));
+  redoButton_.setConnectedEdges(Button::ConnectedOnLeft);
 
   for (Button* button : allButtons_)
   {
@@ -66,13 +71,18 @@ MainComponent::MainComponent()
   deviceManager_.addAudioCallback(&audioSourcePlayer_);
   audioSourcePlayer_.setSource(&transportSource_);
   transportSource_.setSource(&gridAudioSource_);
+
+  // The WavefromView should know when new audio is available to redraw and the timeline should know
+  // when the current position has changed.
   gridAudioSource_.addNewAudioListener(&waveformView_);
   gridAudioSource_.addNewPositionListener(&playbackTimeline_);
 
-  gridActionManager_.addGridDataResizedListener(&drawGrid_);
-  gridActionManager_.addGridDataResizedListener(&gridAudioSource_);
-  gridActionManager_.addGridDataUpdatedListener(&drawGrid_);
-  gridActionManager_.addGridDataUpdatedListener(&gridAudioSource_);
+  // The actual UI Component, DrawGrid, should know when the underlying data is changed or resized.
+  // The Grid...AudioSource should know when new data is available for turning into sound.
+  gridDataChangedNotifier_.addGridDataResizedListener(&drawGrid_);
+  gridDataChangedNotifier_.addGridDataResizedListener(&gridAudioSource_);
+  gridDataChangedNotifier_.addGridDataUpdatedListener(&drawGrid_);
+  gridDataChangedNotifier_.addGridDataUpdatedListener(&gridAudioSource_);
 
   // Finally set size
   setSize(Configuration::getMainWindowWidth(), Configuration::getMainWindowHeight());
@@ -87,7 +97,10 @@ MainComponent::~MainComponent()
   }
 }
 
-void MainComponent::paint(Graphics& g) { g.fillAll(DFMSLookAndFeel::getDefaultBackgroundColour()); }
+void MainComponent::paint(Graphics& g)
+{
+  g.fillAll(DFMSLookAndFeel::getDefaultBackgroundColour());
+}
 
 void MainComponent::resized()
 {
@@ -180,6 +193,14 @@ void MainComponent::buttonClicked(Button* buttonThatWasClicked)
         setSize(Configuration::getMainWindowWidth(), Configuration::getMainWindowHeight());
       }
     }
+  }
+  else if (buttonThatWasClicked == &undoButton_)
+  {
+    gridActionManager_.undo();
+  }
+  else if (buttonThatWasClicked == &redoButton_)
+  {
+    gridActionManager_.redo();
   }
 }
 

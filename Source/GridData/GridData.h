@@ -9,10 +9,10 @@ class GridData
 {
  public:
   GridData(int gridWidth, int gridHeight);
+  GridData(const GridData& other) = default;
   GridData(GridData&& other) = default;
+  GridData& operator=(const GridData& other) = default;
   GridData& operator=(GridData&& other) = default;
-
-  GridData getCopy();
 
   void zero();
   void resize(int newWidth, int newHeight);
@@ -33,7 +33,7 @@ class GridData
   static constexpr float minValue_ = 0.0f;
   static constexpr float maxValue_ = 1.0f;
 
-  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GridData);
+  JUCE_LEAK_DETECTOR(GridData);
 };
 
 #endif  // GRIDDATA_H_INCLUDED

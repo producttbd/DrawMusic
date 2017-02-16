@@ -1,79 +1,68 @@
 #include "GridActionManager.h"
 
 #include "Configuration.h"
+#include "GridBrushAction.h"
 
-GridActionManager::GridActionManager(const BrushPalette& brushPalette, GridData& gridData)
-    : brushPalette_(brushPalette), gridData_(gridData)
+GridActionManager::GridActionManager(const BrushPalette& brushPalette, GridData& gridData,
+                                     GridDataChangedNotifier& gridDataChangedNotifier)
+    : brushPalette_(brushPalette),
+      gridData_(gridData),
+      gridDataChangedNotifier_(gridDataChangedNotifier),
+      undoManager_(1000 /* maxNumberOfUnitsToKeep */, 1 /* minimumTransactionsToKeep */)
 {
-}
-
-void GridActionManager::addGridDataResizedListener(GridDataResizedListener* listener)
-{
-  gridDataResizedListeners_.add(listener);
-}
-
-void GridActionManager::removeGridDataResizedListener(GridDataResizedListener* listener)
-{
-  gridDataResizedListeners_.remove(listener);
-}
-void GridActionManager::addGridDataUpdatedListener(GridDataUpdatedListener* listener)
-{
-  gridDataUpdatedListeners_.add(listener);
-}
-void GridActionManager::removeGridDataUpdatedListener(GridDataUpdatedListener* listener)
-{
-  gridDataUpdatedListeners_.remove(listener);
 }
 
 void GridActionManager::resize(int width, int height)
 {
   gridData_.resize(width, height);
-  callGridResizedListeners();
+  undoManager_.clearUndoHistory();
+  gridDataChangedNotifier_.callGridResizedListeners();
 }
 
 void GridActionManager::clearGrid()
 {
   gridData_.zero();
-  callGridUpdatedListeners();
+  undoManager_.clearUndoHistory();
+  gridDataChangedNotifier_.callGridUpdatedListeners();
 }
 
 void GridActionManager::mouseDown(const juce::MouseEvent& event)
 {
-  auto currentBrush = brushPalette_.getCurrentBrushAction();
+  std::cout << "mouse down" << event.x << " " << event.y << std::endl;
   float pressure = event.isPressureValid() ? event.pressure : Configuration::getDefaultPressure();
-  auto affectedPixels =
-      currentBrush->startStroke(StrokePoint(event.x, event.y, pressure), gridData_);
+  undoManager_.beginNewTransaction();
+  UndoableAction* action = new MouseDownGridBrushAction(
+      gridData_, brushPalette_.getCurrentBrushAction(), StrokePoint(event.x, event.y, pressure),
+      gridDataChangedNotifier_);
+  undoManager_.perform(action);
 }
 
 void GridActionManager::mouseDrag(const juce::MouseEvent& event)
 {
-  auto currentBrush = brushPalette_.getCurrentBrushAction();
+  std::cout << "mouse drag" << event.x << " " << event.y << std::endl;
   float pressure = event.isPressureValid() ? event.pressure : Configuration::getDefaultPressure();
-  auto affectedPixels =
-      currentBrush->continueStroke(StrokePoint(event.x, event.y, pressure), gridData_);
+  UndoableAction* action = new MouseDragGridBrushAction(
+      gridData_, brushPalette_.getCurrentBrushAction(), StrokePoint(event.x, event.y, pressure),
+      gridDataChangedNotifier_);
+  undoManager_.perform(action);
 }
 
 void GridActionManager::mouseUp(const juce::MouseEvent& event)
 {
-  auto currentBrush = brushPalette_.getCurrentBrushAction();
+  std::cout << "mouse up" << event.x << " " << event.y << std::endl;
   float pressure = event.isPressureValid() ? event.pressure : Configuration::getDefaultPressure();
-  auto affectedPixels =
-      currentBrush->finishStroke(StrokePoint(event.x, event.y, pressure), gridData_);
-  callGridUpdatedListeners();
+  UndoableAction* action =
+      new MouseUpGridBrushAction(gridData_, brushPalette_.getCurrentBrushAction(),
+                                 StrokePoint(event.x, event.y, pressure), gridDataChangedNotifier_);
+  undoManager_.perform(action);
 }
 
-void GridActionManager::callGridResizedListeners()
+void GridActionManager::undo()
 {
-  gridDataResizedListeners_.call(&GridDataResizedListener::gridDataResizedCallback);
+  undoManager_.undo();
 }
 
-void GridActionManager::callGridUpdatedListeners()
+void GridActionManager::redo()
 {
-  gridDataUpdatedListeners_.call(&GridDataUpdatedListener::entireGridDataUpdatedCallback);
-}
-
-void GridActionManager::callGridUpdatedListeners(const Array<GridPoint>& affectedPoints)
-{
-  gridDataUpdatedListeners_.call(&GridDataUpdatedListener::partialGridDataUpdatedCallback,
-                                 affectedPoints);
+  undoManager_.redo();
 }

@@ -43,6 +43,7 @@ class MainComponent : public Component, public Button::Listener
 
   GridData gridData_;
   BrushPalette brushPalette_;
+  GridDataChangedNotifier gridDataChangedNotifier_;
   GridActionManager gridActionManager_;
   GridColourScheme gridColourScheme_;
   DrawGrid drawGrid_;
@@ -65,6 +66,7 @@ class MainComponent : public Component, public Button::Listener
   TextButton gridSmallerButton_;
   TextButton gridLargerButton_;
   TextButton undoButton_;
+  TextButton redoButton_;
   Array<Button*> allButtons_;
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainComponent)

@@ -56,6 +56,7 @@ void DrawGrid::entireGridDataUpdatedCallback()
 void DrawGrid::partialGridDataUpdatedCallback(const Array<GridPoint>& affectedPoints)
 {
   gridImageRenderer_.renderSelectPointsToImage(affectedPoints, theImage_);
+  repaint();
 }
 
 void DrawGrid::gridDataResizedCallback()

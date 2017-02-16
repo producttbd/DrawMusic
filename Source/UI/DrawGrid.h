@@ -6,11 +6,12 @@
 #include "GridActionManager.h"
 #include "GridColourScheme.h"
 #include "GridData.h"
+#include "GridDataChangedNotifier.h"
 #include "GridImageRenderer.h"
 
 class DrawGrid : public Component,
-                 public GridActionManager::GridDataResizedListener,
-                 public GridActionManager::GridDataUpdatedListener
+                 public GridDataChangedNotifier::GridDataResizedListener,
+                 public GridDataChangedNotifier::GridDataUpdatedListener
 {
  public:
   DrawGrid(GridActionManager& gridActionManager, const GridData& gridData,
@@ -25,7 +26,7 @@ class DrawGrid : public Component,
   void mouseDrag(const MouseEvent& event) override;
   void mouseUp(const MouseEvent& event) override;
 
-  // GridActionManager Listeners overrides
+  // GridDataChangedNotifier Listeners overrides
   void entireGridDataUpdatedCallback() override;
   void partialGridDataUpdatedCallback(const Array<GridPoint>& affectedPoints) override;
   void gridDataResizedCallback() override;
@@ -33,6 +34,7 @@ class DrawGrid : public Component,
  private:
   void refreshAll();
 
+  // To handle clicks on the UI element.
   GridActionManager& gridActionManager_;
   const GridColourScheme& colourScheme_;
   Image theImage_;

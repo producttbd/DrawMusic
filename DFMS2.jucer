@@ -6,8 +6,18 @@
   <MAINGROUP id="BvMvtA" name="DFMS2">
     <GROUP id="{157F435B-C817-59C4-B8EE-094D6D6F9F9C}" name="Source">
       <GROUP id="{2BA984EC-88C8-651A-AEDD-D903ED206962}" name="GridData">
-        <FILE id="xPZBzX" name="GridAction.cpp" compile="1" resource="0" file="Source/GridData/GridAction.cpp"/>
-        <FILE id="gyVlRt" name="GridAction.h" compile="0" resource="0" file="Source/GridData/GridAction.h"/>
+        <FILE id="Qs9UQx" name="GridDataChangedNotifier.cpp" compile="1" resource="0"
+              file="Source/GridData/GridDataChangedNotifier.cpp"/>
+        <FILE id="CDjTzX" name="GridDataChangedNotifier.h" compile="0" resource="0"
+              file="Source/GridData/GridDataChangedNotifier.h"/>
+        <FILE id="UVzYFK" name="GridResizeAction.cpp" compile="1" resource="0"
+              file="Source/GridData/GridResizeAction.cpp"/>
+        <FILE id="SBzEog" name="GridResizeAction.h" compile="0" resource="0"
+              file="Source/GridData/GridResizeAction.h"/>
+        <FILE id="xPZBzX" name="GridBrushAction.cpp" compile="1" resource="0"
+              file="Source/GridData/GridBrushAction.cpp"/>
+        <FILE id="gyVlRt" name="GridBrushAction.h" compile="0" resource="0"
+              file="Source/GridData/GridBrushAction.h"/>
         <FILE id="RLlbKB" name="GridActionManager.cpp" compile="1" resource="0"
               file="Source/GridData/GridActionManager.cpp"/>
         <FILE id="Pu9mj6" name="GridActionManager.h" compile="0" resource="0"

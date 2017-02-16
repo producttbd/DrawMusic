@@ -5,31 +5,13 @@
 
 #include "BrushPalette.h"
 #include "GridData.h"
+#include "GridDataChangedNotifier.h"
 
 class GridActionManager
 {
  public:
-  GridActionManager(const BrushPalette& brushPalette, GridData& gridData);
-
-  class GridDataResizedListener
-  {
-   public:
-    virtual void gridDataResizedCallback() = 0;
-    virtual ~GridDataResizedListener() {}
-  };
-
-  class GridDataUpdatedListener
-  {
-   public:
-    virtual void entireGridDataUpdatedCallback() = 0;
-    virtual void partialGridDataUpdatedCallback(const Array<GridPoint>& affectedPoints) = 0;
-    virtual ~GridDataUpdatedListener() {}
-  };
-
-  void addGridDataResizedListener(GridDataResizedListener* listener);
-  void removeGridDataResizedListener(GridDataResizedListener* listener);
-  void addGridDataUpdatedListener(GridDataUpdatedListener* listener);
-  void removeGridDataUpdatedListener(GridDataUpdatedListener* listener);
+  GridActionManager(const BrushPalette& brushPalette, GridData& gridData,
+                    GridDataChangedNotifier& gridDataChangedNotifier);
 
   void resize(int width, int height);
   void clearGrid();
@@ -37,16 +19,15 @@ class GridActionManager
   void mouseDrag(const MouseEvent& event);
   void mouseUp(const MouseEvent& event);
 
- private:
-  void callGridResizedListeners();
-  void callGridUpdatedListeners();
-  void callGridUpdatedListeners(const Array<GridPoint>& affectedPoints);
+  void undo();
+  void redo();
 
+ private:
   const BrushPalette& brushPalette_;
   GridData& gridData_;
+  GridDataChangedNotifier& gridDataChangedNotifier_;
 
-  ListenerList<GridDataResizedListener> gridDataResizedListeners_;
-  ListenerList<GridDataUpdatedListener> gridDataUpdatedListeners_;
+  UndoManager undoManager_;
 };
 
 #endif  // GRIDACTIONMANAGER_H_INCLUDED
