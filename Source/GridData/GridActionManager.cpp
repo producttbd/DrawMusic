@@ -28,7 +28,6 @@ void GridActionManager::clearGrid()
 
 void GridActionManager::mouseDown(const juce::MouseEvent& event)
 {
-  std::cout << "mouse down" << event.x << " " << event.y << std::endl;
   float pressure = event.isPressureValid() ? event.pressure : Configuration::getDefaultPressure();
   undoManager_.beginNewTransaction();
   UndoableAction* action = new MouseDownGridBrushAction(
@@ -39,7 +38,6 @@ void GridActionManager::mouseDown(const juce::MouseEvent& event)
 
 void GridActionManager::mouseDrag(const juce::MouseEvent& event)
 {
-  std::cout << "mouse drag" << event.x << " " << event.y << std::endl;
   float pressure = event.isPressureValid() ? event.pressure : Configuration::getDefaultPressure();
   UndoableAction* action = new MouseDragGridBrushAction(
       gridData_, brushPalette_.getCurrentBrushAction(), StrokePoint(event.x, event.y, pressure),
@@ -49,7 +47,6 @@ void GridActionManager::mouseDrag(const juce::MouseEvent& event)
 
 void GridActionManager::mouseUp(const juce::MouseEvent& event)
 {
-  std::cout << "mouse up" << event.x << " " << event.y << std::endl;
   float pressure = event.isPressureValid() ? event.pressure : Configuration::getDefaultPressure();
   UndoableAction* action =
       new MouseUpGridBrushAction(gridData_, brushPalette_.getCurrentBrushAction(),

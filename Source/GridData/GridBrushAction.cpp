@@ -29,7 +29,6 @@ bool MouseDownGridBrushAction::perform()
 
 bool MouseDownGridBrushAction::undo()
 {
-  std::cout << "MouseDownUndo" << std::endl;
   actualGrid_ = initialGridState_;
   gridDataChangedNotifier_.callGridUpdatedListeners();
   return true;
