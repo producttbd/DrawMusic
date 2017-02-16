@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="juga0a" name="DrawMusic" projectType="guiapp" version="0.0.5"
+              bundleIdentifier="com.producttbd.drawmusic" includeBinaryInAppConfig="1"
+              jucerVersion="4.3.0">
+  <MAINGROUP id="BvMvtA" name="DrawMusic">
+    <GROUP id="{157F435B-C817-59C4-B8EE-094D6D6F9F9C}" name="Source">
+      <GROUP id="{2BA984EC-88C8-651A-AEDD-D903ED206962}" name="GridData">
+        <FILE id="Qs9UQx" name="GridDataChangedNotifier.cpp" compile="1" resource="0"
+              file="Source/GridData/GridDataChangedNotifier.cpp"/>
+        <FILE id="CDjTzX" name="GridDataChangedNotifier.h" compile="0" resource="0"
+              file="Source/GridData/GridDataChangedNotifier.h"/>
+        <FILE id="xPZBzX" name="GridBrushAction.cpp" compile="1" resource="0"
+              file="Source/GridData/GridBrushAction.cpp"/>
+        <FILE id="gyVlRt" name="GridBrushAction.h" compile="0" resource="0"
+              file="Source/GridData/GridBrushAction.h"/>
+        <FILE id="RLlbKB" name="GridActionManager.cpp" compile="1" resource="0"
+              file="Source/GridData/GridActionManager.cpp"/>
+        <FILE id="Pu9mj6" name="GridActionManager.h" compile="0" resource="0"
+              file="Source/GridData/GridActionManager.h"/>
+        <FILE id="PoDOAh" name="GridData.cpp" compile="1" resource="0" file="Source/GridData/GridData.cpp"/>
+        <FILE id="YIk00E" name="GridData.h" compile="0" resource="0" file="Source/GridData/GridData.h"/>
+        <FILE id="IOLoHI" name="GridPoint.h" compile="0" resource="0" file="Source/GridData/GridPoint.h"/>
+      </GROUP>
+      <GROUP id="{79F7E17E-0BC8-E4C0-DBF4-F35E6AAC569E}" name="AudioRendering">
+        <FILE id="y3ToXj" name="AudioFileWriter.h" compile="0" resource="0"
+              file="Source/AudioRendering/AudioFileWriter.h"/>
+        <FILE id="tnplvO" name="EqualLoudnessCurve.h" compile="0" resource="0"
+              file="Source/AudioRendering/EqualLoudnessCurve.h"/>
+        <FILE id="CjX5jv" name="GridAudioRendererAudioSource.cpp" compile="1"
+              resource="0" file="Source/AudioRendering/GridAudioRendererAudioSource.cpp"/>
+        <FILE id="MpTKb0" name="GridAudioRendererAudioSource.h" compile="0"
+              resource="0" file="Source/AudioRendering/GridAudioRendererAudioSource.h"/>
+        <FILE id="WLdszy" name="WaveletReconstructor.cpp" compile="1" resource="0"
+              file="Source/AudioRendering/WaveletReconstructor.cpp"/>
+        <FILE id="ljMilR" name="WaveletReconstructor.h" compile="0" resource="0"
+              file="Source/AudioRendering/WaveletReconstructor.h"/>
+      </GROUP>
+      <GROUP id="{FD428970-AF74-7038-A12B-9CB89B960355}" name="Brushes">
+        <FILE id="AmvuFn" name="AbstractBrushAction.h" compile="0" resource="0"
+              file="Source/Brushes/AbstractBrushAction.h"/>
+        <FILE id="EXs32u" name="StrokePoint.h" compile="0" resource="0" file="Source/Brushes/StrokePoint.h"/>
+        <FILE id="K186py" name="AbstractBrushControls.h" compile="0" resource="0"
+              file="Source/Brushes/AbstractBrushControls.h"/>
+        <FILE id="RxO7eE" name="AbstractCompleteBrush.h" compile="0" resource="0"
+              file="Source/Brushes/AbstractCompleteBrush.h"/>
+        <FILE id="SHVCzO" name="BasicBrushBase.cpp" compile="1" resource="0"
+              file="Source/Brushes/BasicBrushBase.cpp"/>
+        <FILE id="NNYRmU" name="BasicBrushBase.h" compile="0" resource="0"
+              file="Source/Brushes/BasicBrushBase.h"/>
+        <FILE id="tO49Tr" name="BasicBrushControls.cpp" compile="1" resource="0"
+              file="Source/Brushes/BasicBrushControls.cpp"/>
+        <FILE id="yR0Why" name="BasicBrushControls.h" compile="0" resource="0"
+              file="Source/Brushes/BasicBrushControls.h"/>
+        <FILE id="onurjX" name="BasicCompleteBrush.cpp" compile="1" resource="0"
+              file="Source/Brushes/BasicCompleteBrush.cpp"/>
+        <FILE id="k6Hs6R" name="BasicCompleteBrush.h" compile="0" resource="0"
+              file="Source/Brushes/BasicCompleteBrush.h"/>
+        <FILE id="l957jV" name="BrushCollection.cpp" compile="1" resource="0"
+              file="Source/Brushes/BrushCollection.cpp"/>
+        <FILE id="khA6cb" name="BrushCollection.h" compile="0" resource="0"
+              file="Source/Brushes/BrushCollection.h"/>
+        <FILE id="ApSzdz" name="BrushFactory.cpp" compile="1" resource="0"
+              file="Source/Brushes/BrushFactory.cpp"/>
+        <FILE id="umyGHX" name="BrushFactory.h" compile="0" resource="0" file="Source/Brushes/BrushFactory.h"/>
+        <FILE id="IPgFaU" name="BrushPalette.cpp" compile="1" resource="0"
+              file="Source/Brushes/BrushPalette.cpp"/>
+        <FILE id="nx1oev" name="BrushPalette.h" compile="0" resource="0" file="Source/Brushes/BrushPalette.h"/>
+        <FILE id="Xp2qtb" name="BrushPaletteWindow.cpp" compile="1" resource="0"
+              file="Source/Brushes/BrushPaletteWindow.cpp"/>
+        <FILE id="QTmXTw" name="BrushPaletteWindow.h" compile="0" resource="0"
+              file="Source/Brushes/BrushPaletteWindow.h"/>
+        <FILE id="QaGlPK" name="BrushPaletteWindowContent.cpp" compile="1"
+              resource="0" file="Source/Brushes/BrushPaletteWindowContent.cpp"/>
+        <FILE id="EbbjTe" name="BrushPaletteWindowContent.h" compile="0" resource="0"
+              file="Source/Brushes/BrushPaletteWindowContent.h"/>
+        <FILE id="TZMwLs" name="BrushPreviewButton.cpp" compile="1" resource="0"
+              file="Source/Brushes/BrushPreviewButton.cpp"/>
+        <FILE id="iqvJQ2" name="BrushPreviewButton.h" compile="0" resource="0"
+              file="Source/Brushes/BrushPreviewButton.h"/>
+        <FILE id="b2af4a" name="CombBrush.cpp" compile="1" resource="0" file="Source/Brushes/CombBrush.cpp"/>
+        <FILE id="jBtspU" name="CombBrush.h" compile="0" resource="0" file="Source/Brushes/CombBrush.h"/>
+        <FILE id="nOBgA4" name="EraserBrush.cpp" compile="1" resource="0" file="Source/Brushes/EraserBrush.cpp"/>
+        <FILE id="ji947o" name="EraserBrush.h" compile="0" resource="0" file="Source/Brushes/EraserBrush.h"/>
+        <FILE id="mHt2lk" name="NoiseBrush.cpp" compile="1" resource="0" file="Source/Brushes/NoiseBrush.cpp"/>
+        <FILE id="Nn2kkx" name="NoiseBrush.h" compile="0" resource="0" file="Source/Brushes/NoiseBrush.h"/>
+        <FILE id="iXmYOB" name="PointClusterBrush.cpp" compile="1" resource="0"
+              file="Source/Brushes/PointClusterBrush.cpp"/>
+        <FILE id="w2LkOj" name="PointClusterBrush.h" compile="0" resource="0"
+              file="Source/Brushes/PointClusterBrush.h"/>
+        <FILE id="P5aC4R" name="XYProfileBrush.cpp" compile="1" resource="0"
+              file="Source/Brushes/XYProfileBrush.cpp"/>
+        <FILE id="z7vpoY" name="XYProfileBrush.h" compile="0" resource="0"
+              file="Source/Brushes/XYProfileBrush.h"/>
+      </GROUP>
+      <GROUP id="{B84C5DCE-5AE2-CD35-B6BB-E35F6A47D1BC}" name="UI">
+        <FILE id="bGUNDo" name="AudioBufferThumbnail.cpp" compile="1" resource="0"
+              file="Source/UI/AudioBufferThumbnail.cpp"/>
+        <FILE id="wceJjW" name="AudioBufferThumbnail.h" compile="0" resource="0"
+              file="Source/UI/AudioBufferThumbnail.h"/>
+        <FILE id="BVR7DJ" name="AudioSettingsWindow.cpp" compile="1" resource="0"
+              file="Source/UI/AudioSettingsWindow.cpp"/>
+        <FILE id="KdFA8L" name="AudioSettingsWindow.h" compile="0" resource="0"
+              file="Source/UI/AudioSettingsWindow.h"/>
+        <FILE id="HWhzFn" name="BaseWindow.cpp" compile="1" resource="0" file="Source/UI/BaseWindow.cpp"/>
+        <FILE id="LSHy0M" name="BaseWindow.h" compile="0" resource="0" file="Source/UI/BaseWindow.h"/>
+        <FILE id="Mtl0FB" name="DFMSLookAndFeel.cpp" compile="1" resource="0"
+              file="Source/UI/DFMSLookAndFeel.cpp"/>
+        <FILE id="zuDw53" name="DFMSLookAndFeel.h" compile="0" resource="0"
+              file="Source/UI/DFMSLookAndFeel.h"/>
+        <FILE id="lM9Laa" name="DrawGrid.cpp" compile="1" resource="0" file="Source/UI/DrawGrid.cpp"/>
+        <FILE id="BRXJGB" name="DrawGrid.h" compile="0" resource="0" file="Source/UI/DrawGrid.h"/>
+        <FILE id="SdymOg" name="GridColourScheme.cpp" compile="1" resource="0"
+              file="Source/UI/GridColourScheme.cpp"/>
+        <FILE id="pVNjfQ" name="GridColourScheme.h" compile="0" resource="0"
+              file="Source/UI/GridColourScheme.h"/>
+        <FILE id="EPlyf4" name="GridImageRenderer.cpp" compile="1" resource="0"
+              file="Source/UI/GridImageRenderer.cpp"/>
+        <FILE id="JS0tON" name="GridImageRenderer.h" compile="0" resource="0"
+              file="Source/UI/GridImageRenderer.h"/>
+        <FILE id="kFUUmf" name="PlaybackTimeline.cpp" compile="1" resource="0"
+              file="Source/UI/PlaybackTimeline.cpp"/>
+        <FILE id="WK5oPB" name="PlaybackTimeline.h" compile="0" resource="0"
+              file="Source/UI/PlaybackTimeline.h"/>
+        <FILE id="c7VSYv" name="WaveformView.cpp" compile="1" resource="0"
+              file="Source/UI/WaveformView.cpp"/>
+        <FILE id="HbIGTV" name="WaveformView.h" compile="0" resource="0" file="Source/UI/WaveformView.h"/>
+        <FILE id="KqcFkG" name="WindowBoundsManager.cpp" compile="1" resource="0"
+              file="Source/UI/WindowBoundsManager.cpp"/>
+        <FILE id="nBe092" name="WindowBoundsManager.h" compile="0" resource="0"
+              file="Source/UI/WindowBoundsManager.h"/>
+      </GROUP>
+      <FILE id="Cp756d" name="Configuration.cpp" compile="1" resource="0"
+            file="Source/Configuration.cpp"/>
+      <FILE id="eSpdYn" name="Configuration.h" compile="0" resource="0" file="Source/Configuration.h"/>
+      <FILE id="Bs9Qmy" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="AXA7kk" name="MainComponent.cpp" compile="1" resource="0"
+            file="Source/MainComponent.cpp"/>
+      <FILE id="GOq5mL" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
+      <FILE id="oHjjCo" name="ToDo.txt" compile="0" resource="0" file="Source/ToDo.txt"/>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" osxSDK="default" osxCompatibility="default" osxArchitecture="default"
+                       isDebug="1" optimisation="1" targetName="DFMS2"/>
+        <CONFIGURATION name="Release" osxSDK="default" osxCompatibility="10.9 SDK" osxArchitecture="default"
+                       isDebug="0" optimisation="2" targetName="DFMS2"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../Juce/modules"/>
+        <MODULEPATH id="juce_events" path="../Juce/modules"/>
+        <MODULEPATH id="juce_graphics" path="../Juce/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../Juce/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../Juce/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../Juce/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../Juce/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../Juce/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../Juce/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../Juce/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../Juce/modules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULES id="juce_audio_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_audio_devices" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_audio_formats" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_audio_processors" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_audio_utils" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_core" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_events" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_graphics" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_gui_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
+  </MODULES>
+  <JUCEOPTIONS/>
+  <LIVE_SETTINGS>
+    <OSX/>
+  </LIVE_SETTINGS>
+</JUCERPROJECT>
