@@ -12,11 +12,11 @@ class AudioFileWriter
     afManager.registerBasicFormats();
     AudioFormat* format = afManager.getDefaultFormat();
 
-    FileChooser fileChooser(TRANS("Select output file"), File::nonexistent,
-                            format->getFileExtensions().joinIntoString(";"));
+    FileChooser fileChooser(TRANS("Select output file"), File::nonexistent, "*.wav");
     if (fileChooser.browseForFileToSave(true))
     {
       File file(fileChooser.getResult());
+      file.deleteFile();
       ScopedPointer<AudioFormatWriter> writer = format->createWriterFor(
           file.createOutputStream(), 44100, buffer.getNumChannels(), 16 /* bitsPerSample */,
           NULL /* metadataValues */, 0 /* qualityOptionIndex */);

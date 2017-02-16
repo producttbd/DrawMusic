@@ -10,10 +10,6 @@
               file="Source/GridData/GridDataChangedNotifier.cpp"/>
         <FILE id="CDjTzX" name="GridDataChangedNotifier.h" compile="0" resource="0"
               file="Source/GridData/GridDataChangedNotifier.h"/>
-        <FILE id="UVzYFK" name="GridResizeAction.cpp" compile="1" resource="0"
-              file="Source/GridData/GridResizeAction.cpp"/>
-        <FILE id="SBzEog" name="GridResizeAction.h" compile="0" resource="0"
-              file="Source/GridData/GridResizeAction.h"/>
         <FILE id="xPZBzX" name="GridBrushAction.cpp" compile="1" resource="0"
               file="Source/GridData/GridBrushAction.cpp"/>
         <FILE id="gyVlRt" name="GridBrushAction.h" compile="0" resource="0"
@@ -27,8 +23,6 @@
         <FILE id="IOLoHI" name="GridPoint.h" compile="0" resource="0" file="Source/GridData/GridPoint.h"/>
       </GROUP>
       <GROUP id="{79F7E17E-0BC8-E4C0-DBF4-F35E6AAC569E}" name="AudioRendering">
-        <FILE id="LBCSHP" name="AudioFileWriter.cpp" compile="1" resource="0"
-              file="Source/AudioRendering/AudioFileWriter.cpp"/>
         <FILE id="y3ToXj" name="AudioFileWriter.h" compile="0" resource="0"
               file="Source/AudioRendering/AudioFileWriter.h"/>
         <FILE id="tnplvO" name="EqualLoudnessCurve.h" compile="0" resource="0"

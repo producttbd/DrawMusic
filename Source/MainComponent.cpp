@@ -38,7 +38,7 @@ MainComponent::MainComponent()
   playStopButton_.setConnectedEdges(Button::ConnectedOnRight);
   clearButton_.setButtonText(TRANS("clear"));
   clearButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
-  exportButton_.setButtonText(TRANS("export"));
+  exportButton_.setButtonText(TRANS("save audio"));
   exportButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
   settingsButton_.setButtonText(TRANS("settings"));
   settingsButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);

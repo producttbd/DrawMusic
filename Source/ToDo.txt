@@ -1,4 +1,3 @@
-- Undo function
 - rectangular copy and paste tool
 - Save/load
 - Fix sample rate issues (it's hardcoded to 44100)
