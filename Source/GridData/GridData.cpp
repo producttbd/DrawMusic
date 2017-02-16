@@ -66,3 +66,21 @@ float& GridData::operator[](GridPoint p)
   jassert(p.y >= 0 && p.y < gridHeight_);
   return data_.getReference(pointToLinear(p, gridHeight_));
 }
+
+Result GridData::writeToStream(OutputStream* stream)
+{
+  stream->writeInt(gridWidth_);
+  stream->writeInt(gridHeight_);
+  stream->write(data_.getRawDataPointer(), data_.size() * sizeof(float));
+  return Result::ok();
+}
+
+Result GridData::readFromStream(InputStream* stream)
+{
+  if ((stream->readInt() != gridWidth_) || (stream->readInt() != gridHeight_))
+  {
+    return Result::fail(TRANS("Current canvas size does not match file."));
+  }
+  stream->read(data_.getRawDataPointer(), data_.size() * sizeof(float));
+  return Result::ok();
+}

@@ -6,6 +6,7 @@
 #include "BrushPalette.h"
 #include "GridData.h"
 #include "GridDataChangedNotifier.h"
+#include "GridDataFile.h"
 
 class GridActionManager
 {
@@ -22,10 +23,14 @@ class GridActionManager
   void undo();
   void redo();
 
+  void save();
+  void load();
+
  private:
   const BrushPalette& brushPalette_;
   GridData& gridData_;
   GridDataChangedNotifier& gridDataChangedNotifier_;
+  GridDataFile gridDataFile_;
 
   UndoManager undoManager_;
 };

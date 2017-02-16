@@ -6,6 +6,9 @@
   <MAINGROUP id="BvMvtA" name="DrawMusic">
     <GROUP id="{157F435B-C817-59C4-B8EE-094D6D6F9F9C}" name="Source">
       <GROUP id="{2BA984EC-88C8-651A-AEDD-D903ED206962}" name="GridData">
+        <FILE id="DrdLYS" name="GridDataFile.cpp" compile="1" resource="0"
+              file="Source/GridData/GridDataFile.cpp"/>
+        <FILE id="sSaVAz" name="GridDataFile.h" compile="0" resource="0" file="Source/GridData/GridDataFile.h"/>
         <FILE id="Qs9UQx" name="GridDataChangedNotifier.cpp" compile="1" resource="0"
               file="Source/GridData/GridDataChangedNotifier.cpp"/>
         <FILE id="CDjTzX" name="GridDataChangedNotifier.h" compile="0" resource="0"

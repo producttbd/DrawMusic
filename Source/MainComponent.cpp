@@ -25,13 +25,17 @@ MainComponent::MainComponent()
       playStopButton_("playStopButton"),
       clearButton_("clearButton"),
       exportButton_("exportButton"),
-      settingsButton_("settingsButton"),
+      saveButton_("saveButton"),
+      loadButton_("loadButton"),
       gridSmallerButton_("gridSmallerButton"),
       gridLargerButton_("gridBiggerButton"),
       undoButton_("undoButton"),
       redoButton_("redoButton"),
-      allButtons_({&playStopButton_, &clearButton_, &exportButton_, &settingsButton_,
-                   &gridSmallerButton_, &gridLargerButton_, &undoButton_, &redoButton_})
+      settingsButton_("settingsButton"),
+      allButtons_({
+          &playStopButton_, &clearButton_, &exportButton_, &saveButton_, &loadButton_,
+          &gridSmallerButton_, &gridLargerButton_, &undoButton_, &redoButton_, &settingsButton_,
+      })
 {
   // Buttons
   playStopButton_.setButtonText(TRANS("play"));
@@ -40,8 +44,10 @@ MainComponent::MainComponent()
   clearButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
   exportButton_.setButtonText(TRANS("save audio"));
   exportButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
-  settingsButton_.setButtonText(TRANS("settings"));
-  settingsButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
+  saveButton_.setButtonText(TRANS("save drawing")),
+      saveButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
+  loadButton_.setButtonText(TRANS("load drawing")),
+      loadButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
   gridSmallerButton_.setButtonText(TRANS("smaller"));
   gridSmallerButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
   gridLargerButton_.setButtonText(TRANS("bigger"));
@@ -49,7 +55,9 @@ MainComponent::MainComponent()
   undoButton_.setButtonText(TRANS("undo"));
   undoButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
   redoButton_.setButtonText(TRANS("redo"));
-  redoButton_.setConnectedEdges(Button::ConnectedOnLeft);
+  redoButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
+  settingsButton_.setButtonText(TRANS("settings"));
+  settingsButton_.setConnectedEdges(Button::ConnectedOnLeft);
 
   for (Button* button : allButtons_)
   {
@@ -201,6 +209,14 @@ void MainComponent::buttonClicked(Button* buttonThatWasClicked)
   else if (buttonThatWasClicked == &redoButton_)
   {
     gridActionManager_.redo();
+  }
+  else if (buttonThatWasClicked == &saveButton_)
+  {
+    gridActionManager_.save();
+  }
+  else if (buttonThatWasClicked == &loadButton_)
+  {
+    gridActionManager_.load();
   }
 }
 

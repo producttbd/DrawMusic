@@ -8,6 +8,7 @@ GridActionManager::GridActionManager(const BrushPalette& brushPalette, GridData&
     : brushPalette_(brushPalette),
       gridData_(gridData),
       gridDataChangedNotifier_(gridDataChangedNotifier),
+      gridDataFile_(gridData_),
       undoManager_(1000 /* maxNumberOfUnitsToKeep */, 1 /* minimumTransactionsToKeep */)
 {
 }
@@ -62,4 +63,15 @@ void GridActionManager::undo()
 void GridActionManager::redo()
 {
   undoManager_.redo();
+}
+
+void GridActionManager::save()
+{
+  gridDataFile_.save(true /* askUserForFileIfNotSpecified */, true /* showMessageOnFailure */);
+}
+
+void GridActionManager::load()
+{
+  gridDataFile_.loadFromUserSpecifiedFile(true /* showMessageOnFailure */);
+  gridDataChangedNotifier_.callGridUpdatedListeners();
 }

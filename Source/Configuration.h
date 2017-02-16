@@ -17,7 +17,10 @@ class Configuration
   static constexpr int getGuiMargin() { return guiMargin_; }
   static constexpr int getPaletteSide() { return paletteSide_; }
   static constexpr int getButtonHeight() { return buttonHeight_; }
-  static constexpr int getButtonWidth() { return buttonWidth_; }
+  static int getButtonWidth()
+  {
+    return getGridWidth() > 800 ? normalButtonWidth_ : smallButtonWidth_;
+  }
   static constexpr int getWaveformViewHeight() { return waveformViewHeight_; }
 
   static constexpr int getNumberChannels() { return 1; }
@@ -73,7 +76,8 @@ class Configuration
   static int currentGridSize_;
   static constexpr int numGridSizes_ = 5;
 
-  static constexpr int buttonWidth_ = 80;
+  static constexpr int normalButtonWidth_ = 90;
+  static constexpr int smallButtonWidth_ = 70;
   static constexpr int buttonHeight_ = 24;
   static constexpr int guiMargin_ = 10;
   static constexpr int waveformViewHeight_ = 120;

@@ -25,6 +25,9 @@ class GridData
 
   float& operator[](GridPoint p);
 
+  Result writeToStream(OutputStream* stream);
+  Result readFromStream(InputStream* stream);
+
  private:
   Array<float> data_;
   int gridWidth_;

@@ -62,11 +62,13 @@ class MainComponent : public Component, public Button::Listener
   TextButton playStopButton_;
   TextButton clearButton_;
   TextButton exportButton_;
-  TextButton settingsButton_;
+  TextButton saveButton_;
+  TextButton loadButton_;
   TextButton gridSmallerButton_;
   TextButton gridLargerButton_;
   TextButton undoButton_;
   TextButton redoButton_;
+  TextButton settingsButton_;
   Array<Button*> allButtons_;
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainComponent)
