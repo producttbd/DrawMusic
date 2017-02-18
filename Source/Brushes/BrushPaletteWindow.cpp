@@ -1,10 +1,8 @@
 #include "BrushPaletteWindow.h"
 
-#include "BrushPaletteWindowContent.h"
-
-BrushPaletteWindow::BrushPaletteWindow(String name, BrushCollection& brushCollection)
+BrushPaletteWindow::BrushPaletteWindow(String name,
+                                       BrushPaletteWindowContent& brushPaletteWindowContent)
     : BaseWindow(name)
 {
-  setContentOwned(new BrushPaletteWindowContent(brushCollection),
-                  /*resizeToFitWhenContentChangesSize*/ false);
+  setContentNonOwned(&brushPaletteWindowContent, false);
 }

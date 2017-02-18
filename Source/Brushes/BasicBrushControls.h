@@ -8,7 +8,7 @@
 class BasicBrushControls : public AbstractBrushControls, Slider::Listener
 {
  public:
-  explicit BasicBrushControls();
+  BasicBrushControls();
 
   void addControl(ControlSpec spec);
   void addControls(Array<ControlSpec> specs);

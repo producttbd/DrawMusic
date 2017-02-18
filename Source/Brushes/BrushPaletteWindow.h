@@ -4,12 +4,12 @@
 #include "JuceHeader.h"
 
 #include "BaseWindow.h"
-#include "BrushCollection.h"
+#include "BrushPaletteWindowContent.h"
 
 class BrushPaletteWindow : public BaseWindow
 {
  public:
-  BrushPaletteWindow(String name, BrushCollection& brushCollection);
+  BrushPaletteWindow(String name, BrushPaletteWindowContent& brushPaletteWindowContent);
 
  private:
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BrushPaletteWindow);

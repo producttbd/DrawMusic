@@ -15,6 +15,7 @@ class BrushPaletteWindowContent : public Component,
 {
  public:
   explicit BrushPaletteWindowContent(BrushCollection& brushCollection);
+  ~BrushPaletteWindowContent(){};
 
   // AbstractBrushControls::Listener overrides
   void controlChanged(AbstractBrushControls::ControlSpec spec) override;

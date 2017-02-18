@@ -9,6 +9,7 @@ BrushPaletteWindowContent::BrushPaletteWindowContent(BrushCollection& brushColle
   int currentBrush = brushCollection_.getCurrentBrushIndex();
   for (int i = 0; i < brushCollection_.size(); ++i)
   {
+    brushCollection_.getBrush(i)->getBrushControls()->addListener(this);
     BrushPreviewButton* button = new BrushPreviewButton(brushCollection_.getBrush(i));
     button->addListener(this);
     addAndMakeVisible(button);
@@ -50,7 +51,6 @@ void BrushPaletteWindowContent::buttonClicked(Button* button)
   // Add the controls
   currentControls_ = brushCollection_.getCurrentBrush()->getBrushControls();
   currentControls_->setBounds(controlsArea_);
-  currentControls_->addListener(this);
   addAndMakeVisible(currentControls_);
 
   repaint();

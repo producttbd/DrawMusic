@@ -7,6 +7,7 @@
 #include "AbstractCompleteBrush.h"
 #include "BrushCollection.h"
 #include "BrushPaletteWindow.h"
+#include "BrushPaletteWindowContent.h"
 #include "GridColourScheme.h"
 
 class BrushPalette : public Component, ChangeListener
@@ -31,6 +32,7 @@ class BrushPalette : public Component, ChangeListener
 
   const GridColourScheme& colourScheme_;
   BrushCollection brushCollection_;
+  BrushPaletteWindowContent brushPaletteWindowContent_;
   Component::SafePointer<BrushPaletteWindow> brushPaletteWindow_;
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BrushPalette);

@@ -5,7 +5,10 @@
 
 BrushPalette::BrushPalette(const String& componentName,
                            const GridColourScheme& colourScheme) noexcept
-    : Component(componentName), colourScheme_(colourScheme), brushCollection_()
+    : Component(componentName),
+      colourScheme_(colourScheme),
+      brushCollection_(),
+      brushPaletteWindowContent_(brushCollection_)
 {
   brushCollection_.addChangeListener(this);
 }
@@ -49,7 +52,7 @@ void BrushPalette::openBrushPaletteWindow()
 {
   if (brushPaletteWindow_ == nullptr)
   {
-    brushPaletteWindow_ = new BrushPaletteWindow("brushPalettewindow", brushCollection_);
+    brushPaletteWindow_ = new BrushPaletteWindow("brushPalettewindow", brushPaletteWindowContent_);
   }
   brushPaletteWindow_->toFront(true);
 }
