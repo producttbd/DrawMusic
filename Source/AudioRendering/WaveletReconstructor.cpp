@@ -60,7 +60,7 @@ void WaveletReconstructor::performInternal(AudioSampleBuffer& buffer, const int 
     const auto cycleLength = binInformation.CycleLength;
 
     // At the start of each row, initially ramp from zero.
-    float previousValue = 0.0f;
+    float previousValue = minX == 0 ? 0.0f : gridData_.getXY(minX - 1, y);
 
     // Now work across the GridData left to right.
     for (int x = minX; x < maxX; ++x)
