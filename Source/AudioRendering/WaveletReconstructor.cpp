@@ -41,7 +41,7 @@ void WaveletReconstructor::perform(AudioSampleBuffer& buffer,
 
 void WaveletReconstructor::perform(AudioSampleBuffer& buffer) const
 {
-  std::cout << "Partial re-render" << std::endl;
+  std::cout << "Full re-render" << std::endl;
   buffer.clear();
   performInternal(buffer, 0, gridData_.getWidth());
 }
