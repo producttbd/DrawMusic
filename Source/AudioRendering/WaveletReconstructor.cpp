@@ -21,35 +21,67 @@ void WaveletReconstructor::reinitialize()
   createBinInformation();
 }
 
+void WaveletReconstructor::perform(AudioSampleBuffer& buffer,
+                                   const Array<GridPoint>& affectedPoints) const
+{
+  std::cout << "Partial re-render" << std::endl;
+  if (affectedPoints.size() == 0) return;
+  int minX = affectedPoints[0].x;
+  int maxX = affectedPoints[0].x;
+  for (auto& point : affectedPoints)
+  {
+    minX = jmin(point.x, minX);
+    maxX = jmax(point.x, maxX);
+  }
+  // For the maxX, we actually want one index beyond the maximum, like gridData_.getWidth()
+  ++maxX;
+  buffer.clear(minX * windowLength_, (maxX - minX) * windowLength_);
+  performInternal(buffer, minX, maxX);
+}
+
 void WaveletReconstructor::perform(AudioSampleBuffer& buffer) const
 {
+  std::cout << "Partial re-render" << std::endl;
   buffer.clear();
+  performInternal(buffer, 0, gridData_.getWidth());
+}
+
+void WaveletReconstructor::performInternal(AudioSampleBuffer& buffer, const int minX,
+                                           const int maxX) const
+{
+  // Work one frequency (row) at a time.
   for (int y = 0; y < gridData_.getHeight(); ++y)
   {
-    float previousValue = 0.0f;
+    // Information for the frequency/row.
     const auto& binInformation = waveTables_.getReference(waveTables_.size() - y - 1);
     const Array<float>& waveTable = binInformation.Waveform;
     const auto waveTableLength = waveTable.size();
     const auto cycleLength = binInformation.CycleLength;
-    for (int x = 0; x < gridData_.getWidth(); ++x)
-    {
-      auto bufferOffset = x * windowLength_;
-      auto value = gridData_.getXY(x, y);
-      auto writePtr = buffer.getWritePointer(0, bufferOffset);
-      int waveTableOffset = (windowLength_ * x) % waveTableLength;
 
+    // At the start of each row, initially ramp from zero.
+    float previousValue = 0.0f;
+
+    // Now work across the GridData left to right.
+    for (int x = minX; x < maxX; ++x)
+    {
+      auto value = gridData_.getXY(x, y);
+      // Only write something when the current or previous value is non-zero.
       if (previousValue > minThreshold || value > minThreshold)
       {
-        int rampLength = jmin(roundToInt(rampTransitionCycles_ * cycleLength), windowLength_);
+        auto bufferOffset = x * windowLength_;  // Position in the output
+        auto writePtr = buffer.getWritePointer(0, bufferOffset);
+        // waveTableOffset ensures that sequential windows have the same continuous waveform.
+        int waveTableOffset = (windowLength_ * x) % waveTableLength;
+        const int rampLength = jmin(roundToInt(rampTransitionCycles_ * cycleLength), windowLength_);
         float rampFactor = (value - previousValue) / rampLength;
-        for (int i = 0; i < rampLength; ++i)
+        for (int i = 0; i < rampLength; ++i)  // Ramp smoothly between windows.
         {
           writePtr[i] += waveTable[waveTableOffset] * (previousValue + i * rampFactor);
           waveTableOffset = ++waveTableOffset % waveTableLength;
         }
         if (value > minThreshold)
         {
-          for (int i = rampLength; i < windowLength_; ++i)
+          for (int i = rampLength; i < windowLength_; ++i)  // Finish out the window.
           {
             writePtr[i] += waveTable[waveTableOffset] * value;
             waveTableOffset = ++waveTableOffset % waveTableLength;

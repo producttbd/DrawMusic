@@ -30,6 +30,9 @@ void GridDataChangedNotifier::callGridUpdatedListeners()
 
 void GridDataChangedNotifier::callGridUpdatedListeners(const Array<GridPoint>& affectedPoints)
 {
-  gridDataUpdatedListeners_.call(&GridDataUpdatedListener::partialGridDataUpdatedCallback,
-                                 affectedPoints);
+  if (affectedPoints.size() > 0)
+  {
+    gridDataUpdatedListeners_.call(&GridDataUpdatedListener::partialGridDataUpdatedCallback,
+                                   affectedPoints);
+  }
 }

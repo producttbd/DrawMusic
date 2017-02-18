@@ -14,10 +14,14 @@ class WaveletReconstructor
   void reinitialize();
 
   void perform(AudioSampleBuffer& buffer) const;
+  void perform(AudioSampleBuffer& buffer, const Array<GridPoint>& affectedPoints) const;
 
  private:
+  void performInternal(AudioSampleBuffer& buffer, int minX, int maxX) const;
   void createBinInformation();
 
+  // Contains the wave table and how many cycles the wave table contains for each row (frequency)
+  // of the GridData.
   struct BinInformation
   {
     Array<float> Waveform;

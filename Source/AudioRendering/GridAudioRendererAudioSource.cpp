@@ -22,14 +22,6 @@ const AudioSampleBuffer& GridAudioRendererAudioSource::getOutputBuffer()
   return fullPieceAudioBuffer_;
 }
 
-void GridAudioRendererAudioSource::rerender()
-{
-  reconstructor_.perform(fullPieceAudioBuffer_);
-  readyToPlay_ = true;
-  newAudioListeners_.call(&GridAudioRendererAudioSource::NewAudioListener::newAudioCallback,
-                          fullPieceAudioBuffer_);
-}
-
 void GridAudioRendererAudioSource::addNewAudioListener(
     GridAudioRendererAudioSource::NewAudioListener* listener)
 {
@@ -58,7 +50,7 @@ void GridAudioRendererAudioSource::removeNewPositionListener(
 void GridAudioRendererAudioSource::entireGridDataUpdatedCallback()
 {
   readyToPlay_ = false;
-  rerender();
+  rerenderAll();
 }
 
 void GridAudioRendererAudioSource::partialGridDataUpdatedCallback(
@@ -66,7 +58,7 @@ void GridAudioRendererAudioSource::partialGridDataUpdatedCallback(
 {
   readyToPlay_ = false;
   // TODO Partial rerender
-  rerender();
+  rerenderAsNeeded(affectedPoints);
 }
 
 void GridAudioRendererAudioSource::gridDataResizedCallback()
@@ -80,7 +72,7 @@ void GridAudioRendererAudioSource::prepareToPlay(int samplesPerBlockExpected, do
 {
   if (!readyToPlay_)
   {
-    rerender();
+    rerenderAll();
   }
 }
 
@@ -155,5 +147,21 @@ void GridAudioRendererAudioSource::reinitialize()
   readyToPlay_ = false;
   fullPieceAudioBuffer_.setSize(Configuration::getNumberChannels(),
                                 Configuration::getTotalAudioSampleLength());
-  rerender();
+  rerenderAll();
+}
+
+void GridAudioRendererAudioSource::rerenderAll()
+{
+  reconstructor_.perform(fullPieceAudioBuffer_);
+  readyToPlay_ = true;
+  newAudioListeners_.call(&GridAudioRendererAudioSource::NewAudioListener::newAudioCallback,
+                          fullPieceAudioBuffer_);
+}
+
+void GridAudioRendererAudioSource::rerenderAsNeeded(const Array<GridPoint>& affectedPoints)
+{
+  reconstructor_.perform(fullPieceAudioBuffer_, affectedPoints);
+  readyToPlay_ = true;
+  newAudioListeners_.call(&GridAudioRendererAudioSource::NewAudioListener::newAudioCallback,
+                          fullPieceAudioBuffer_);
 }

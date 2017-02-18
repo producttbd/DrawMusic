@@ -32,7 +32,6 @@ class GridAudioRendererAudioSource : public PositionableAudioSource,
 
   const AudioSampleBuffer& getOutputBuffer();
 
-  void rerender();
   void addNewAudioListener(NewAudioListener* listener);
   void removeNewAudioListener(NewAudioListener* listener);
   void addNewPositionListener(NewPositionListener* listener);
@@ -59,6 +58,8 @@ class GridAudioRendererAudioSource : public PositionableAudioSource,
  private:
   // TODO make dependencies on Configuration explicit
   void reinitialize();
+  void rerenderAll();
+  void rerenderAsNeeded(const Array<GridPoint>& affectedPoints);
 
   void callDeviceChangeListeners();
 

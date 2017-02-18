@@ -22,8 +22,7 @@ MouseDownGridBrushAction::MouseDownGridBrushAction(GridData& gridData,
 bool MouseDownGridBrushAction::perform()
 {
   auto affectedPixels = brushAction_->startStroke(point_, actualGrid_);
-  // TODO make partial re-render efficient
-  // gridDataChangedNotifier_.callGridUpdatedListeners(affectedPixels);
+  gridDataChangedNotifier_.callGridUpdatedListeners(affectedPixels);
   return true;
 }
 
@@ -45,8 +44,7 @@ MouseDragGridBrushAction::MouseDragGridBrushAction(GridData& gridData,
 bool MouseDragGridBrushAction::perform()
 {
   auto affectedPixels = brushAction_->continueStroke(point_, actualGrid_);
-  // TODO make partial re-render efficient
-  // gridDataChangedNotifier_.callGridUpdatedListeners(affectedPixels);
+  gridDataChangedNotifier_.callGridUpdatedListeners(affectedPixels);
   return true;
 }
 
@@ -60,6 +58,6 @@ MouseUpGridBrushAction::MouseUpGridBrushAction(GridData& gridData, AbstractBrush
 bool MouseUpGridBrushAction::perform()
 {
   auto affectedPixels = brushAction_->finishStroke(point_, actualGrid_);
-  gridDataChangedNotifier_.callGridUpdatedListeners();
+  gridDataChangedNotifier_.callGridUpdatedListeners(affectedPixels);
   return true;
 }

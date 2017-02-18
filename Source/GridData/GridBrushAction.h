@@ -55,11 +55,7 @@ class MouseDragGridBrushAction : public GridBrushAction
   ~MouseDragGridBrushAction() override {}
 
   bool perform() override;
-  bool undo() override
-  {
-    std::cout << "MouseDragUndo" << std::endl;
-    return true;
-  }
+  bool undo() override { return true; }
   int getSizeInUnits() override { return 1; }
 
  private:
@@ -74,11 +70,7 @@ class MouseUpGridBrushAction : public GridBrushAction
   ~MouseUpGridBrushAction() override {}
 
   bool perform() override;
-  bool undo() override
-  {
-    std::cout << "MouseUpUndo" << std::endl;
-    return true;
-  }
+  bool undo() override { return true; }
   int getSizeInUnits() override { return 1; }
 
  private:

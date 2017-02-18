@@ -1,5 +1,4 @@
 - rectangular copy and paste tool
-- Save/load
 - Fix sample rate issues (it's hardcoded to 44100)
 - Continuity of drawing
   - Moving applying brushes to background thread
