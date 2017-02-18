@@ -33,8 +33,9 @@ void WaveletReconstructor::perform(AudioSampleBuffer& buffer,
     minX = jmin(point.x, minX);
     maxX = jmax(point.x, maxX);
   }
-  // For the maxX, we actually want one index beyond the maximum, like gridData_.getWidth()
-  ++maxX;
+  // For the maxX, we actually want two index beyond the maximum, one for ramp down, one because
+  // it's an ending index which doesn't get processed.
+  maxX = jmin(gridData_.getWidth(), maxX + 2);
   buffer.clear(minX * windowLength_, (maxX - minX) * windowLength_);
   performInternal(buffer, minX, maxX);
 }
