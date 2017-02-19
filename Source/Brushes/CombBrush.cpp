@@ -7,9 +7,9 @@ using ControlSpec = AbstractBrushControls::ControlSpec;
 
 CombBrush::CombBrush()
     : numberHarmonics_(8.0f),
-      evenIntensity_(0.4),
-      oddIntensity_(0.3),
-      taper_(0.5),
+      evenIntensity_(1.0),
+      oddIntensity_(0.7),
+      taper_(0.3),
       spacing_(Configuration::getBinsPerOctave())
 {
   ControlSpec spec({"Number", 1.0f, 10.0f, numberHarmonics_});
