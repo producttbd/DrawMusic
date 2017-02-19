@@ -68,15 +68,14 @@ Array<GridPoint> CombBrush::applyBrushToPoint(StrokePoint p, GridData& gridData)
 
   const auto numberHarmonics = roundDoubleToInt(numberHarmonics_);
   const auto spacing = roundDoubleToInt(spacing_);
-
   const auto taperBase = taper_ / (numberHarmonics_ - 1.0f);
 
-  float value = intensityScalar_ * p.pressure;
+  float max_value = intensityScalar_ * p.pressure;
   if (p.gridPoint.x >= 0 && p.gridPoint.x < width && p.gridPoint.y >= 0 && p.gridPoint.y < height)
   {
-    if (value > gridData[p.gridPoint])
+    if (max_value > gridData[p.gridPoint])
     {
-      gridData[p.gridPoint] = value;
+      gridData[p.gridPoint] = max_value;
       affectedPoints.add(p.gridPoint);
     }
   }
@@ -88,7 +87,7 @@ Array<GridPoint> CombBrush::applyBrushToPoint(StrokePoint p, GridData& gridData)
     {
       const float taperAmount = 1.0f - (taperBase * i);
       const float harmonicIntensity = i % 2 == 0 ? evenIntensity_ : oddIntensity_;
-      value = taperAmount * harmonicIntensity * value;
+      const float value = taperAmount * harmonicIntensity * max_value;
       GridPoint affectedPoint(p.gridPoint.x, y);
       if (value > gridData[affectedPoint])
       {
