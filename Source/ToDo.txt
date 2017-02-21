@@ -1,3 +1,6 @@
+- Bug: When horizontal line, pressure only increases
+- Space bar play/pause
+- Bug: BrushPalette mainwindow preview not updated when sliders changed
 - rectangular copy and paste tool
 - Fix sample rate issues (it's hardcoded to 44100)
 - Continuity of drawing
