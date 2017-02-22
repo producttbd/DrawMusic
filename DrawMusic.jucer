@@ -5,26 +5,6 @@
               jucerVersion="4.3.0">
   <MAINGROUP id="BvMvtA" name="DrawMusic">
     <GROUP id="{157F435B-C817-59C4-B8EE-094D6D6F9F9C}" name="Source">
-      <GROUP id="{2BA984EC-88C8-651A-AEDD-D903ED206962}" name="GridData">
-        <FILE id="DrdLYS" name="GridDataFile.cpp" compile="1" resource="0"
-              file="Source/GridData/GridDataFile.cpp"/>
-        <FILE id="sSaVAz" name="GridDataFile.h" compile="0" resource="0" file="Source/GridData/GridDataFile.h"/>
-        <FILE id="Qs9UQx" name="GridDataChangedNotifier.cpp" compile="1" resource="0"
-              file="Source/GridData/GridDataChangedNotifier.cpp"/>
-        <FILE id="CDjTzX" name="GridDataChangedNotifier.h" compile="0" resource="0"
-              file="Source/GridData/GridDataChangedNotifier.h"/>
-        <FILE id="xPZBzX" name="GridBrushAction.cpp" compile="1" resource="0"
-              file="Source/GridData/GridBrushAction.cpp"/>
-        <FILE id="gyVlRt" name="GridBrushAction.h" compile="0" resource="0"
-              file="Source/GridData/GridBrushAction.h"/>
-        <FILE id="RLlbKB" name="GridActionManager.cpp" compile="1" resource="0"
-              file="Source/GridData/GridActionManager.cpp"/>
-        <FILE id="Pu9mj6" name="GridActionManager.h" compile="0" resource="0"
-              file="Source/GridData/GridActionManager.h"/>
-        <FILE id="PoDOAh" name="GridData.cpp" compile="1" resource="0" file="Source/GridData/GridData.cpp"/>
-        <FILE id="YIk00E" name="GridData.h" compile="0" resource="0" file="Source/GridData/GridData.h"/>
-        <FILE id="IOLoHI" name="GridPoint.h" compile="0" resource="0" file="Source/GridData/GridPoint.h"/>
-      </GROUP>
       <GROUP id="{79F7E17E-0BC8-E4C0-DBF4-F35E6AAC569E}" name="AudioRendering">
         <FILE id="y3ToXj" name="AudioFileWriter.h" compile="0" resource="0"
               file="Source/AudioRendering/AudioFileWriter.h"/>
@@ -42,7 +22,6 @@
       <GROUP id="{FD428970-AF74-7038-A12B-9CB89B960355}" name="Brushes">
         <FILE id="AmvuFn" name="AbstractBrushAction.h" compile="0" resource="0"
               file="Source/Brushes/AbstractBrushAction.h"/>
-        <FILE id="EXs32u" name="StrokePoint.h" compile="0" resource="0" file="Source/Brushes/StrokePoint.h"/>
         <FILE id="K186py" name="AbstractBrushControls.h" compile="0" resource="0"
               file="Source/Brushes/AbstractBrushControls.h"/>
         <FILE id="RxO7eE" name="AbstractCompleteBrush.h" compile="0" resource="0"
@@ -91,10 +70,31 @@
               file="Source/Brushes/PointClusterBrush.cpp"/>
         <FILE id="w2LkOj" name="PointClusterBrush.h" compile="0" resource="0"
               file="Source/Brushes/PointClusterBrush.h"/>
+        <FILE id="EXs32u" name="StrokePoint.h" compile="0" resource="0" file="Source/Brushes/StrokePoint.h"/>
         <FILE id="P5aC4R" name="XYProfileBrush.cpp" compile="1" resource="0"
               file="Source/Brushes/XYProfileBrush.cpp"/>
         <FILE id="z7vpoY" name="XYProfileBrush.h" compile="0" resource="0"
               file="Source/Brushes/XYProfileBrush.h"/>
+      </GROUP>
+      <GROUP id="{2BA984EC-88C8-651A-AEDD-D903ED206962}" name="GridData">
+        <FILE id="RLlbKB" name="GridActionManager.cpp" compile="1" resource="0"
+              file="Source/GridData/GridActionManager.cpp"/>
+        <FILE id="Pu9mj6" name="GridActionManager.h" compile="0" resource="0"
+              file="Source/GridData/GridActionManager.h"/>
+        <FILE id="xPZBzX" name="GridBrushAction.cpp" compile="1" resource="0"
+              file="Source/GridData/GridBrushAction.cpp"/>
+        <FILE id="gyVlRt" name="GridBrushAction.h" compile="0" resource="0"
+              file="Source/GridData/GridBrushAction.h"/>
+        <FILE id="PoDOAh" name="GridData.cpp" compile="1" resource="0" file="Source/GridData/GridData.cpp"/>
+        <FILE id="YIk00E" name="GridData.h" compile="0" resource="0" file="Source/GridData/GridData.h"/>
+        <FILE id="Qs9UQx" name="GridDataChangedNotifier.cpp" compile="1" resource="0"
+              file="Source/GridData/GridDataChangedNotifier.cpp"/>
+        <FILE id="CDjTzX" name="GridDataChangedNotifier.h" compile="0" resource="0"
+              file="Source/GridData/GridDataChangedNotifier.h"/>
+        <FILE id="DrdLYS" name="GridDataFile.cpp" compile="1" resource="0"
+              file="Source/GridData/GridDataFile.cpp"/>
+        <FILE id="sSaVAz" name="GridDataFile.h" compile="0" resource="0" file="Source/GridData/GridDataFile.h"/>
+        <FILE id="IOLoHI" name="GridPoint.h" compile="0" resource="0" file="Source/GridData/GridPoint.h"/>
       </GROUP>
       <GROUP id="{B84C5DCE-5AE2-CD35-B6BB-E35F6A47D1BC}" name="UI">
         <FILE id="bGUNDo" name="AudioBufferThumbnail.cpp" compile="1" resource="0"
@@ -107,12 +107,12 @@
               file="Source/UI/AudioSettingsWindow.h"/>
         <FILE id="HWhzFn" name="BaseWindow.cpp" compile="1" resource="0" file="Source/UI/BaseWindow.cpp"/>
         <FILE id="LSHy0M" name="BaseWindow.h" compile="0" resource="0" file="Source/UI/BaseWindow.h"/>
-        <FILE id="Mtl0FB" name="DFMSLookAndFeel.cpp" compile="1" resource="0"
-              file="Source/UI/DFMSLookAndFeel.cpp"/>
-        <FILE id="zuDw53" name="DFMSLookAndFeel.h" compile="0" resource="0"
-              file="Source/UI/DFMSLookAndFeel.h"/>
         <FILE id="lM9Laa" name="DrawGrid.cpp" compile="1" resource="0" file="Source/UI/DrawGrid.cpp"/>
         <FILE id="BRXJGB" name="DrawGrid.h" compile="0" resource="0" file="Source/UI/DrawGrid.h"/>
+        <FILE id="Mtl0FB" name="DrawMusicLookAndFeel.cpp" compile="1" resource="0"
+              file="Source/UI/DrawMusicLookAndFeel.cpp"/>
+        <FILE id="zuDw53" name="DrawMusicLookAndFeel.h" compile="0" resource="0"
+              file="Source/UI/DrawMusicLookAndFeel.h"/>
         <FILE id="SdymOg" name="GridColourScheme.cpp" compile="1" resource="0"
               file="Source/UI/GridColourScheme.cpp"/>
         <FILE id="pVNjfQ" name="GridColourScheme.h" compile="0" resource="0"
@@ -136,6 +136,10 @@
       <FILE id="Cp756d" name="Configuration.cpp" compile="1" resource="0"
             file="Source/Configuration.cpp"/>
       <FILE id="eSpdYn" name="Configuration.h" compile="0" resource="0" file="Source/Configuration.h"/>
+      <FILE id="r27TAl" name="DrawMusicApplication.cpp" compile="1" resource="0"
+            file="Source/DrawMusicApplication.cpp"/>
+      <FILE id="HABpWW" name="DrawMusicApplication.h" compile="0" resource="0"
+            file="Source/DrawMusicApplication.h"/>
       <FILE id="Bs9Qmy" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
       <FILE id="AXA7kk" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>

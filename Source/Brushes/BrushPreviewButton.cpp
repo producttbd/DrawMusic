@@ -1,6 +1,6 @@
 #include "BrushPreviewButton.h"
 
-#include "DFMSLookAndFeel.h"
+#include "DrawMusicLookAndFeel.h"
 
 BrushPreviewButton::BrushPreviewButton(const AbstractCompleteBrush* brush)
     : Button(brush->getName()), brush_(brush)
@@ -11,5 +11,5 @@ BrushPreviewButton::BrushPreviewButton(const AbstractCompleteBrush* brush)
 void BrushPreviewButton::paintButton(juce::Graphics& g, bool isMouseOverButton, bool isButtonDown)
 {
   brush_->getBrushAction()->drawPreviewInto(g, getLocalBounds());
-  DFMSLookAndFeel::drawOutline(g, *this, isMouseOverButton, getToggleState());
+  DrawMusicLookAndFeel::drawOutline(g, *this, isMouseOverButton, getToggleState());
 }

@@ -1,8 +1,5 @@
 #include "AudioSettingsWindow.h"
 
-#include "Configuration.h"
-#include "DFMSLookAndFeel.h"
-
 AudioSettingsWindow::AudioSettingsWindow(String name, AudioDeviceManager& audioDeviceManager)
     : BaseWindow(name),
       audioDeviceSelector_(/*AudioDeviceManager&*/ audioDeviceManager,

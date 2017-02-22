@@ -4,7 +4,7 @@
 #include "AudioSettingsWindow.h"
 #include "BrushPaletteWindow.h"
 #include "Configuration.h"
-#include "DFMSLookAndFeel.h"
+#include "DrawMusicLookAndFeel.h"
 #include "GridDataChangedNotifier.h"
 
 MainComponent::MainComponent()
@@ -105,7 +105,7 @@ MainComponent::~MainComponent()
 
 void MainComponent::paint(Graphics& g)
 {
-  g.fillAll(DFMSLookAndFeel::getDefaultBackgroundColour());
+  g.fillAll(DrawMusicLookAndFeel::getDefaultBackgroundColour());
 }
 
 void MainComponent::resized()

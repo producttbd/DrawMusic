@@ -1,7 +1,7 @@
 #include "BrushPalette.h"
 
 #include "BrushFactory.h"
-#include "DFMSLookAndFeel.h"
+#include "DrawMusicLookAndFeel.h"
 
 BrushPalette::BrushPalette(const String& componentName,
                            const GridColourScheme& colourScheme) noexcept
@@ -36,7 +36,7 @@ void BrushPalette::paint(Graphics& g)
   const AbstractCompleteBrush* brush = brushCollection_.getCurrentBrush();
   AbstractBrushAction* brushAction = brush->getBrushAction();
   brushAction->drawPreviewInto(g, getLocalBounds());
-  DFMSLookAndFeel::drawOutline(g, *this);
+  DrawMusicLookAndFeel::drawOutline(g, *this);
 }
 
 void BrushPalette::resized()

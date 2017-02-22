@@ -3,10 +3,10 @@
 
 #include "JuceHeader.h"
 
-class DFMSLookAndFeel : public LookAndFeel_V3
+class DrawMusicLookAndFeel : public LookAndFeel_V3
 {
  public:
-  DFMSLookAndFeel();
+  DrawMusicLookAndFeel();
 
   //    void drawButtonBackground(Graphics& g, Button& button, const Colour& backgroundColour,
   //                              bool isMouseOverButton, bool isButtonDown) override;
@@ -19,7 +19,7 @@ class DFMSLookAndFeel : public LookAndFeel_V3
   static Colour getDefaultBackgroundColour();
 
  private:
-  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DFMSLookAndFeel);
+  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DrawMusicLookAndFeel);
 };
 
 #endif  // DFMSLOOKANDFEEL_H_INCLUDED

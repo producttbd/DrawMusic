@@ -1,11 +1,11 @@
 #include "BaseWindow.h"
 
 #include "Configuration.h"
-#include "DFMSLookAndFeel.h"
+#include "DrawMusicLookAndFeel.h"
 #include "WindowBoundsManager.h"
 
 BaseWindow::BaseWindow(String name)
-    : DocumentWindow(name, DFMSLookAndFeel::getDefaultBackgroundColour(),
+    : DocumentWindow(name, DrawMusicLookAndFeel::getDefaultBackgroundColour(),
                      DocumentWindow::closeButton)
 {
   setResizable(true, true);

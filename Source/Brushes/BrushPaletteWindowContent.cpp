@@ -1,7 +1,7 @@
 #include "BrushPaletteWindowContent.h"
 
 #include "Configuration.h"
-#include "DFMSLookAndFeel.h"
+#include "DrawMusicLookAndFeel.h"
 
 BrushPaletteWindowContent::BrushPaletteWindowContent(BrushCollection& brushCollection)
     : brushCollection_(brushCollection)
@@ -71,11 +71,11 @@ void BrushPaletteWindowContent::paint(Graphics& g)
   g.drawText(currentCompleteBrush->getName(), mainPreviewArea_.getX() + margin,
              mainPreviewArea_.getY() + margin, mainPreviewArea_.getWidth() - 2 * margin, 40,
              Justification::topLeft);
-  DFMSLookAndFeel::drawOutline(g, mainPreviewArea_);
+  DrawMusicLookAndFeel::drawOutline(g, mainPreviewArea_);
   g.restoreState();
 
   // Controls
-  DFMSLookAndFeel::drawOutline(g, controlsArea_);
+  DrawMusicLookAndFeel::drawOutline(g, controlsArea_);
 }
 
 void BrushPaletteWindowContent::resized()

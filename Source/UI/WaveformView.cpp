@@ -1,7 +1,7 @@
 #include "WaveformView.h"
 
 #include "Configuration.h"
-#include "DFMSLookAndFeel.h"
+#include "DrawMusicLookAndFeel.h"
 
 WaveformView::WaveformView(const String& name) : Component(name)
 {
@@ -15,7 +15,7 @@ void WaveformView::resized()
 
 void WaveformView::paint(Graphics& g)
 {
-  DFMSLookAndFeel::drawOutline(g, *this);
+  DrawMusicLookAndFeel::drawOutline(g, *this);
   g.setColour(Colours::darkgrey);
   thumbnail_.drawChannel(g, getLocalBounds());
 }

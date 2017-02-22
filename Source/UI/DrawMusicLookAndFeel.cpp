@@ -1,6 +1,6 @@
-#include "DFMSLookAndFeel.h"
+#include "DrawMusicLookAndFeel.h"
 
-DFMSLookAndFeel::DFMSLookAndFeel()
+DrawMusicLookAndFeel::DrawMusicLookAndFeel()
 {
   setColour(TextButton::buttonColourId, Colours::white);
   setColour(TextButton::buttonOnColourId, Colours::red.withAlpha(0.6f));
@@ -44,13 +44,13 @@ DFMSLookAndFeel::DFMSLookAndFeel()
 //    drawOutline(g, button);
 //}
 
-void DFMSLookAndFeel::drawOutline(juce::Graphics& g, juce::Component& c, bool isMouseOver,
+void DrawMusicLookAndFeel::drawOutline(juce::Graphics& g, juce::Component& c, bool isMouseOver,
                                   bool isSelected)
 {
   drawOutline(g, c.getLocalBounds(), isMouseOver, isSelected);
 }
 
-void DFMSLookAndFeel::drawOutline(juce::Graphics& g, Rectangle<int> bounds, bool isMouseOver,
+void DrawMusicLookAndFeel::drawOutline(juce::Graphics& g, Rectangle<int> bounds, bool isMouseOver,
                                   bool isSelected)
 {
   Colour colour;
@@ -72,7 +72,7 @@ void DFMSLookAndFeel::drawOutline(juce::Graphics& g, Rectangle<int> bounds, bool
   g.drawRect(bounds);
 }
 
-Colour DFMSLookAndFeel::getDefaultBackgroundColour()
+Colour DrawMusicLookAndFeel::getDefaultBackgroundColour()
 {
   return Colours::white;
 }

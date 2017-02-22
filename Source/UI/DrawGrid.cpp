@@ -1,6 +1,6 @@
 #include "DrawGrid.h"
 #include "Configuration.h"
-#include "DFMSLookAndFeel.h"
+#include "DrawMusicLookAndFeel.h"
 
 DrawGrid::DrawGrid(GridActionManager& gridActionManager, const GridData& gridData,
                    const GridColourScheme& colourScheme)
@@ -17,7 +17,7 @@ DrawGrid::DrawGrid(GridActionManager& gridActionManager, const GridData& gridDat
 void DrawGrid::paint(Graphics& g)
 {
   g.drawImageAt(theImage_, 0, 0);
-  DFMSLookAndFeel::drawOutline(g, *this);
+  DrawMusicLookAndFeel::drawOutline(g, *this);
 }
 
 void DrawGrid::resized()
