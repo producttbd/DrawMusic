@@ -54,7 +54,6 @@ class MainComponent : public Component, public Button::Listener
   GridAudioRendererAudioSource gridAudioSource_;
   PlaybackTimeline playbackTimeline_;
   PlaybackTimer playbackTimer_;
-  TimeSliceThread thread_;
   WaveformView waveformView_;
 
   Component::SafePointer<Component> audioSettingsWindow_;

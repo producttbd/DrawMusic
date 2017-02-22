@@ -20,7 +20,6 @@ MainComponent::MainComponent()
       gridAudioSource_(gridData_),
       playbackTimeline_("playbackTimeline"),
       playbackTimer_(playbackTimeline_),
-      thread_("audio file preview"),
       waveformView_("waveform view"),
       playStopButton_("playStopButton"),
       clearButton_("clearButton"),
@@ -75,7 +74,6 @@ MainComponent::MainComponent()
   // TODO channels?
   deviceManager_.initialise(0 /* numInputChannelsNeeded */, 2 /* numOutputChannelsNeeded */,
                             0 /* savedState */, true /* selectDefaultDeviceOnFailure */);
-  thread_.startThread(3 /* priority */);
   deviceManager_.addAudioCallback(&audioSourcePlayer_);
   audioSourcePlayer_.setSource(&transportSource_);
   transportSource_.setSource(&gridAudioSource_);
