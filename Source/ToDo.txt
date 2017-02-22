@@ -1,8 +1,13 @@
 - Bug: When horizontal line, pressure only increases
+- Comb brush overtones fixed
 - Space bar play/pause
-- Bug: BrushPalette mainwindow preview not updated when sliders changed
-- rectangular copy and paste tool
+- Buttons move to application menu with keyboard shortcuts
+- Save As...
 - Fix sample rate issues (it's hardcoded to 44100)
+- Bug: BrushPalette mainwindow preview not updated when sliders changed
+
+Backlog:
+- rectangular copy and paste tool
 - Continuity of drawing
   - Moving applying brushes to background thread
   - real-time drawing
