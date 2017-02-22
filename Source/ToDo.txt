@@ -1,5 +1,4 @@
 - Bug: When horizontal line, pressure only increases
-- Comb brush overtones fixed
 - Space bar play/pause
 - Buttons move to application menu with keyboard shortcuts
 - Save As...

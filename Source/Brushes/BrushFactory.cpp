@@ -56,7 +56,13 @@ void BrushFactory::getAllBrushes(BrushCollection& brushCollection)
   action = new CombBrush();
   control = new BasicBrushControls();
   control->addControls(action->getSupportedControls());
-  brushCollection.add(new BasicCompleteBrush(TRANS("Comb brush"), action, control));
+  brushCollection.add(new BasicCompleteBrush(TRANS("Harmonics brush"), action, control));
+
+  // Octave brush
+  action = new OctaveBrush();
+  control = new BasicBrushControls();
+  control->addControls(action->getSupportedControls());
+  brushCollection.add(new BasicCompleteBrush(TRANS("Octave brush"), action, control));
 
   // Eraser brush
   action = new EraserBrush();

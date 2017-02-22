@@ -22,6 +22,23 @@ class CombBrush : public BasicBrushBase
   float oddIntensity_;
   float taper_;
   float spacing_;
+
+  virtual int getSpacing(int i) const;
+
+ private:
+  struct Harmonic
+  {
+    int Spacing;
+    float Intensity;
+  };
+
+  Array<Harmonic> getHarmonics(float pressure) const;
+};
+
+class OctaveBrush : public CombBrush
+{
+protected:
+  int getSpacing(int i) const override;
 };
 
 #endif  // COMBBRUSH_H_INCLUDED

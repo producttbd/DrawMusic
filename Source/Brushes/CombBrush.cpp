@@ -12,7 +12,7 @@ CombBrush::CombBrush()
       taper_(0.3),
       spacing_(Configuration::getBinsPerOctave())
 {
-  ControlSpec spec({"Number", 1.0f, 10.0f, numberHarmonics_});
+  ControlSpec spec({"Number", 1.0f, 30.0f, numberHarmonics_});
   supportedControls_.add(spec);
   controlWirings_.set(spec.name, &numberHarmonics_);
 
@@ -41,21 +41,11 @@ void CombBrush::drawPreviewInto(juce::Graphics& g, const Rectangle<int>& bounds)
   const auto centreX = bounds.getCentreX();
   const auto centreY = bounds.getCentreY();
 
-  const auto numberHarmonics = roundDoubleToInt(numberHarmonics_);
-  const auto spacing = roundDoubleToInt(spacing_);
-  const auto taperBase = taper_ / (numberHarmonics_ - 1.0f);
-
-  float value = clampOutputValue(intensityScalar_);
-  g.setColour(GridColourScheme::convertToColour(value));
-  g.setPixel(centreX, centreY);
-
-  for (int i = 1; i < numberHarmonics; ++i)
+  auto harmonics = getHarmonics(Configuration::getDefaultPressure());
+  for (auto& harmonic : harmonics)
   {
-    const auto y = centreY - i * spacing;
-    const float taperAmount = 1.0f - (taperBase * i);
-    const float intensity = i % 2 == 0 ? evenIntensity_ : oddIntensity_;
-    value = clampOutputValue(taperAmount * intensity * intensityScalar_);
-    g.setColour(GridColourScheme::convertToColour(value));
+    auto y = centreY + harmonic.Spacing;
+    g.setColour(GridColourScheme::convertToColour(harmonic.Intensity));
     g.setPixel(centreX, y);
   }
 }
@@ -63,39 +53,59 @@ void CombBrush::drawPreviewInto(juce::Graphics& g, const Rectangle<int>& bounds)
 Array<GridPoint> CombBrush::applyBrushToPoint(StrokePoint p, GridData& gridData) const
 {
   Array<GridPoint> affectedPoints;
-  const auto width = gridData.getWidth();
-  const auto height = gridData.getHeight();
-
-  const auto numberHarmonics = roundDoubleToInt(numberHarmonics_);
-  const auto spacing = roundDoubleToInt(spacing_);
-  const auto taperBase = taper_ / (numberHarmonics_ - 1.0f);
-
-  float max_value = intensityScalar_ * p.pressure;
-  if (p.gridPoint.x >= 0 && p.gridPoint.x < width && p.gridPoint.y >= 0 && p.gridPoint.y < height)
+  const auto gridWidth = gridData.getWidth();
+  const auto gridHeight = gridData.getHeight();
+  if (p.gridPoint.x < 0 || p.gridPoint.x >= gridWidth || p.gridPoint.y < 0 ||
+      p.gridPoint.y >= gridHeight)
   {
-    if (max_value > gridData[p.gridPoint])
-    {
-      gridData[p.gridPoint] = max_value;
-      affectedPoints.add(p.gridPoint);
-    }
+    return {};
   }
 
-  for (int i = 1; i < numberHarmonics; ++i)
+  auto harmonics = getHarmonics(p.pressure);
+
+  for (auto& harmonic : harmonics)
   {
-    const auto y = p.gridPoint.y - i * spacing;
-    if (p.gridPoint.x >= 0 && p.gridPoint.x < width && y >= 0 && y < height)
+    auto y = p.gridPoint.y + harmonic.Spacing;
+    if (y < 0 || y >= gridHeight)
     {
-      const float taperAmount = 1.0f - (taperBase * i);
-      const float harmonicIntensity = i % 2 == 0 ? evenIntensity_ : oddIntensity_;
-      const float value = taperAmount * harmonicIntensity * max_value;
-      GridPoint affectedPoint(p.gridPoint.x, y);
-      if (value > gridData[affectedPoint])
-      {
-        gridData[affectedPoint] = value;
-        affectedPoints.add(affectedPoint);
-      }
+      break;
+    }
+    GridPoint affectedPoint(p.gridPoint.x, y);
+    if (harmonic.Intensity > gridData[affectedPoint])  // Don't decrease the intensity of the point.
+    {
+      gridData[affectedPoint] = harmonic.Intensity;
+      affectedPoints.add(affectedPoint);
     }
   }
 
   return affectedPoints;
+}
+
+int CombBrush::getSpacing(int i) const
+{
+  return -roundDoubleToInt(spacing_ * log2(i + 1));
+}
+
+Array<CombBrush::Harmonic> CombBrush::getHarmonics(float pressure) const
+{
+  const auto numberHarmonics = roundDoubleToInt(numberHarmonics_);
+  const auto taperBase = taper_ / (numberHarmonics_ - 1.0f);
+  float max_value = intensityScalar_ * pressure;
+
+  Array<Harmonic> output;
+  output.add({0, max_value});
+  for (int i = 1; i < numberHarmonics; ++i)
+  {
+    const float taperAmount = 1.0f - (taperBase * i);
+    const float harmonicIntensity = i % 2 == 0 ? evenIntensity_ : oddIntensity_;
+    const float value = taperAmount * harmonicIntensity * max_value;
+    const int y = getSpacing(i);
+    output.add({y, value});
+  }
+  return output;
+}
+
+int OctaveBrush::getSpacing(int i) const
+{
+  return -roundDoubleToInt(spacing_ * i);
 }
