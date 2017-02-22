@@ -24,7 +24,6 @@ void WaveletReconstructor::reinitialize()
 void WaveletReconstructor::perform(AudioSampleBuffer& buffer,
                                    const Array<GridPoint>& affectedPoints) const
 {
-  std::cout << "Partial re-render" << std::endl;
   if (affectedPoints.size() == 0) return;
   int minX = affectedPoints[0].x;
   int maxX = affectedPoints[0].x;
@@ -42,7 +41,6 @@ void WaveletReconstructor::perform(AudioSampleBuffer& buffer,
 
 void WaveletReconstructor::perform(AudioSampleBuffer& buffer) const
 {
-  std::cout << "Full re-render" << std::endl;
   buffer.clear();
   performInternal(buffer, 0, gridData_.getWidth());
 }
@@ -50,6 +48,8 @@ void WaveletReconstructor::perform(AudioSampleBuffer& buffer) const
 void WaveletReconstructor::performInternal(AudioSampleBuffer& buffer, const int minX,
                                            const int maxX) const
 {
+  jassert(waveTables_.size() == gridData_.getHeight());
+
   // Work one frequency (row) at a time.
   for (int y = 0; y < gridData_.getHeight(); ++y)
   {
