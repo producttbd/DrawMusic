@@ -66,7 +66,7 @@ void BrushPaletteWindowContent::paint(Graphics& g)
   g.reduceClipRegion(mainPreviewArea_);
   currentCompleteBrush->getBrushAction()->drawPreviewInto(g, mainPreviewArea_);
   const Colour zeroColour = GridColourScheme::convertToColour(0.0f);
-  g.setColour(zeroColour.contrasting());
+  g.setColour(Colours::red);
 
   g.drawText(currentCompleteBrush->getName(), mainPreviewArea_.getX() + margin,
              mainPreviewArea_.getY() + margin, mainPreviewArea_.getWidth() - 2 * margin, 40,
