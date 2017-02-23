@@ -37,7 +37,7 @@ class CombBrush : public BasicBrushBase
 
 class OctaveBrush : public CombBrush
 {
-protected:
+ protected:
   int getSpacing(int i) const override;
 };
 

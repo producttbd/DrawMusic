@@ -55,9 +55,19 @@ void GridActionManager::mouseUp(const juce::MouseEvent& event)
   undoManager_.perform(action);
 }
 
+bool GridActionManager::canUndo()
+{
+  return undoManager_.canUndo();
+}
+
 void GridActionManager::undo()
 {
   undoManager_.undo();
+}
+
+bool GridActionManager::canRedo()
+{
+  return undoManager_.canRedo();
 }
 
 void GridActionManager::redo()
@@ -68,6 +78,11 @@ void GridActionManager::redo()
 void GridActionManager::save()
 {
   gridDataFile_.save(true /* askUserForFileIfNotSpecified */, true /* showMessageOnFailure */);
+}
+
+void GridActionManager::saveAs()
+{
+  gridDataFile_.saveAsInteractive(true /* warnAboutOverwritingExistingFiles */);
 }
 
 void GridActionManager::load()

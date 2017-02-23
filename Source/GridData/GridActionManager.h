@@ -20,10 +20,13 @@ class GridActionManager
   void mouseDrag(const MouseEvent& event);
   void mouseUp(const MouseEvent& event);
 
+  bool canUndo();
   void undo();
+  bool canRedo();
   void redo();
 
   void save();
+  void saveAs();
   void load();
 
  private:

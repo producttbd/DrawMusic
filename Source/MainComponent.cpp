@@ -3,7 +3,9 @@
 #include "AudioFileWriter.h"
 #include "AudioSettingsWindow.h"
 #include "BrushPaletteWindow.h"
+#include "CommandIds.h"
 #include "Configuration.h"
+#include "DrawMusicApplication.h"
 #include "DrawMusicLookAndFeel.h"
 #include "GridDataChangedNotifier.h"
 
@@ -36,32 +38,53 @@ MainComponent::MainComponent()
           &gridSmallerButton_, &gridLargerButton_, &undoButton_, &redoButton_, &settingsButton_,
       })
 {
+  auto commandManager = DrawMusicApplication::getCommandManager();
+
   // Buttons
   playStopButton_.setButtonText(TRANS("play"));
   playStopButton_.setConnectedEdges(Button::ConnectedOnRight);
+  playStopButton_.setCommandToTrigger(commandManager, DrawMusicCommandID::play_pause,
+                                      true /* generateToolTip */);
+
   clearButton_.setButtonText(TRANS("clear"));
   clearButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
+  clearButton_.setCommandToTrigger(commandManager, StandardApplicationCommandIDs::del, true);
+
   exportButton_.setButtonText(TRANS("save audio"));
   exportButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
-  saveButton_.setButtonText(TRANS("save drawing")),
-      saveButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
-  loadButton_.setButtonText(TRANS("load drawing")),
-      loadButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
+  exportButton_.setCommandToTrigger(commandManager, DrawMusicCommandID::exportAudio, true);
+
+  saveButton_.setButtonText(TRANS("save drawing"));
+  saveButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
+  saveButton_.setCommandToTrigger(commandManager, DrawMusicCommandID::saveDrawing, true);
+
+  loadButton_.setButtonText(TRANS("load drawing"));
+  loadButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
+  loadButton_.setCommandToTrigger(commandManager, DrawMusicCommandID::open, true);
+
   gridSmallerButton_.setButtonText(TRANS("smaller"));
   gridSmallerButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
+  gridSmallerButton_.setCommandToTrigger(commandManager, DrawMusicCommandID::gridSmaller, true);
+
   gridLargerButton_.setButtonText(TRANS("bigger"));
   gridLargerButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
+  gridLargerButton_.setCommandToTrigger(commandManager, DrawMusicCommandID::gridLarger, true);
+
   undoButton_.setButtonText(TRANS("undo"));
   undoButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
+  undoButton_.setCommandToTrigger(commandManager, StandardApplicationCommandIDs::undo, true);
+
   redoButton_.setButtonText(TRANS("redo"));
   redoButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
+  redoButton_.setCommandToTrigger(commandManager, StandardApplicationCommandIDs::redo, true);
+
   settingsButton_.setButtonText(TRANS("settings"));
   settingsButton_.setConnectedEdges(Button::ConnectedOnLeft);
+  settingsButton_.setCommandToTrigger(commandManager, DrawMusicCommandID::openSettings, true);
 
   for (Button* button : allButtons_)
   {
     addAndMakeVisible(button);
-    button->addListener(this);
   }
 
   // Non-buttons UI
@@ -103,6 +126,8 @@ MainComponent::~MainComponent()
   }
 }
 
+// ===== Component overrides =====
+
 void MainComponent::paint(Graphics& g)
 {
   g.fillAll(DrawMusicLookAndFeel::getDefaultBackgroundColour());
@@ -143,85 +168,149 @@ void MainComponent::resized()
   gridLargerButton_.setEnabled(Configuration::canIncreaseGridSize());
 }
 
-void MainComponent::buttonClicked(Button* buttonThatWasClicked)
+// ===== ApplicationCommandTarget overrides =====
+ApplicationCommandTarget* MainComponent::getNextCommandTarget()
 {
-  if (buttonThatWasClicked == &playStopButton_)
+  return nullptr;
+}
+
+void MainComponent::getAllCommands(Array<CommandID>& commands)
+{
+  const CommandID ids[] = {DrawMusicCommandID::newDrawing,      DrawMusicCommandID::open,
+                           DrawMusicCommandID::saveDrawing,     DrawMusicCommandID::saveDrawingAs,
+                           DrawMusicCommandID::exportAudio,     DrawMusicCommandID::openSettings,
+                           DrawMusicCommandID::play_pause,      StandardApplicationCommandIDs::del,
+                           StandardApplicationCommandIDs::undo, StandardApplicationCommandIDs::redo,
+                           DrawMusicCommandID::gridSmaller,     DrawMusicCommandID::gridLarger};
+  commands.addArray(ids, numElementsInArray(ids));
+}
+
+void MainComponent::getCommandInfo(CommandID commandID, ApplicationCommandInfo& result)
+{
+  switch (commandID)
   {
-    togglePlayback();
-  }
-  else if (buttonThatWasClicked == &clearButton_)
-  {
-    if (AlertWindow::showOkCancelBox(AlertWindow::AlertIconType::WarningIcon, TRANS("Clear"),
-                                     TRANS("Clear the whole piece?"), TRANS("CLEAR"),
-                                     TRANS("Cancel"), this))
-    {
-      stopPlayback();
-      transportSource_.setPosition(0);
-      gridActionManager_.clearGrid();
-    }
-  }
-  else if (buttonThatWasClicked == &exportButton_)
-  {
-    AudioFileWriter::saveToFileWithDialogBox(gridAudioSource_.getOutputBuffer());
-  }
-  else if (buttonThatWasClicked == &settingsButton_)
-  {
-    openAudioSettingsWindow();
-  }
-  else if (buttonThatWasClicked == &gridSmallerButton_)
-  {
-    if (Configuration::canDecreaseGridSize() &&
-        AlertWindow::showOkCancelBox(
-            AlertWindow::AlertIconType::WarningIcon, TRANS("Resize?"),
-            TRANS("Resizing the grid will clear the whole piece. Clear the whole piece?"),
-            TRANS("CLEAR"), TRANS("Cancel"), this))
-    {
-      if (Configuration::decreaseGridSize())
-      {
-        stopPlayback();
-        resizeGrid();
-        setSize(Configuration::getMainWindowWidth(), Configuration::getMainWindowHeight());
-      }
-    }
-  }
-  else if (buttonThatWasClicked == &gridLargerButton_)
-  {
-    if (Configuration::canIncreaseGridSize() &&
-        AlertWindow::showOkCancelBox(
-            AlertWindow::AlertIconType::WarningIcon, TRANS("Resize?"),
-            TRANS("Resizing the grid will clear the whole piece. Clear the whole piece?"),
-            TRANS("CLEAR"), TRANS("Cancel"), this))
-    {
-      if (Configuration::increaseGridSize())
-      {
-        stopPlayback();
-        resizeGrid();
-        setSize(Configuration::getMainWindowWidth(), Configuration::getMainWindowHeight());
-      }
-    }
-  }
-  else if (buttonThatWasClicked == &undoButton_)
-  {
-    gridActionManager_.undo();
-  }
-  else if (buttonThatWasClicked == &redoButton_)
-  {
-    gridActionManager_.redo();
-  }
-  else if (buttonThatWasClicked == &saveButton_)
-  {
-    gridActionManager_.save();
-  }
-  else if (buttonThatWasClicked == &loadButton_)
-  {
-    gridActionManager_.load();
+    case DrawMusicCommandID::newDrawing:
+      result.setInfo(TRANS("New"), TRANS("Creates a new drawing"), CommandCategories::general, 0);
+      result.addDefaultKeypress('n', ModifierKeys::commandModifier);
+      break;
+
+    case DrawMusicCommandID::open:
+      result.setInfo(TRANS("Open"), TRANS("Opens a previously saved drawing"),
+                     CommandCategories::general, 0);
+      result.addDefaultKeypress('o', ModifierKeys::commandModifier);
+      break;
+
+    case DrawMusicCommandID::saveDrawing:
+      result.setInfo(TRANS("Save"), TRANS("Saves the current drawing"), CommandCategories::general,
+                     0);
+      result.addDefaultKeypress('s', ModifierKeys::commandModifier);
+      break;
+
+    case DrawMusicCommandID::saveDrawingAs:
+      result.setInfo(TRANS("Save as..."), TRANS("Saves the current drawing to a new location"),
+                     CommandCategories::general, 0);
+      result.addDefaultKeypress('s', ModifierKeys::commandModifier | ModifierKeys::shiftModifier);
+      break;
+
+    case DrawMusicCommandID::exportAudio:
+      result.setInfo(TRANS("Export audio..."), TRANS("Saves the audio for the current drawing"),
+                     CommandCategories::general, 0);
+      break;
+
+    case DrawMusicCommandID::openSettings:
+      result.setInfo(TRANS("Settings..."), TRANS("Opens application settings"),
+                     CommandCategories::general, 0);
+      break;
+
+    case DrawMusicCommandID::play_pause:
+      result.setInfo(TRANS("Play/Pause"), TRANS("Plays or pauses the audio playback"),
+                     CommandCategories::general, 0);
+      result.addDefaultKeypress(' ', 0);
+      break;
+
+    case StandardApplicationCommandIDs::del:
+      result.setInfo(TRANS("Clear"), TRANS("Clears the current drawing"),
+                     CommandCategories::general, 0);
+      break;
+
+    case StandardApplicationCommandIDs::undo:
+      result.setInfo(TRANS("Undo"), TRANS("Undo brush stroke"), CommandCategories::editing, 0);
+      result.addDefaultKeypress('z', ModifierKeys::commandModifier);
+      result.setActive(gridActionManager_.canUndo());
+      break;
+
+    case StandardApplicationCommandIDs::redo:
+      result.setInfo(TRANS("Redo"), TRANS("Redo brush stroke"), CommandCategories::editing, 0);
+      result.addDefaultKeypress('z', ModifierKeys::commandModifier | ModifierKeys::shiftModifier);
+      result.setActive(gridActionManager_.canRedo());
+      break;
+
+    case DrawMusicCommandID::gridSmaller:
+      result.setInfo(TRANS("Smaller canvas"), TRANS("Reduces the size of the drawing canvas"),
+                     CommandCategories::canvas, 0);
+      result.setActive(Configuration::canDecreaseGridSize());
+      break;
+
+    case DrawMusicCommandID::gridLarger:
+      result.setInfo(TRANS("Larger canvas"), TRANS("Increases the size of the drawing canvas"),
+                     CommandCategories::canvas, 0);
+      result.setActive(Configuration::canIncreaseGridSize());
+      break;
+
+    default:
+      break;
   }
 }
 
-void MainComponent::resizeGrid()
+bool MainComponent::perform(const InvocationInfo& info)
 {
-  gridActionManager_.resize(Configuration::getGridWidth(), Configuration::getGridHeight());
+  switch (info.commandID)
+  {
+    case DrawMusicCommandID::newDrawing:
+        /* TODO */;
+      break;
+    case DrawMusicCommandID::open:
+      gridActionManager_.load();
+      break;
+    case DrawMusicCommandID::saveDrawing:
+      gridActionManager_.save();
+      break;
+    case DrawMusicCommandID::saveDrawingAs:
+      gridActionManager_.saveAs();
+      break;
+    case DrawMusicCommandID::exportAudio:
+      AudioFileWriter::saveToFileWithDialogBox(gridAudioSource_.getOutputBuffer());
+      break;
+    case DrawMusicCommandID::openSettings:
+      openAudioSettingsWindow();
+      break;
+    case DrawMusicCommandID::play_pause:
+      togglePlayback();
+      break;
+    case StandardApplicationCommandIDs::del:
+      clearGrid();
+      break;
+    case StandardApplicationCommandIDs::undo:
+      gridActionManager_.undo();
+      break;
+    case StandardApplicationCommandIDs::redo:
+      gridActionManager_.redo();
+      break;
+    case DrawMusicCommandID::gridSmaller:
+      gridSmaller();
+      break;
+    case DrawMusicCommandID::gridLarger:
+      gridLarger();
+      break;
+
+    default:
+      return false;
+  }
+
+  return true;
 }
+
+// ===== private methods =====
 
 void MainComponent::togglePlayback()
 {
@@ -249,6 +338,57 @@ void MainComponent::stopPlayback()
   playbackTimer_.stopTimer();
   playStopButton_.setButtonText(TRANS("play"));
   playStopButton_.setToggleState(false, NotificationType::dontSendNotification);
+}
+
+void MainComponent::resizeGrid()
+{
+  gridActionManager_.resize(Configuration::getGridWidth(), Configuration::getGridHeight());
+}
+
+void MainComponent::clearGrid()
+{
+  if (AlertWindow::showOkCancelBox(AlertWindow::AlertIconType::WarningIcon, TRANS("Clear"),
+                                   TRANS("Clear the whole piece?"), TRANS("CLEAR"), TRANS("Cancel"),
+                                   this))
+  {
+    stopPlayback();
+    transportSource_.setPosition(0);
+    gridActionManager_.clearGrid();
+  }
+}
+
+void MainComponent::gridSmaller()
+{
+  if (Configuration::canDecreaseGridSize() &&
+      AlertWindow::showOkCancelBox(
+          AlertWindow::AlertIconType::WarningIcon, TRANS("Resize?"),
+          TRANS("Resizing the grid will clear the whole piece. Clear the whole piece?"),
+          TRANS("CLEAR"), TRANS("Cancel"), this))
+  {
+    if (Configuration::decreaseGridSize())
+    {
+      stopPlayback();
+      resizeGrid();
+      setSize(Configuration::getMainWindowWidth(), Configuration::getMainWindowHeight());
+    }
+  }
+}
+
+void MainComponent::gridLarger()
+{
+  if (Configuration::canIncreaseGridSize() &&
+      AlertWindow::showOkCancelBox(
+          AlertWindow::AlertIconType::WarningIcon, TRANS("Resize?"),
+          TRANS("Resizing the grid will clear the whole piece. Clear the whole piece?"),
+          TRANS("CLEAR"), TRANS("Cancel"), this))
+  {
+    if (Configuration::increaseGridSize())
+    {
+      stopPlayback();
+      resizeGrid();
+      setSize(Configuration::getMainWindowWidth(), Configuration::getMainWindowHeight());
+    }
+  }
 }
 
 void MainComponent::openAudioSettingsWindow()

@@ -6,57 +6,25 @@
 #include "DrawMusicLookAndFeel.h"
 #include "MainComponent.h"
 
-
-//==============================================================================
 class DrawMusicApplication : public JUCEApplication
 {
-public:
-  //==============================================================================
-  DrawMusicApplication() {}
+ public:
+  DrawMusicApplication();
+
+  static ApplicationCommandManager* getCommandManager();
 
   const String getApplicationName() override { return ProjectInfo::projectName; }
   const String getApplicationVersion() override { return ProjectInfo::versionString; }
   bool moreThanOneInstanceAllowed() override { return false; }
 
-  //==============================================================================
-  void initialise(const String& commandLine) override
-  {
-    // This method is where you should put your application's initialisation code..
-    lookAndFeel = new DrawMusicLookAndFeel();
-    LookAndFeel::setDefaultLookAndFeel(lookAndFeel);
-    mainWindow = new MainWindow(getApplicationName());
-  }
+  void initialise(const String& commandLine) override;
+  void shutdown() override;
+  void systemRequestedQuit() override;
+  void anotherInstanceStarted(const String& commandLine) override;
 
-  void shutdown() override
-  {
-    // Add your application's shutdown code here..
-
-    mainWindow = nullptr;  // (deletes our window)
-  }
-
-  //==============================================================================
-  void systemRequestedQuit() override
-  {
-    // This is called when the app is being asked to quit: you can ignore this
-    // request and let the app carry on running, or call quit() to allow the app to close.
-    quit();
-  }
-
-  void anotherInstanceStarted(const String& commandLine) override
-  {
-    // When another instance of the app is launched while this one is running,
-    // this method is invoked, and the commandLine parameter tells you what
-    // the other instance's command-line arguments were.
-  }
-
-  //==============================================================================
-  /*
-   This class implements the desktop window that contains an instance of
-   our MainContentComponent class.
-   */
   class MainWindow : public DocumentWindow
   {
-  public:
+   public:
     MainWindow(String name) : DocumentWindow(name, Colours::lightgrey, DocumentWindow::allButtons)
     {
       setUsingNativeTitleBar(true);
@@ -82,15 +50,16 @@ public:
      subclass also calls the superclass's method.
      */
 
-  private:
+   private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainWindow)
   };
 
-private:
+ private:
+  void initCommandManager();
+
   ScopedPointer<MainWindow> mainWindow = nullptr;
   ScopedPointer<LookAndFeel> lookAndFeel = nullptr;
+  ScopedPointer<ApplicationCommandManager> commandManager = nullptr;
 };
-
-
 
 #endif  // DRAWMUSICAPPLICATION_H_INCLUDED

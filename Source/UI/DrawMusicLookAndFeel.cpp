@@ -45,13 +45,13 @@ DrawMusicLookAndFeel::DrawMusicLookAndFeel()
 //}
 
 void DrawMusicLookAndFeel::drawOutline(juce::Graphics& g, juce::Component& c, bool isMouseOver,
-                                  bool isSelected)
+                                       bool isSelected)
 {
   drawOutline(g, c.getLocalBounds(), isMouseOver, isSelected);
 }
 
 void DrawMusicLookAndFeel::drawOutline(juce::Graphics& g, Rectangle<int> bounds, bool isMouseOver,
-                                  bool isSelected)
+                                       bool isSelected)
 {
   Colour colour;
   if (isSelected)

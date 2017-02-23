@@ -13,22 +13,30 @@
 #include "WaveformView.h"
 #include "WaveletReconstructor.h"
 
-class MainComponent : public Component, public Button::Listener
+class MainComponent : public Component, public ApplicationCommandTarget
 {
  public:
   MainComponent();
   ~MainComponent();
 
-  void paint(Graphics& g);
-  void resized();
-  void buttonClicked(Button* buttonThatWasClicked);
+  // Component overrides
+  void paint(Graphics& g) override;
+  void resized() override;
+
+  // ApplicationCommandTarget overrides
+  ApplicationCommandTarget* getNextCommandTarget() override;
+  void getAllCommands(Array<CommandID>& commands) override;
+  void getCommandInfo(CommandID commandID, ApplicationCommandInfo& result) override;
+  bool perform(const InvocationInfo& info) override;
 
  private:
   void togglePlayback();
   void stopPlayback();
   void startPlayback();
   void resizeGrid();
-
+  void clearGrid();
+  void gridSmaller();
+  void gridLarger();
   void openAudioSettingsWindow();
 
   class PlaybackTimer : public Timer
