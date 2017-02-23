@@ -24,18 +24,10 @@ MainComponent::MainComponent()
       playbackTimer_(playbackTimeline_),
       waveformView_("waveform view"),
       playStopButton_("playStopButton"),
-      clearButton_("clearButton"),
-      exportButton_("exportButton"),
-      saveButton_("saveButton"),
-      loadButton_("loadButton"),
-      gridSmallerButton_("gridSmallerButton"),
-      gridLargerButton_("gridBiggerButton"),
       undoButton_("undoButton"),
       redoButton_("redoButton"),
-      settingsButton_("settingsButton"),
       allButtons_({
-          &playStopButton_, &clearButton_, &exportButton_, &saveButton_, &loadButton_,
-          &gridSmallerButton_, &gridLargerButton_, &undoButton_, &redoButton_, &settingsButton_,
+          &playStopButton_, &undoButton_, &redoButton_
       })
 {
   auto commandManager = DrawMusicApplication::getCommandManager();
@@ -46,41 +38,13 @@ MainComponent::MainComponent()
   playStopButton_.setCommandToTrigger(commandManager, DrawMusicCommandID::play_pause,
                                       true /* generateToolTip */);
 
-  clearButton_.setButtonText(TRANS("clear"));
-  clearButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
-  clearButton_.setCommandToTrigger(commandManager, StandardApplicationCommandIDs::del, true);
-
-  exportButton_.setButtonText(TRANS("save audio"));
-  exportButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
-  exportButton_.setCommandToTrigger(commandManager, DrawMusicCommandID::exportAudio, true);
-
-  saveButton_.setButtonText(TRANS("save drawing"));
-  saveButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
-  saveButton_.setCommandToTrigger(commandManager, DrawMusicCommandID::saveDrawing, true);
-
-  loadButton_.setButtonText(TRANS("load drawing"));
-  loadButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
-  loadButton_.setCommandToTrigger(commandManager, DrawMusicCommandID::open, true);
-
-  gridSmallerButton_.setButtonText(TRANS("smaller"));
-  gridSmallerButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
-  gridSmallerButton_.setCommandToTrigger(commandManager, DrawMusicCommandID::gridSmaller, true);
-
-  gridLargerButton_.setButtonText(TRANS("bigger"));
-  gridLargerButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
-  gridLargerButton_.setCommandToTrigger(commandManager, DrawMusicCommandID::gridLarger, true);
-
   undoButton_.setButtonText(TRANS("undo"));
   undoButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
   undoButton_.setCommandToTrigger(commandManager, StandardApplicationCommandIDs::undo, true);
 
   redoButton_.setButtonText(TRANS("redo"));
-  redoButton_.setConnectedEdges(Button::ConnectedOnLeft | Button::ConnectedOnRight);
+  redoButton_.setConnectedEdges(Button::ConnectedOnLeft);
   redoButton_.setCommandToTrigger(commandManager, StandardApplicationCommandIDs::redo, true);
-
-  settingsButton_.setButtonText(TRANS("settings"));
-  settingsButton_.setConnectedEdges(Button::ConnectedOnLeft);
-  settingsButton_.setCommandToTrigger(commandManager, DrawMusicCommandID::openSettings, true);
 
   DrawMusicApplication::getCommandManager()->registerAllCommandsForTarget(this);
 
@@ -165,9 +129,6 @@ void MainComponent::resized()
   const int paletteSide = Configuration::getPaletteSide();
   brushPalette_.setBounds(getWidth() - paletteSide - outsideMargin,
                           getHeight() - paletteSide - outsideMargin, paletteSide, paletteSide);
-
-  gridSmallerButton_.setEnabled(Configuration::canDecreaseGridSize());
-  gridLargerButton_.setEnabled(Configuration::canIncreaseGridSize());
 }
 
 // ===== ApplicationCommandTarget overrides =====
