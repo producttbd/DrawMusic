@@ -24,6 +24,7 @@ void WaveletReconstructor::reinitialize()
 void WaveletReconstructor::perform(AudioSampleBuffer& buffer,
                                    const Array<GridPoint>& affectedPoints) const
 {
+  DBG("Partial reconstruction started");
   if (affectedPoints.size() == 0) return;
   int minX = affectedPoints[0].x;
   int maxX = affectedPoints[0].x;
@@ -41,6 +42,7 @@ void WaveletReconstructor::perform(AudioSampleBuffer& buffer,
 
 void WaveletReconstructor::perform(AudioSampleBuffer& buffer) const
 {
+  DBG("Full reconstruction started");
   buffer.clear();
   performInternal(buffer, 0, gridData_.getWidth());
 }
@@ -92,6 +94,7 @@ void WaveletReconstructor::performInternal(AudioSampleBuffer& buffer, const int 
       previousValue = value;
     }
   }
+  DBG("Reconstruction finished");
 }
 
 void WaveletReconstructor::createBinInformation()

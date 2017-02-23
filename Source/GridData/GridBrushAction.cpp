@@ -57,7 +57,9 @@ MouseUpGridBrushAction::MouseUpGridBrushAction(GridData& gridData, AbstractBrush
 
 bool MouseUpGridBrushAction::perform()
 {
+  DBG("MouseUpGridBrushAction started");
   auto affectedPixels = brushAction_->finishStroke(point_, actualGrid_);
   gridDataChangedNotifier_.callGridUpdatedListeners(affectedPixels);
+  DBG("MouseUpGridBrushAction finished");
   return true;
 }

@@ -38,9 +38,6 @@ class MouseDownGridBrushAction : public GridBrushAction
   bool undo() override;
   int getSizeInUnits() override { return 100; }
 
-  // TODO
-  // UndoableAction* createCoalescedAction(UndoableAction* nextAction) override;
-
  private:
   GridData initialGridState_;
 
