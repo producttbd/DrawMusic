@@ -33,6 +33,12 @@ class DrawMusicApplication : public JUCEApplication
 
       centreWithSize(getWidth(), getHeight());
       setVisible(true);
+      addKeyListener(DrawMusicApplication::getCommandManager()->getKeyMappings());
+    }
+
+    ~MainWindow()
+    {
+      removeKeyListener(DrawMusicApplication::getCommandManager()->getKeyMappings());
     }
 
     void closeButtonPressed() override

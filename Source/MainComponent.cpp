@@ -82,6 +82,8 @@ MainComponent::MainComponent()
   settingsButton_.setConnectedEdges(Button::ConnectedOnLeft);
   settingsButton_.setCommandToTrigger(commandManager, DrawMusicCommandID::openSettings, true);
 
+  DrawMusicApplication::getCommandManager()->registerAllCommandsForTarget(this);
+
   for (Button* button : allButtons_)
   {
     addAndMakeVisible(button);
