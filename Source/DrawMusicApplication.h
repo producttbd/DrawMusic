@@ -87,7 +87,6 @@ class DrawMusicApplication : public JUCEApplication
 
     void menuItemSelected(int menuItemID, int /*topLevelMenuIndex*/) override
     {
-      getCommandManager()->invokeDirectly(menuItemID, true);
     }
   };
   ScopedPointer<MainMenuModel> menuModel = nullptr;
