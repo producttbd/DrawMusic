@@ -181,8 +181,8 @@ void MainComponent::getAllCommands(Array<CommandID>& commands)
   const CommandID ids[] = {DrawMusicCommandID::newDrawing,      DrawMusicCommandID::open,
                            DrawMusicCommandID::saveDrawing,     DrawMusicCommandID::saveDrawingAs,
                            DrawMusicCommandID::exportAudio,     DrawMusicCommandID::openSettings,
-                           DrawMusicCommandID::play_pause,      StandardApplicationCommandIDs::del,
-                           StandardApplicationCommandIDs::undo, StandardApplicationCommandIDs::redo,
+                           DrawMusicCommandID::play_pause,      StandardApplicationCommandIDs::undo,
+                           StandardApplicationCommandIDs::redo, StandardApplicationCommandIDs::del,
                            DrawMusicCommandID::gridSmaller,     DrawMusicCommandID::gridLarger};
   commands.addArray(ids, numElementsInArray(ids));
 }
@@ -230,11 +230,6 @@ void MainComponent::getCommandInfo(CommandID commandID, ApplicationCommandInfo& 
       result.addDefaultKeypress(' ', 0);
       break;
 
-    case StandardApplicationCommandIDs::del:
-      result.setInfo(TRANS("Clear"), TRANS("Clears the current drawing"),
-                     CommandCategories::general, 0);
-      break;
-
     case StandardApplicationCommandIDs::undo:
       result.setInfo(TRANS("Undo"), TRANS("Undo brush stroke"), CommandCategories::editing, 0);
       result.addDefaultKeypress('z', ModifierKeys::commandModifier);
@@ -257,6 +252,11 @@ void MainComponent::getCommandInfo(CommandID commandID, ApplicationCommandInfo& 
       result.setInfo(TRANS("Larger canvas"), TRANS("Increases the size of the drawing canvas"),
                      CommandCategories::canvas, 0);
       result.setActive(Configuration::canIncreaseGridSize());
+      break;
+
+    case StandardApplicationCommandIDs::del:
+      result.setInfo(TRANS("Clear"), TRANS("Clears the current drawing"), CommandCategories::canvas,
+                     0);
       break;
 
     default:
@@ -289,14 +289,14 @@ bool MainComponent::perform(const InvocationInfo& info)
     case DrawMusicCommandID::play_pause:
       togglePlayback();
       break;
-    case StandardApplicationCommandIDs::del:
-      clearGrid();
-      break;
     case StandardApplicationCommandIDs::undo:
       gridActionManager_.undo();
       break;
     case StandardApplicationCommandIDs::redo:
       gridActionManager_.redo();
+      break;
+    case StandardApplicationCommandIDs::del:
+      clearGrid();
       break;
     case DrawMusicCommandID::gridSmaller:
       gridSmaller();
@@ -349,7 +349,8 @@ void MainComponent::resizeGrid()
 
 void MainComponent::clearGrid()
 {
-  if (AlertWindow::showOkCancelBox(AlertWindow::AlertIconType::WarningIcon, TRANS("Clear"),
+  if (gridData_.empty() ||
+      AlertWindow::showOkCancelBox(AlertWindow::AlertIconType::WarningIcon, TRANS("Clear"),
                                    TRANS("Clear the whole piece?"), TRANS("CLEAR"), TRANS("Cancel"),
                                    this))
   {
@@ -362,10 +363,11 @@ void MainComponent::clearGrid()
 void MainComponent::gridSmaller()
 {
   if (Configuration::canDecreaseGridSize() &&
-      AlertWindow::showOkCancelBox(
-          AlertWindow::AlertIconType::WarningIcon, TRANS("Resize?"),
-          TRANS("Resizing the grid will clear the whole piece. Clear the whole piece?"),
-          TRANS("CLEAR"), TRANS("Cancel"), this))
+      (gridData_.empty() ||
+       AlertWindow::showOkCancelBox(
+           AlertWindow::AlertIconType::WarningIcon, TRANS("Resize?"),
+           TRANS("Resizing the grid will clear the whole piece. Clear the whole piece?"),
+           TRANS("CLEAR"), TRANS("Cancel"), this)))
   {
     if (Configuration::decreaseGridSize())
     {
@@ -379,10 +381,11 @@ void MainComponent::gridSmaller()
 void MainComponent::gridLarger()
 {
   if (Configuration::canIncreaseGridSize() &&
-      AlertWindow::showOkCancelBox(
-          AlertWindow::AlertIconType::WarningIcon, TRANS("Resize?"),
-          TRANS("Resizing the grid will clear the whole piece. Clear the whole piece?"),
-          TRANS("CLEAR"), TRANS("Cancel"), this))
+      (gridData_.empty() ||
+       AlertWindow::showOkCancelBox(
+           AlertWindow::AlertIconType::WarningIcon, TRANS("Resize?"),
+           TRANS("Resizing the grid will clear the whole piece. Clear the whole piece?"),
+           TRANS("CLEAR"), TRANS("Cancel"), this)))
   {
     if (Configuration::increaseGridSize())
     {

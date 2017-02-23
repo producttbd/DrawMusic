@@ -12,6 +12,7 @@ class DrawMusicApplication : public JUCEApplication
   DrawMusicApplication();
 
   static ApplicationCommandManager* getCommandManager();
+  static DrawMusicApplication* getApp();
 
   const String getApplicationName() override { return ProjectInfo::projectName; }
   const String getApplicationVersion() override { return ProjectInfo::versionString; }
@@ -21,6 +22,13 @@ class DrawMusicApplication : public JUCEApplication
   void shutdown() override;
   void systemRequestedQuit() override;
   void anotherInstanceStarted(const String& commandLine) override;
+
+  MenuBarModel* getMenuModel();
+  StringArray getMenuNames();
+  void createMenu(PopupMenu& menu, int menuIndex);
+  void createFileMenu(PopupMenu& menu);
+  void createEditMenu(PopupMenu& menu);
+  void createCanvasMenu(PopupMenu& menu);
 
   class MainWindow : public DocumentWindow
   {
@@ -33,13 +41,13 @@ class DrawMusicApplication : public JUCEApplication
 
       centreWithSize(getWidth(), getHeight());
       setVisible(true);
+#if !JUCE_MAC
+      setMenuBar(DrawMusicApplication::getApp()->getMenuModel());
+#endif
       addKeyListener(DrawMusicApplication::getCommandManager()->getKeyMappings());
     }
 
-    ~MainWindow()
-    {
-      removeKeyListener(DrawMusicApplication::getCommandManager()->getKeyMappings());
-    }
+    ~MainWindow() {}
 
     void closeButtonPressed() override
     {
@@ -63,6 +71,26 @@ class DrawMusicApplication : public JUCEApplication
  private:
   void initCommandManager();
 
+  class MainMenuModel : public MenuBarModel
+  {
+   public:
+    MainMenuModel() { setApplicationCommandManagerToWatch(getCommandManager()); }
+
+    StringArray getMenuBarNames() override { return getApp()->getMenuNames(); }
+
+    PopupMenu getMenuForIndex(int topLevelMenuIndex, const String& /* menuName */) override
+    {
+      PopupMenu menu;
+      getApp()->createMenu(menu, topLevelMenuIndex);
+      return menu;
+    }
+
+    void menuItemSelected(int menuItemID, int /*topLevelMenuIndex*/) override
+    {
+      getCommandManager()->invokeDirectly(menuItemID, true);
+    }
+  };
+  ScopedPointer<MainMenuModel> menuModel = nullptr;
   ScopedPointer<MainWindow> mainWindow = nullptr;
   ScopedPointer<LookAndFeel> lookAndFeel = nullptr;
   ScopedPointer<ApplicationCommandManager> commandManager = nullptr;

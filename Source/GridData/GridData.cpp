@@ -22,10 +22,8 @@ GridData::GridData(int gridWidth, int gridHeight)
 
 void GridData::zero()
 {
-  for (auto& value : data_)
-  {
-    value = 0.0f;
-  }
+  zeromem(data_.getRawDataPointer(), data_.size() * sizeof(float));
+  empty_ = true;
 }
 
 void GridData::resize(int newWidth, int newHeight)
@@ -34,6 +32,7 @@ void GridData::resize(int newWidth, int newHeight)
   gridHeight_ = newHeight;
   data_.clearQuick();
   data_.insertMultiple(0, 0.0f, gridWidth_ * gridHeight_);
+  empty_ = true;
 }
 
 int GridData::getWidth() const
@@ -44,6 +43,11 @@ int GridData::getWidth() const
 int GridData::getHeight() const
 {
   return gridHeight_;
+}
+
+bool GridData::empty() const
+{
+  return empty_;
 }
 
 float GridData::getXY(int x, int y) const
@@ -64,6 +68,7 @@ float& GridData::operator[](GridPoint p)
 {
   jassert(p.x >= 0 && p.x < gridWidth_);
   jassert(p.y >= 0 && p.y < gridHeight_);
+  empty_ = false;
   return data_.getReference(pointToLinear(p, gridHeight_));
 }
 
@@ -82,5 +87,6 @@ Result GridData::readFromStream(InputStream* stream)
     return Result::fail(TRANS("Current canvas size does not match file."));
   }
   stream->read(data_.getRawDataPointer(), data_.size() * sizeof(float));
+  empty_ = false;
   return Result::ok();
 }

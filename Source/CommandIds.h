@@ -17,11 +17,11 @@ enum
   play_pause = 0x400010,
 
   // editing
-  // StandardApplicationsCommands::del to clear
   // StandardApplicationsCommands::undo
   // StandardApplicationsCommands::redo
 
   // canvas commands
+  // StandardApplicationsCommands::del to clear
   gridSmaller = 0x300010,
   gridLarger = 0x300020,
 

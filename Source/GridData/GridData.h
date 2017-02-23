@@ -18,6 +18,7 @@ class GridData
   void resize(int newWidth, int newHeight);
   int getWidth() const;
   int getHeight() const;
+  bool empty() const;
 
   float getXY(int x, int y) const;
 
@@ -29,6 +30,7 @@ class GridData
   Result readFromStream(InputStream* stream);
 
  private:
+  bool empty_ = true;
   Array<float> data_;
   int gridWidth_;
   int gridHeight_;
