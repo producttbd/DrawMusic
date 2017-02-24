@@ -1,7 +1,7 @@
 #include "BrushPalette.h"
 
+#include "../UI/DrawMusicLookAndFeel.h"
 #include "BrushFactory.h"
-#include "DrawMusicLookAndFeel.h"
 
 BrushPalette::BrushPalette(const String& componentName,
                            const GridColourScheme& colourScheme) noexcept

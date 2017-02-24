@@ -1,7 +1,5 @@
 #include "GridAudioRendererAudioSource.h"
 
-#include "Configuration.h"
-
 GridAudioRendererAudioSource::GridAudioRendererAudioSource(const GridData& gridData) noexcept
     : gridData_(gridData),
       readyToPlay_(true),

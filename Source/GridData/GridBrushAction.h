@@ -3,10 +3,10 @@
 
 #include "JuceHeader.h"
 
-#include "AbstractBrushAction.h"
+#include "../Brushes/AbstractBrushAction.h"
+#include "../Brushes/StrokePoint.h"
 #include "GridData.h"
 #include "GridDataChangedNotifier.h"
-#include "StrokePoint.h"
 
 class GridBrushAction : public UndoableAction
 {

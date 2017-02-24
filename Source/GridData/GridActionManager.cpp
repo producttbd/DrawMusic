@@ -1,6 +1,6 @@
 #include "GridActionManager.h"
 
-#include "Configuration.h"
+#include "../Configuration.h"
 #include "GridBrushAction.h"
 
 GridActionManager::GridActionManager(const BrushPalette& brushPalette, GridData& gridData,

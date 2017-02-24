@@ -3,8 +3,8 @@
 
 #include "JuceHeader.h"
 
+#include "../GridData/GridData.h"
 #include "GridColourScheme.h"
-#include "GridData.h"
 
 class GridImageRenderer
 {

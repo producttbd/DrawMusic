@@ -3,7 +3,7 @@
 
 #include "JuceHeader.h"
 
-#include <tgmath.h>
+#include <cmath>
 
 class Configuration
 {

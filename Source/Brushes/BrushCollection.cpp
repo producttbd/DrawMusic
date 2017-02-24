@@ -1,4 +1,5 @@
 #include "BrushCollection.h"
+
 #include "BrushFactory.h"
 
 BrushCollection::BrushCollection() : currentBrush_(0)

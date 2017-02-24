@@ -1,13 +1,13 @@
 #include "MainComponent.h"
 
-#include "AudioFileWriter.h"
-#include "AudioSettingsWindow.h"
-#include "BrushPaletteWindow.h"
+#include "AudioRendering/AudioFileWriter.h"
+#include "Brushes/BrushPaletteWindow.h"
 #include "CommandIds.h"
 #include "Configuration.h"
 #include "DrawMusicApplication.h"
-#include "DrawMusicLookAndFeel.h"
-#include "GridDataChangedNotifier.h"
+#include "GridData/GridDataChangedNotifier.h"
+#include "UI/AudioSettingsWindow.h"
+#include "UI/DrawMusicLookAndFeel.h"
 
 MainComponent::MainComponent()
     : gridData_(Configuration::getGridWidth(), Configuration::getGridHeight()),
@@ -26,9 +26,7 @@ MainComponent::MainComponent()
       playStopButton_("playStopButton"),
       undoButton_("undoButton"),
       redoButton_("redoButton"),
-      allButtons_({
-          &playStopButton_, &undoButton_, &redoButton_
-      })
+      allButtons_({&playStopButton_, &undoButton_, &redoButton_})
 {
   auto commandManager = DrawMusicApplication::getCommandManager();
 

@@ -1,5 +1,6 @@
 #include "DrawGrid.h"
-#include "Configuration.h"
+
+#include "../Configuration.h"
 #include "DrawMusicLookAndFeel.h"
 
 DrawGrid::DrawGrid(GridActionManager& gridActionManager, const GridData& gridData,

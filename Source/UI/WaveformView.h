@@ -3,8 +3,8 @@
 
 #include "JuceHeader.h"
 
+#include "../AudioRendering/GridAudioRendererAudioSource.h"
 #include "AudioBufferThumbnail.h"
-#include "GridAudioRendererAudioSource.h"
 
 class WaveformView : public Component, public GridAudioRendererAudioSource::NewAudioListener
 {

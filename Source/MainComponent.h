@@ -3,15 +3,15 @@
 
 #include "JuceHeader.h"
 
-#include "BrushPalette.h"
-#include "DrawGrid.h"
-#include "GridActionManager.h"
-#include "GridAudioRendererAudioSource.h"
-#include "GridColourScheme.h"
-#include "GridData.h"
-#include "PlaybackTimeline.h"
-#include "WaveformView.h"
-#include "WaveletReconstructor.h"
+#include "AudioRendering/GridAudioRendererAudioSource.h"
+#include "AudioRendering/WaveletReconstructor.h"
+#include "Brushes/BrushPalette.h"
+#include "GridData/GridActionManager.h"
+#include "GridData/GridData.h"
+#include "UI/DrawGrid.h"
+#include "UI/GridColourScheme.h"
+#include "UI/PlaybackTimeline.h"
+#include "UI/WaveformView.h"
 
 class MainComponent : public Component, public ApplicationCommandTarget
 {

@@ -3,10 +3,10 @@
 
 #include "JuceHeader.h"
 
-#include "GridActionManager.h"
+#include "../GridData/GridActionManager.h"
+#include "../GridData/GridData.h"
+#include "../GridData/GridDataChangedNotifier.h"
 #include "GridColourScheme.h"
-#include "GridData.h"
-#include "GridDataChangedNotifier.h"
 #include "GridImageRenderer.h"
 
 class DrawGrid : public Component,

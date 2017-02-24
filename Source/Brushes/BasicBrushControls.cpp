@@ -1,6 +1,6 @@
 #include "BasicBrushControls.h"
 
-#include "Configuration.h"
+#include "../Configuration.h"
 
 BasicBrushControls::BasicBrushControls()
 {

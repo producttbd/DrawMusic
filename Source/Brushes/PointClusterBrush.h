@@ -1,8 +1,8 @@
 #ifndef POINTCLUSTERBRUSH_H_INCLUDED
 #define POINTCLUSTERBRUSH_H_INCLUDED
 
+#include "../GridData/GridPoint.h"
 #include "BasicBrushBase.h"
-#include "GridPoint.h"
 #include "StrokePoint.h"
 
 class PointClusterBrush : public BasicBrushBase

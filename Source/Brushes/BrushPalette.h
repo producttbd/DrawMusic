@@ -3,12 +3,12 @@
 
 #include "JuceHeader.h"
 
+#include "../UI/GridColourScheme.h"
 #include "AbstractBrushAction.h"
 #include "AbstractCompleteBrush.h"
 #include "BrushCollection.h"
 #include "BrushPaletteWindow.h"
 #include "BrushPaletteWindowContent.h"
-#include "GridColourScheme.h"
 
 class BrushPalette : public Component, ChangeListener
 {

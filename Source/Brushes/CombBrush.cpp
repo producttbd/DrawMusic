@@ -1,7 +1,7 @@
 #include "CombBrush.h"
 
+#include "../UI/GridColourScheme.h"
 #include "AbstractBrushControls.h"
-#include "GridColourScheme.h"
 
 using ControlSpec = AbstractBrushControls::ControlSpec;
 

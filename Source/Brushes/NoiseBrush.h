@@ -1,8 +1,8 @@
 #ifndef NOISEBRUSH_H_INCLUDED
 #define NOISEBRUSH_H_INCLUDED
 
+#include "../GridData/GridPoint.h"
 #include "BasicBrushBase.h"
-#include "GridPoint.h"
 #include "StrokePoint.h"
 
 class NoiseBrush : public BasicBrushBase

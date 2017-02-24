@@ -1,6 +1,6 @@
 #include "BasicBrushBase.h"
 
-#include "GridColourScheme.h"
+#include "../UI/GridColourScheme.h"
 
 using ControlSpec = AbstractBrushControls::ControlSpec;
 

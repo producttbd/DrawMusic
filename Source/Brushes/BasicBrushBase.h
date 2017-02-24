@@ -3,11 +3,11 @@
 
 #include "JuceHeader.h"
 
+#include "../Configuration.h"
+#include "../GridData/GridData.h"
+#include "../GridData/GridPoint.h"
 #include "AbstractBrushAction.h"
 #include "AbstractBrushControls.h"
-#include "Configuration.h"
-#include "GridData.h"
-#include "GridPoint.h"
 #include "StrokePoint.h"
 
 class BasicBrushBase : public AbstractBrushAction

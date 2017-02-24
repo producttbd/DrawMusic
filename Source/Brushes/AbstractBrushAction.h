@@ -3,10 +3,9 @@
 
 #include "JuceHeader.h"
 
+#include "../GridData/GridData.h"
+#include "../GridData/GridPoint.h"
 #include "AbstractBrushControls.h"
-#include "GridColourScheme.h"
-#include "GridData.h"
-#include "GridPoint.h"
 #include "StrokePoint.h"
 
 class AbstractBrushAction : public AbstractBrushControls::Listener

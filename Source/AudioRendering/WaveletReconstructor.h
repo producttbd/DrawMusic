@@ -3,7 +3,7 @@
 
 #include "JuceHeader.h"
 
-#include "GridData.h"
+#include "../GridData/GridData.h"
 
 class WaveletReconstructor
 {

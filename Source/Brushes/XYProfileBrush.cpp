@@ -1,6 +1,6 @@
 #include "XYProfileBrush.h"
 
-#include "GridColourScheme.h"
+#include "../UI/GridColourScheme.h"
 
 XYProfileBrush::XYProfileBrush(Array<float> xProfile, Array<float> yProfile, int xOffset,
                                int yOffset)

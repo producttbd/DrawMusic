@@ -1,6 +1,6 @@
 #include "WaveformView.h"
 
-#include "Configuration.h"
+#include "../Configuration.h"
 #include "DrawMusicLookAndFeel.h"
 
 WaveformView::WaveformView(const String& name) : Component(name)

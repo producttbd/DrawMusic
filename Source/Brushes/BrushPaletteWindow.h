@@ -3,7 +3,7 @@
 
 #include "JuceHeader.h"
 
-#include "BaseWindow.h"
+#include "../UI/BaseWindow.h"
 #include "BrushPaletteWindowContent.h"
 
 class BrushPaletteWindow : public BaseWindow

@@ -1,7 +1,8 @@
 #include "BrushPaletteWindowContent.h"
 
-#include "Configuration.h"
-#include "DrawMusicLookAndFeel.h"
+#include "../Configuration.h"
+#include "../UI/DrawMusicLookAndFeel.h"
+#include "../UI/GridColourScheme.h"
 
 BrushPaletteWindowContent::BrushPaletteWindowContent(BrushCollection& brushCollection)
     : brushCollection_(brushCollection)

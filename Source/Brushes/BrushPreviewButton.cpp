@@ -1,6 +1,6 @@
 #include "BrushPreviewButton.h"
 
-#include "DrawMusicLookAndFeel.h"
+#include "../UI/DrawMusicLookAndFeel.h"
 
 BrushPreviewButton::BrushPreviewButton(const AbstractCompleteBrush* brush)
     : Button(brush->getName()), brush_(brush)

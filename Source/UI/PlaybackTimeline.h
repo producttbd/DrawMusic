@@ -3,7 +3,7 @@
 
 #include "JuceHeader.h"
 
-#include "GridAudioRendererAudioSource.h"
+#include "../AudioRendering/GridAudioRendererAudioSource.h"
 
 class PlaybackTimeline : public Component, public GridAudioRendererAudioSource::NewPositionListener
 {

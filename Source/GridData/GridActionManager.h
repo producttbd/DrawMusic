@@ -3,7 +3,7 @@
 
 #include "JuceHeader.h"
 
-#include "BrushPalette.h"
+#include "../Brushes/BrushPalette.h"
 #include "GridData.h"
 #include "GridDataChangedNotifier.h"
 #include "GridDataFile.h"

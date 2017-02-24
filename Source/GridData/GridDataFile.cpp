@@ -1,6 +1,6 @@
 #include "GridDataFile.h"
 
-#include "Configuration.h"
+#include "../Configuration.h"
 
 GridDataFile::GridDataFile(GridData& gridData)
     : FileBasedDocument(".drawmusic", "*.drawmusic", TRANS("Load canvas"), TRANS("Save canvas")),

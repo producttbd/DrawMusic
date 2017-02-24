@@ -1,6 +1,6 @@
 #include "WaveletReconstructor.h"
 
-#include "Configuration.h"
+#include "../Configuration.h"
 #include "EqualLoudnessCurve.h"
 
 WaveletReconstructor::WaveletReconstructor(const GridData& gridData)

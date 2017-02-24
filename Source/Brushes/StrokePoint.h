@@ -1,7 +1,7 @@
 #ifndef STROKEPOINT_H_INCLUDED
 #define STROKEPOINT_H_INCLUDED
 
-#include "GridPoint.h"
+#include "../GridData/GridPoint.h"
 
 struct StrokePoint
 {

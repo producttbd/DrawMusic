@@ -1,7 +1,7 @@
 #include "NoiseBrush.h"
 
+#include "../UI/GridColourScheme.h"
 #include "AbstractBrushControls.h"
-#include "GridColourScheme.h"
 
 NoiseBrush::NoiseBrush() : size_(25.0f), density_(0.2)
 {

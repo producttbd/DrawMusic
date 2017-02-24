@@ -1,6 +1,6 @@
 #include "BaseWindow.h"
 
-#include "Configuration.h"
+#include "../Configuration.h"
 #include "DrawMusicLookAndFeel.h"
 #include "WindowBoundsManager.h"
 

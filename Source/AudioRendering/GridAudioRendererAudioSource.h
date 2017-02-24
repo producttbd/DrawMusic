@@ -3,9 +3,9 @@
 
 #include "JuceHeader.h"
 
-#include "Configuration.h"
-#include "GridData.h"
-#include "GridDataChangedNotifier.h"
+#include "../Configuration.h"
+#include "../GridData/GridData.h"
+#include "../GridData/GridDataChangedNotifier.h"
 #include "WaveletReconstructor.h"
 
 class GridAudioRendererAudioSource : public PositionableAudioSource,
