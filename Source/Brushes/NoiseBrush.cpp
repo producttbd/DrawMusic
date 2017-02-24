@@ -3,7 +3,7 @@
 #include "../UI/GridColourScheme.h"
 #include "AbstractBrushControls.h"
 
-NoiseBrush::NoiseBrush() : size_(25.0f), density_(0.2)
+NoiseBrush::NoiseBrush() : size_(25.0f), density_(0.2f)
 {
   AbstractBrushControls::ControlSpec spec({"Size", 1.0f, 150.0f, size_});
   supportedControls_.add(spec);

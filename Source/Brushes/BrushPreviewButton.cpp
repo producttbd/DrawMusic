@@ -8,7 +8,8 @@ BrushPreviewButton::BrushPreviewButton(const AbstractCompleteBrush* brush)
   setClickingTogglesState(true);
 }
 
-void BrushPreviewButton::paintButton(juce::Graphics& g, bool isMouseOverButton, bool isButtonDown)
+void BrushPreviewButton::paintButton(juce::Graphics& g, bool isMouseOverButton,
+                                     bool /* isButtonDown */)
 {
   brush_->getBrushAction()->drawPreviewInto(g, getLocalBounds());
   DrawMusicLookAndFeel::drawOutline(g, *this, isMouseOverButton, getToggleState());

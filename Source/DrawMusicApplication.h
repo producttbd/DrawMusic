@@ -85,7 +85,7 @@ class DrawMusicApplication : public JUCEApplication
       return menu;
     }
 
-    void menuItemSelected(int menuItemID, int /*topLevelMenuIndex*/) override {}
+    void menuItemSelected(int /* menuItemID */, int /*topLevelMenuIndex*/) override {}
   };
   ScopedPointer<MainMenuModel> menuModel = nullptr;
   ScopedPointer<MainWindow> mainWindow = nullptr;

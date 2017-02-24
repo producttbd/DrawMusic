@@ -44,8 +44,9 @@ File GridDataFile::getLastDocumentOpened()
   return File();
 }
 
-void GridDataFile::setLastDocumentOpened(const File& file)
+void GridDataFile::setLastDocumentOpened(const File& /* file */)
 {
+  // TODO?
 }
 
 File GridDataFile::getSuggestedSaveAsFile(const File& defaultFile)

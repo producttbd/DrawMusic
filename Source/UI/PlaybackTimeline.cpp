@@ -37,6 +37,6 @@ void PlaybackTimeline::mouseDown(const juce::MouseEvent& event)
 void PlaybackTimeline::paint(juce::Graphics& g)
 {
   g.setColour(Colours::red);
-  auto x = currentPlayFraction_ * getWidth();
-  g.drawLine(x, 0, x, getHeight());
+  float x = currentPlayFraction_ * getWidth();
+  g.drawLine(x, 0.0f, x, (float)getHeight());
 }

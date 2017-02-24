@@ -26,7 +26,7 @@ AbstractBrushAction* BrushPalette::getCurrentBrushAction() const
   return brushCollection_.getCurrentBrush()->getBrushAction();
 }
 
-void BrushPalette::mouseDown(const MouseEvent& event)
+void BrushPalette::mouseDown(const MouseEvent& /* event */)
 {
   openBrushPaletteWindow();
 }

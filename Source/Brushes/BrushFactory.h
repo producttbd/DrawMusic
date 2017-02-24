@@ -11,8 +11,6 @@ class BrushFactory
   static void getAllBrushes(BrushCollection& brushCollection);
 
   BrushFactory() = delete;
-  BrushFactory(BrushFactory&) = delete;
-  BrushFactory& operator=(BrushFactory&) = delete;
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BrushFactory);
 };

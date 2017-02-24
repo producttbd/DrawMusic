@@ -48,7 +48,10 @@ class AudioBufferThumbnail
       return values[1] > values[0];
     }
 
-    inline int getPeak() const noexcept { return jmax(std::abs(values[0]), std::abs(values[1])); }
+    inline int getPeak() const noexcept
+    {
+      return roundFloatToInt(jmax(std::abs(values[0]), std::abs(values[1])));
+    }
 
    private:
     float values[2];

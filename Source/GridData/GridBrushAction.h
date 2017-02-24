@@ -15,8 +15,10 @@ class GridBrushAction : public UndoableAction
                   GridDataChangedNotifier& gridDataChangedNotifier);
   ~GridBrushAction() override {}
 
-  // TODO
-  UndoableAction* createCoalescedAction(UndoableAction* nextAction) override { return nullptr; }
+  UndoableAction* createCoalescedAction(UndoableAction* /* nextAction */) override
+  {
+    return nullptr;
+  }
 
  protected:
   GridData& actualGrid_;
