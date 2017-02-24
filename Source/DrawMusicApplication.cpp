@@ -21,7 +21,7 @@ ApplicationCommandManager* DrawMusicApplication::getCommandManager()
   return cm;
 }
 
-void DrawMusicApplication::initialise(const String& commandLine)
+void DrawMusicApplication::initialise(const String& /* commandLine */)
 {
   initCommandManager();
   menuModel = new MainMenuModel;
@@ -53,7 +53,7 @@ void DrawMusicApplication::systemRequestedQuit()
   quit();
 }
 
-void DrawMusicApplication::anotherInstanceStarted(const String& commandLine)
+void DrawMusicApplication::anotherInstanceStarted(const String& /* commandLine */)
 {
   // When another instance of the app is launched while this one is running,
   // this method is invoked, and the commandLine parameter tells you what
@@ -97,7 +97,7 @@ void DrawMusicApplication::createFileMenu(PopupMenu& menu)
   menu.addCommandItem(commandManager, DrawMusicCommandID::openSettings);
   menu.addSeparator();
 #if !JUCE_MAC
-  menu.addCommandItem(commandManager, CommandIDs::showGlobalPreferences);
+  // menu.addCommandItem(commandManager, CommandIDs::showGlobalPreferences);
   menu.addSeparator();
   menu.addCommandItem(commandManager, StandardApplicationCommandIDs::quit);
 #endif
