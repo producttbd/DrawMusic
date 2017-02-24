@@ -40,9 +40,6 @@ void DrawMusicApplication::shutdown()
 #if JUCE_MAC
   MenuBarModel::setMacMainMenu(nullptr);
 #endif
-  menuModel = nullptr;
-  commandManager = nullptr;
-
   LookAndFeel::setDefaultLookAndFeel(nullptr);
 }
 

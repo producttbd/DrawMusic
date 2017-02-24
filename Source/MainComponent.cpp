@@ -84,6 +84,8 @@ MainComponent::MainComponent()
 MainComponent::~MainComponent()
 {
   transportSource_.setSource(nullptr);
+  audioSourcePlayer_.setSource(nullptr);
+  deviceManager_.closeAudioDevice();
   if (audioSettingsWindow_ != nullptr)
   {
     audioSettingsWindow_.deleteAndZero();
