@@ -27,10 +27,10 @@ class GridDataChangedNotifier
 
   void addGridDataResizedListener(GridDataResizedListener* listener);
   void removeGridDataResizedListener(GridDataResizedListener* listener);
+  void callGridResizedListeners();
+
   void addGridDataUpdatedListener(GridDataUpdatedListener* listener);
   void removeGridDataUpdatedListener(GridDataUpdatedListener* listener);
-
-  void callGridResizedListeners();
   void callGridUpdatedListeners();
   void callGridUpdatedListeners(const Array<GridPoint>& affectedPoints);
 

@@ -9,18 +9,20 @@ void GridDataChangedNotifier::removeGridDataResizedListener(GridDataResizedListe
 {
   gridDataResizedListeners_.remove(listener);
 }
-void GridDataChangedNotifier::addGridDataUpdatedListener(GridDataUpdatedListener* listener)
-{
-  gridDataUpdatedListeners_.add(listener);
-}
-void GridDataChangedNotifier::removeGridDataUpdatedListener(GridDataUpdatedListener* listener)
-{
-  gridDataUpdatedListeners_.remove(listener);
-}
 
 void GridDataChangedNotifier::callGridResizedListeners()
 {
   gridDataResizedListeners_.call(&GridDataResizedListener::gridDataResizedCallback);
+}
+
+void GridDataChangedNotifier::addGridDataUpdatedListener(GridDataUpdatedListener* listener)
+{
+  gridDataUpdatedListeners_.add(listener);
+}
+
+void GridDataChangedNotifier::removeGridDataUpdatedListener(GridDataUpdatedListener* listener)
+{
+  gridDataUpdatedListeners_.remove(listener);
 }
 
 void GridDataChangedNotifier::callGridUpdatedListeners()
