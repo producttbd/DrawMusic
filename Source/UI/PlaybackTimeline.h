@@ -3,14 +3,14 @@
 
 #include "JuceHeader.h"
 
-#include "../AudioRendering/GridAudioRendererAudioSource.h"
+#include "../AudioRendering/AudioDataChangedNotifier.h"
+#include "../AudioRendering/AudioSystem.h"
 
-class PlaybackTimeline : public Component, public GridAudioRendererAudioSource::NewPositionListener
+class PlaybackTimeline : public Component, public AudioDataChangedNotifier::NewPositionListener
 {
  public:
   explicit PlaybackTimeline(const String name);
-  void setToControlAudioSource(Rectangle<int> activeClickArea,
-                               PositionableAudioSource* audioSource);
+  void setToControlAudioSystem(Rectangle<int> activeClickArea, AudioSystem* audioSystem);
 
   void newPositionCallback(float fraction) override;
 
@@ -21,7 +21,7 @@ class PlaybackTimeline : public Component, public GridAudioRendererAudioSource::
  private:
   float currentPlayFraction_ = 0.0f;
   Rectangle<int> activeClickArea_;
-  PositionableAudioSource* audioSource_;
+  AudioSystem* audioSystem_ = nullptr;
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PlaybackTimeline);
 };

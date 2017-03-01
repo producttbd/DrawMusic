@@ -4,11 +4,11 @@ PlaybackTimeline::PlaybackTimeline(const String name)
 {
 }
 
-void PlaybackTimeline::setToControlAudioSource(Rectangle<int> activeClickArea,
-                                               PositionableAudioSource* audioSource)
+void PlaybackTimeline::setToControlAudioSystem(Rectangle<int> activeClickArea,
+                                               AudioSystem* audioSystem)
 {
   activeClickArea_ = activeClickArea;
-  audioSource_ = audioSource;
+  audioSystem_ = audioSystem;
 }
 
 void PlaybackTimeline::newPositionCallback(float playFraction)
@@ -24,12 +24,10 @@ bool PlaybackTimeline::hitTest(int x, int y)
 
 void PlaybackTimeline::mouseDown(const juce::MouseEvent& event)
 {
-  if (audioSource_ != nullptr)
+  if (audioSystem_ != nullptr)
   {
     float newFractionalPosition = static_cast<float>(event.x) / getWidth();
-    currentPlayFraction_ = newFractionalPosition;
-    audioSource_->setNextReadPosition(
-        static_cast<int64>(audioSource_->getTotalLength() * newFractionalPosition));
+    audioSystem_->setNewPlaybackPosition(newFractionalPosition);
     repaint();
   }
 }

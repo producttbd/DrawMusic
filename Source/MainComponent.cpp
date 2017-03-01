@@ -1,12 +1,10 @@
 #include "MainComponent.h"
 
-#include "AudioRendering/AudioFileWriter.h"
 #include "Brushes/BrushPaletteWindow.h"
 #include "CommandIds.h"
 #include "Configuration.h"
 #include "DrawMusicApplication.h"
 #include "GridData/GridDataChangedNotifier.h"
-#include "UI/AudioSettingsWindow.h"
 #include "UI/DrawMusicLookAndFeel.h"
 
 MainComponent::MainComponent()
@@ -16,10 +14,8 @@ MainComponent::MainComponent()
       gridActionManager_(brushPalette_, gridData_, gridDataChangedNotifier_),
       gridColourScheme_(),
       drawGrid_(gridActionManager_, gridData_, gridColourScheme_),
-      deviceManager_(),
-      audioSourcePlayer_(),
-      transportSource_(),
-      gridAudioSource_(gridData_),
+      audioDataChangedNotifier_(),
+      audioSystem_(gridData_, audioDataChangedNotifier_),
       playbackTimeline_("playbackTimeline"),
       playbackTimer_(playbackTimeline_),
       waveformView_("waveform view"),
@@ -57,25 +53,18 @@ MainComponent::MainComponent()
   addAndMakeVisible(drawGrid_);
   addAndMakeVisible(&playbackTimeline_);
 
-  // Audio
-  // TODO channels?
-  deviceManager_.initialise(0 /* numInputChannelsNeeded */, 2 /* numOutputChannelsNeeded */,
-                            0 /* savedState */, true /* selectDefaultDeviceOnFailure */);
-  deviceManager_.addAudioCallback(&audioSourcePlayer_);
-  audioSourcePlayer_.setSource(&transportSource_);
-  transportSource_.setSource(&gridAudioSource_);
-
   // The WavefromView should know when new audio is available to redraw and the timeline should know
   // when the current position has changed.
-  gridAudioSource_.addNewAudioListener(&waveformView_);
-  gridAudioSource_.addNewPositionListener(&playbackTimeline_);
+  audioDataChangedNotifier_.addNewAudioListener(&waveformView_);
+  audioDataChangedNotifier_.addNewPositionListener(&playbackTimeline_);
 
   // The actual UI Component, DrawGrid, should know when the underlying data is changed or resized.
-  // The Grid...AudioSource should know when new data is available for turning into sound.
   gridDataChangedNotifier_.addGridDataResizedListener(&drawGrid_);
-  gridDataChangedNotifier_.addGridDataResizedListener(&gridAudioSource_);
   gridDataChangedNotifier_.addGridDataUpdatedListener(&drawGrid_);
-  gridDataChangedNotifier_.addGridDataUpdatedListener(&gridAudioSource_);
+
+  // The AudioSystem should know when new data is available for turning into sound.
+  gridDataChangedNotifier_.addGridDataResizedListener(&audioSystem_);
+  gridDataChangedNotifier_.addGridDataUpdatedListener(&audioSystem_);
 
   // Finally set size
   setSize(Configuration::getMainWindowWidth(), Configuration::getMainWindowHeight());
@@ -83,13 +72,6 @@ MainComponent::MainComponent()
 
 MainComponent::~MainComponent()
 {
-  transportSource_.setSource(nullptr);
-  audioSourcePlayer_.setSource(nullptr);
-  deviceManager_.closeAudioDevice();
-  if (audioSettingsWindow_ != nullptr)
-  {
-    audioSettingsWindow_.deleteAndZero();
-  }
 }
 
 // ===== Component overrides =====
@@ -113,7 +95,7 @@ void MainComponent::resized()
   playbackTimeline_.setBounds(outsideMargin, outsideMargin, gridWidth,
                               gridHeight + outsideMargin + Configuration::getWaveformViewHeight());
   auto clickBoundsForWaveformView = playbackTimeline_.getLocalArea(this, waveformView_.getBounds());
-  playbackTimeline_.setToControlAudioSource(clickBoundsForWaveformView, &gridAudioSource_);
+  playbackTimeline_.setToControlAudioSystem(clickBoundsForWaveformView, &audioSystem_);
 
   const int buttonWidth = Configuration::getButtonWidth();
   const int buttonHeight = Configuration::getButtonHeight();
@@ -134,6 +116,7 @@ void MainComponent::resized()
 // ===== ApplicationCommandTarget overrides =====
 ApplicationCommandTarget* MainComponent::getNextCommandTarget()
 {
+  // To keep things simple, this is the only ApplicationCommandTarget in DrawMusic code.
   return nullptr;
 }
 
@@ -242,10 +225,10 @@ bool MainComponent::perform(const InvocationInfo& info)
       gridActionManager_.saveAs();
       break;
     case DrawMusicCommandID::exportAudio:
-      AudioFileWriter::saveToFileWithDialogBox(gridAudioSource_.getOutputBuffer());
+      audioSystem_.saveAudioToFile();
       break;
     case DrawMusicCommandID::openSettings:
-      openAudioSettingsWindow();
+      audioSystem_.openSettingsWindow();
       break;
     case DrawMusicCommandID::play_pause:
       togglePlayback();
@@ -277,7 +260,7 @@ bool MainComponent::perform(const InvocationInfo& info)
 
 void MainComponent::togglePlayback()
 {
-  if (transportSource_.isPlaying())
+  if (audioSystem_.isPlaying())
   {
     stopPlayback();
   }
@@ -292,12 +275,12 @@ void MainComponent::startPlayback()
   playStopButton_.setButtonText(TRANS("stop"));
   playStopButton_.setToggleState(true, NotificationType::dontSendNotification);
   playbackTimer_.startTimer(Configuration::getPlaybackTimerInterval());
-  transportSource_.start();
+  audioSystem_.startPlayback();
 }
 
 void MainComponent::stopPlayback()
 {
-  transportSource_.stop();
+  audioSystem_.stopPlayback();
   playbackTimer_.stopTimer();
   playStopButton_.setButtonText(TRANS("play"));
   playStopButton_.setToggleState(false, NotificationType::dontSendNotification);
@@ -316,7 +299,7 @@ void MainComponent::clearGrid()
                                    this))
   {
     stopPlayback();
-    transportSource_.setPosition(0);
+    audioSystem_.setNewPlaybackPosition(0.0f);
     gridActionManager_.clearGrid();
   }
 }
@@ -355,13 +338,4 @@ void MainComponent::gridLarger()
       setSize(Configuration::getMainWindowWidth(), Configuration::getMainWindowHeight());
     }
   }
-}
-
-void MainComponent::openAudioSettingsWindow()
-{
-  if (audioSettingsWindow_ != nullptr)
-  {
-    return;
-  }
-  audioSettingsWindow_ = new AudioSettingsWindow(TRANS("audio settings window"), deviceManager_);
 }

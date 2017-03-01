@@ -6,42 +6,21 @@
 #include "../Configuration.h"
 #include "../GridData/GridData.h"
 #include "../GridData/GridDataChangedNotifier.h"
+#include "AudioDataChangedNotifier.h"
 #include "WaveletReconstructor.h"
 
-class GridAudioRendererAudioSource : public PositionableAudioSource,
-                                     public GridDataChangedNotifier::GridDataResizedListener,
-                                     public GridDataChangedNotifier::GridDataUpdatedListener
+class GridAudioRendererAudioSource : public PositionableAudioSource
 {
  public:
-  class NewAudioListener
-  {
-   public:
-    virtual void newAudioCallback(const AudioSampleBuffer& updatedAudio) = 0;
-    virtual ~NewAudioListener() {}
-  };
-
-  class NewPositionListener
-  {
-   public:
-    virtual void newPositionCallback(float fraction) = 0;
-    virtual ~NewPositionListener() {}
-  };
-
-  explicit GridAudioRendererAudioSource(const GridData& gridData) noexcept;
+  GridAudioRendererAudioSource(const GridData& gridData,
+                               AudioDataChangedNotifier& audioDataChangedNotifier) noexcept;
   ~GridAudioRendererAudioSource();
 
-  const AudioSampleBuffer& getOutputBuffer();
-
-  void addNewAudioListener(NewAudioListener* listener);
-  void removeNewAudioListener(NewAudioListener* listener);
-  void addNewPositionListener(NewPositionListener* listener);
-  void removeNewPositionListener(NewPositionListener* listener);
-
-  // GridActionManagerListener methods
-  // Called when new gridData is available and needs rerendering
-  void entireGridDataUpdatedCallback() override;
-  void partialGridDataUpdatedCallback(const Array<GridPoint>& affectedPoints) override;
-  void gridDataResizedCallback() override;
+  const AudioSampleBuffer& getOutputBuffer() const;
+  void reinitialize();
+  void rerenderAll();
+  void rerenderAsNeeded(const Array<GridPoint>& affectedPoints);
+  void setNewPlaybackPosition(float fraction);
 
   // AudioSource methods
   void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;
@@ -56,11 +35,6 @@ class GridAudioRendererAudioSource : public PositionableAudioSource,
   void setLooping(bool shouldLoop) override;
 
  private:
-  // TODO make dependencies on Configuration explicit
-  void reinitialize();
-  void rerenderAll();
-  void rerenderAsNeeded(const Array<GridPoint>& affectedPoints);
-
   void callDeviceChangeListeners();
 
   const GridData& gridData_;
@@ -68,10 +42,8 @@ class GridAudioRendererAudioSource : public PositionableAudioSource,
   AudioSampleBuffer fullPieceAudioBuffer_;
   int currentOutputOffset_;
 
+  AudioDataChangedNotifier& audioDataChangedNotifier_;
   WaveletReconstructor reconstructor_;
-
-  ListenerList<NewAudioListener> newAudioListeners_;
-  ListenerList<NewPositionListener> newPositionListeners_;
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(GridAudioRendererAudioSource);
 };

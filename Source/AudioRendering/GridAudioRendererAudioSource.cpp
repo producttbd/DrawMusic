@@ -1,11 +1,13 @@
 #include "GridAudioRendererAudioSource.h"
 
-GridAudioRendererAudioSource::GridAudioRendererAudioSource(const GridData& gridData) noexcept
+GridAudioRendererAudioSource::GridAudioRendererAudioSource(
+    const GridData& gridData, AudioDataChangedNotifier& audioDataChangedNotifier) noexcept
     : gridData_(gridData),
       readyToPlay_(true),
       fullPieceAudioBuffer_(Configuration::getNumberChannels(),
                             Configuration::getTotalAudioSampleLength()),
       currentOutputOffset_(0),
+      audioDataChangedNotifier_(audioDataChangedNotifier),
       reconstructor_(gridData)
 {
   fullPieceAudioBuffer_.clear();
@@ -15,56 +17,41 @@ GridAudioRendererAudioSource::~GridAudioRendererAudioSource()
 {
 }
 
-const AudioSampleBuffer& GridAudioRendererAudioSource::getOutputBuffer()
+const AudioSampleBuffer& GridAudioRendererAudioSource::getOutputBuffer() const
 {
   return fullPieceAudioBuffer_;
 }
 
-void GridAudioRendererAudioSource::addNewAudioListener(
-    GridAudioRendererAudioSource::NewAudioListener* listener)
-{
-  newAudioListeners_.add(listener);
-}
-
-void GridAudioRendererAudioSource::removeNewAudioListener(
-    GridAudioRendererAudioSource::NewAudioListener* listener)
-{
-  newAudioListeners_.remove(listener);
-}
-
-void GridAudioRendererAudioSource::addNewPositionListener(
-    GridAudioRendererAudioSource::NewPositionListener* listener)
-{
-  newPositionListeners_.add(listener);
-}
-
-void GridAudioRendererAudioSource::removeNewPositionListener(
-    GridAudioRendererAudioSource::NewPositionListener* listener)
-{
-  newPositionListeners_.remove(listener);
-}
-
-// GridActionManagerListener methods
-void GridAudioRendererAudioSource::entireGridDataUpdatedCallback()
+void GridAudioRendererAudioSource::reinitialize()
 {
   readyToPlay_ = false;
+  setNewPlaybackPosition(0);
+  reconstructor_.reinitialize();
+  fullPieceAudioBuffer_.setSize(Configuration::getNumberChannels(),
+                                Configuration::getTotalAudioSampleLength());
   rerenderAll();
 }
 
-void GridAudioRendererAudioSource::partialGridDataUpdatedCallback(
-    const Array<GridPoint>& affectedPoints)
+void GridAudioRendererAudioSource::rerenderAll()
 {
   readyToPlay_ = false;
-  // TODO Partial rerender
-  rerenderAsNeeded(affectedPoints);
+  reconstructor_.perform(fullPieceAudioBuffer_);
+  readyToPlay_ = true;
+  audioDataChangedNotifier_.callNewAudioListeners(fullPieceAudioBuffer_);
 }
 
-void GridAudioRendererAudioSource::gridDataResizedCallback()
+void GridAudioRendererAudioSource::rerenderAsNeeded(const Array<GridPoint>& affectedPoints)
 {
   readyToPlay_ = false;
-  reinitialize();
+  reconstructor_.perform(fullPieceAudioBuffer_, affectedPoints);
+  readyToPlay_ = true;
+  audioDataChangedNotifier_.callNewAudioListeners(fullPieceAudioBuffer_);
 }
 
+void GridAudioRendererAudioSource::setNewPlaybackPosition(float fraction)
+{
+  setNextReadPosition(static_cast<int64>(getTotalLength() * fraction));
+}
 // AudioSource methods
 void GridAudioRendererAudioSource::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
 {
@@ -114,8 +101,7 @@ void GridAudioRendererAudioSource::setNextReadPosition(int64 newPosition)
   jassert(newPosition >= 0 && newPosition <= getTotalLength());
   currentOutputOffset_ = newPosition;
   auto fraction = static_cast<float>(newPosition) / static_cast<float>(getTotalLength());
-  newPositionListeners_.call(
-      &GridAudioRendererAudioSource::NewPositionListener::newPositionCallback, fraction);
+  audioDataChangedNotifier_.callNewPositionListeners(fraction);
 }
 
 int64 GridAudioRendererAudioSource::getNextReadPosition() const
@@ -136,30 +122,4 @@ bool GridAudioRendererAudioSource::isLooping() const
 void GridAudioRendererAudioSource::setLooping(bool shouldLoop)
 {
   jassert(false);
-}
-
-// private methods
-void GridAudioRendererAudioSource::reinitialize()
-{
-  reconstructor_.reinitialize();
-  readyToPlay_ = false;
-  fullPieceAudioBuffer_.setSize(Configuration::getNumberChannels(),
-                                Configuration::getTotalAudioSampleLength());
-  rerenderAll();
-}
-
-void GridAudioRendererAudioSource::rerenderAll()
-{
-  reconstructor_.perform(fullPieceAudioBuffer_);
-  readyToPlay_ = true;
-  newAudioListeners_.call(&GridAudioRendererAudioSource::NewAudioListener::newAudioCallback,
-                          fullPieceAudioBuffer_);
-}
-
-void GridAudioRendererAudioSource::rerenderAsNeeded(const Array<GridPoint>& affectedPoints)
-{
-  reconstructor_.perform(fullPieceAudioBuffer_, affectedPoints);
-  readyToPlay_ = true;
-  newAudioListeners_.call(&GridAudioRendererAudioSource::NewAudioListener::newAudioCallback,
-                          fullPieceAudioBuffer_);
 }

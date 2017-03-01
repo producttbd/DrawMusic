@@ -3,8 +3,8 @@
 
 #include "JuceHeader.h"
 
-#include "AudioRendering/GridAudioRendererAudioSource.h"
-#include "AudioRendering/WaveletReconstructor.h"
+#include "AudioRendering/AudioDataChangedNotifier.h"
+#include "AudioRendering/AudioSystem.h"
 #include "Brushes/BrushPalette.h"
 #include "GridData/GridActionManager.h"
 #include "GridData/GridData.h"
@@ -37,7 +37,6 @@ class MainComponent : public Component, public ApplicationCommandTarget
   void clearGrid();
   void gridSmaller();
   void gridLarger();
-  void openAudioSettingsWindow();
 
   class PlaybackTimer : public Timer
   {
@@ -56,15 +55,11 @@ class MainComponent : public Component, public ApplicationCommandTarget
   GridColourScheme gridColourScheme_;
   DrawGrid drawGrid_;
 
-  AudioDeviceManager deviceManager_;
-  AudioSourcePlayer audioSourcePlayer_;
-  AudioTransportSource transportSource_;
-  GridAudioRendererAudioSource gridAudioSource_;
+  AudioDataChangedNotifier audioDataChangedNotifier_;
+  AudioSystem audioSystem_;
   PlaybackTimeline playbackTimeline_;
   PlaybackTimer playbackTimer_;
   WaveformView waveformView_;
-
-  Component::SafePointer<Component> audioSettingsWindow_;
 
   TextButton playStopButton_;
   TextButton undoButton_;

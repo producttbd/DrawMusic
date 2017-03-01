@@ -3,10 +3,10 @@
 
 #include "JuceHeader.h"
 
-#include "../AudioRendering/GridAudioRendererAudioSource.h"
+#include "../AudioRendering/AudioDataChangedNotifier.h"
 #include "AudioBufferThumbnail.h"
 
-class WaveformView : public Component, public GridAudioRendererAudioSource::NewAudioListener
+class WaveformView : public Component, public AudioDataChangedNotifier::NewAudioListener
 {
  public:
   explicit WaveformView(const String& name);
@@ -15,7 +15,7 @@ class WaveformView : public Component, public GridAudioRendererAudioSource::NewA
   void resized() override;
   void paint(Graphics& g) override;
 
-  // GridAudioRendererAudioSource::Listener override
+  // AudioDataChangedNotifier::Listener override
   void newAudioCallback(const AudioSampleBuffer& updatedAudio) override;
 
  private:
