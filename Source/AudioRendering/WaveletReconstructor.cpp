@@ -33,10 +33,11 @@ void WaveletReconstructor::perform(const Array<GridPoint>& affectedPoints)
   // For the maxX, we actually want two index beyond the maximum, one for ramp down, one because
   // it's an ending index which doesn't get processed.
   maxX = jmin(gridData_.getWidth(), maxX + 2);
-  buffer_.clear(minX * config_.WindowLength, (maxX - minX) * config_.WindowLength);
   // If we killed a run in progress, we need to include that old range in the new range.
   range_ = requestThreadExitAndWait() ? range_.getUnionWith(Range<int>(minX, maxX))
                                       : Range<int>(minX, maxX);
+  buffer_.clear(range_.getStart() * config_.WindowLength,
+                range_.getLength() * config_.WindowLength);
   startThread();
 }
 
