@@ -12,8 +12,7 @@ AudioSystem::AudioSystem(const GridData& gridData,
       audioSettingsWindow_(nullptr)
 {
   // TODO channels?
-  deviceManager_.initialise(0 /* numInputChannelsNeeded */, 2 /* numOutputChannelsNeeded */,
-                            0 /* savedState */, true /* selectDefaultDeviceOnFailure */);
+  deviceManager_.initialiseWithDefaultDevices(0, 2);
   deviceManager_.addAudioCallback(&audioSourcePlayer_);
   audioSourcePlayer_.setSource(&transportSource_);
   transportSource_.setSource(&gridAudioSource_);

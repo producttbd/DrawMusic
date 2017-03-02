@@ -14,6 +14,12 @@
               file="Source/AudioRendering/AudioFileWriter.h"/>
         <FILE id="udxL77" name="AudioSystem.cpp" compile="1" resource="0" file="Source/AudioRendering/AudioSystem.cpp"/>
         <FILE id="D8FfSq" name="AudioSystem.h" compile="0" resource="0" file="Source/AudioRendering/AudioSystem.h"/>
+        <FILE id="vJ7r9w" name="AudioSystemConfiguration.h" compile="0" resource="0"
+              file="Source/AudioRendering/AudioSystemConfiguration.h"/>
+        <FILE id="eaV332" name="BinInformationCalculator.cpp" compile="1" resource="0"
+              file="Source/AudioRendering/BinInformationCalculator.cpp"/>
+        <FILE id="KYYTxE" name="BinInformationCalculator.h" compile="0" resource="0"
+              file="Source/AudioRendering/BinInformationCalculator.h"/>
         <FILE id="tnplvO" name="EqualLoudnessCurve.h" compile="0" resource="0"
               file="Source/AudioRendering/EqualLoudnessCurve.h"/>
         <FILE id="CjX5jv" name="GridAudioRendererAudioSource.cpp" compile="1"

@@ -8,7 +8,7 @@ GridAudioRendererAudioSource::GridAudioRendererAudioSource(
                             Configuration::getTotalAudioSampleLength()),
       currentOutputOffset_(0),
       audioDataChangedNotifier_(audioDataChangedNotifier),
-      reconstructor_(gridData)
+      reconstructor_(fullPieceAudioBuffer_, gridData, audioDataChangedNotifier)
 {
   fullPieceAudioBuffer_.clear();
 }
@@ -35,23 +35,26 @@ void GridAudioRendererAudioSource::reinitialize()
 void GridAudioRendererAudioSource::rerenderAll()
 {
   readyToPlay_ = false;
-  reconstructor_.perform(fullPieceAudioBuffer_);
-  readyToPlay_ = true;
-  audioDataChangedNotifier_.callNewAudioListeners(fullPieceAudioBuffer_);
+  reconstructor_.perform();
 }
 
 void GridAudioRendererAudioSource::rerenderAsNeeded(const Array<GridPoint>& affectedPoints)
 {
   readyToPlay_ = false;
-  reconstructor_.perform(fullPieceAudioBuffer_, affectedPoints);
-  readyToPlay_ = true;
-  audioDataChangedNotifier_.callNewAudioListeners(fullPieceAudioBuffer_);
+  reconstructor_.perform(affectedPoints);
 }
 
 void GridAudioRendererAudioSource::setNewPlaybackPosition(float fraction)
 {
   setNextReadPosition(static_cast<int64>(getTotalLength() * fraction));
 }
+
+// AudioDataChangedNotifier::NewAudioListener
+void GridAudioRendererAudioSource::newAudioCallback(const AudioSampleBuffer& /* updatedAudio */)
+{
+  readyToPlay_ = true;
+}
+
 // AudioSource methods
 void GridAudioRendererAudioSource::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
 {

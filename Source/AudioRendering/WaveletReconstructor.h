@@ -4,41 +4,39 @@
 #include "JuceHeader.h"
 
 #include "../GridData/GridData.h"
+#include "AudioDataChangedNotifier.h"
+#include "AudioSystemConfiguration.h"
+#include "BinInformationCalculator.h"
 
-class WaveletReconstructor
+class WaveletReconstructor : private Thread
 {
  public:
-  explicit WaveletReconstructor(const GridData& gridData);
+  WaveletReconstructor(AudioSampleBuffer& output, const GridData& gridData,
+                       AudioDataChangedNotifier& notifier);
+  ~WaveletReconstructor() {}
+
+  void perform();
+  void perform(const Array<GridPoint>& affectedPoints);
 
   // TODO make the dependencies on Configuration explicit
   void reinitialize();
 
-  void perform(AudioSampleBuffer& buffer) const;
-  void perform(AudioSampleBuffer& buffer, const Array<GridPoint>& affectedPoints) const;
-
  private:
-  void performInternal(AudioSampleBuffer& buffer, int minX, int maxX) const;
-  void createBinInformation();
+  // Used to interrupt rendering early. Returns true if interrupted.
+  bool requestThreadExitAndWait();
+  void run();
+  Range<int> range_ = Range<int>(0, 0);
 
+  AudioDataChangedNotifier& notifier_;
+  AudioSampleBuffer& buffer_;
+  const GridData& gridData_;
+
+  AudioSystemConfiguration config_;
   // Contains the wave table and how many cycles the wave table contains for each row (frequency)
   // of the GridData.
-  struct BinInformation
-  {
-    Array<float> Waveform;
-    int CycleLength;
-  };
-  Array<BinInformation> waveTables_;
+  Array<BinInformationCalculator::BinInformation> waveTables_;
 
-  const GridData& gridData_;
-  float minimumFrequency_;
-  float binsPerOctave_;
-  int windowLength_;
-  double sampleRate_;
-  const float minThreshold = 0.00001f;
-  const float impulseThreshold = 0.1f;
-  const float globalScalar_ = 0.1f;
-  const float rampTransitionCycles_ = 5.0f;
-  const int minWaveTableLength_ = 512;
+  JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(WaveletReconstructor);
 };
 
 #endif  // WAVELETRECONSTRUCTOR_H_INCLUDED

@@ -21,6 +21,8 @@ MouseDownGridBrushAction::MouseDownGridBrushAction(GridData& gridData,
 
 bool MouseDownGridBrushAction::perform()
 {
+  DBG("");
+  DBG("Mouse down");
   auto affectedPixels = brushAction_->startStroke(point_, actualGrid_);
   gridDataChangedNotifier_.callGridUpdatedListenersForPartialBrushStroke(affectedPixels);
   return true;

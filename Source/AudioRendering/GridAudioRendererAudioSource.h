@@ -9,7 +9,8 @@
 #include "AudioDataChangedNotifier.h"
 #include "WaveletReconstructor.h"
 
-class GridAudioRendererAudioSource : public PositionableAudioSource
+class GridAudioRendererAudioSource : public PositionableAudioSource,
+                                     public AudioDataChangedNotifier::NewAudioListener
 {
  public:
   GridAudioRendererAudioSource(const GridData& gridData,
@@ -21,6 +22,9 @@ class GridAudioRendererAudioSource : public PositionableAudioSource
   void rerenderAll();
   void rerenderAsNeeded(const Array<GridPoint>& affectedPoints);
   void setNewPlaybackPosition(float fraction);
+
+  // AudioDataChangedNotifier::NewAudioListener
+  void newAudioCallback(const AudioSampleBuffer& updatedAudio) override;
 
   // AudioSource methods
   void prepareToPlay(int samplesPerBlockExpected, double sampleRate) override;
