@@ -22,7 +22,7 @@ MouseDownGridBrushAction::MouseDownGridBrushAction(GridData& gridData,
 bool MouseDownGridBrushAction::perform()
 {
   auto affectedPixels = brushAction_->startStroke(point_, actualGrid_);
-  gridDataChangedNotifier_.callGridUpdatedListeners(affectedPixels);
+  gridDataChangedNotifier_.callGridUpdatedListenersForPartialBrushStroke(affectedPixels);
   return true;
 }
 
@@ -44,7 +44,7 @@ MouseDragGridBrushAction::MouseDragGridBrushAction(GridData& gridData,
 bool MouseDragGridBrushAction::perform()
 {
   auto affectedPixels = brushAction_->continueStroke(point_, actualGrid_);
-  gridDataChangedNotifier_.callGridUpdatedListeners(affectedPixels);
+  gridDataChangedNotifier_.callGridUpdatedListenersForPartialBrushStroke(affectedPixels);
   return true;
 }
 
@@ -58,8 +58,11 @@ MouseUpGridBrushAction::MouseUpGridBrushAction(GridData& gridData, AbstractBrush
 bool MouseUpGridBrushAction::perform()
 {
   DBG("MouseUpGridBrushAction started");
-  auto affectedPixels = brushAction_->finishStroke(point_, actualGrid_);
-  gridDataChangedNotifier_.callGridUpdatedListeners(affectedPixels);
+  auto affectedPixels = brushAction_->continueStroke(point_, actualGrid_);
+  gridDataChangedNotifier_.callGridUpdatedListenersForPartialBrushStroke(affectedPixels);
+  DBG("MouseUpGridBrushAction partial brush stroke complete");
+  auto allAffectedPixels = brushAction_->finishStroke();
+  gridDataChangedNotifier_.callGridUpdatedListenersForCompleteBrushStroke(allAffectedPixels);
   DBG("MouseUpGridBrushAction finished");
   return true;
 }

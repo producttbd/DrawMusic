@@ -4,7 +4,7 @@
 
 using ControlSpec = AbstractBrushControls::ControlSpec;
 
-BasicBrushBase::BasicBrushBase() : intensityScalar_(0.5f), pointsInStroke_()
+BasicBrushBase::BasicBrushBase() : intensityScalar_(0.5f), allAffectedPoints_()
 {
   ControlSpec spec({"Intensity", 0.0f, 1.0f, intensityScalar_});
   supportedControls_.add(spec);
@@ -31,28 +31,22 @@ void BasicBrushBase::controlChanged(AbstractBrushControls::ControlSpec spec)
 
 Array<GridPoint> BasicBrushBase::startStroke(StrokePoint p, GridData& gridData)
 {
-  pointsInStroke_.clearQuick();
-  pointsInStroke_.add(p);
+  allAffectedPoints_.clearQuick();
+  previousPoint_ = p;
   return Array<GridPoint>();
 }
 
 Array<GridPoint> BasicBrushBase::continueStroke(StrokePoint p, GridData& gridData)
 {
-  pointsInStroke_.add(p);
-  return Array<GridPoint>();
+  auto affectedPoints = applyBrushToSegment(previousPoint_, p, gridData);
+  previousPoint_ = p;
+  allAffectedPoints_.addArray(affectedPoints);
+  return affectedPoints;
 }
 
-Array<GridPoint> BasicBrushBase::finishStroke(StrokePoint p, GridData& gridData)
+Array<GridPoint> BasicBrushBase::finishStroke()
 {
-  pointsInStroke_.add(p);
-
-  auto affectedPixels = applyBrushToStroke(pointsInStroke_, gridData);
-  pointsInStroke_.clearQuick();
-  return affectedPixels;
-}
-
-void BasicBrushBase::recreateBrush(AbstractBrushControls::ControlSpec specChanged)
-{
+  return allAffectedPoints_;
 }
 
 Array<StrokePoint> BasicBrushBase::getIntermediaryPoints(StrokePoint start, StrokePoint end) const
@@ -112,21 +106,14 @@ Array<StrokePoint> BasicBrushBase::getIntermediaryPoints(StrokePoint start, Stro
   return intermediaryPoints;
 }
 
-Array<GridPoint> BasicBrushBase::applyBrushToStroke(const Array<StrokePoint>& pointsInStroke,
-                                                    GridData& gridData) const
+Array<GridPoint> BasicBrushBase::applyBrushToSegment(StrokePoint start, StrokePoint end,
+                                                     GridData& gridData) const
 {
-  jassert(pointsInStroke.size() > 1);
-  Array<GridPoint> allAffectedPoints;
-
-  StrokePoint start = pointsInStroke[0];
-  for (int i = 1; i < pointsInStroke.size(); ++i)
+  Array<GridPoint> affectedPoints;
+  const auto intermediatePoints = getIntermediaryPoints(start, end);
+  for (const auto& point : intermediatePoints)
   {
-    const auto intermediatePoints = getIntermediaryPoints(start, pointsInStroke[i]);
-    for (const auto& point : intermediatePoints)
-    {
-      allAffectedPoints.addArray(applyBrushToPoint(point, gridData));
-    }
-    start = pointsInStroke[i];
+    affectedPoints.addArray(applyBrushToPoint(point, gridData));
   }
-  return allAffectedPoints;
+  return affectedPoints;
 }

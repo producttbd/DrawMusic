@@ -28,10 +28,12 @@ class DrawGrid : public Component,
 
   // GridDataChangedNotifier Listeners overrides
   void entireGridDataUpdatedCallback() override;
-  void partialGridDataUpdatedCallback(const Array<GridPoint>& affectedPoints) override;
+  void partialBrushStrokeCallback(const Array<GridPoint>& affectedPoints) override;
+  void completeBrushStrokeCallback(const Array<GridPoint>& affectedPoints) override;
   void gridDataResizedCallback() override;
 
  private:
+  void rerenderPoints(const Array<GridPoint>& affectedPoints);
   void refreshAll();
 
   // To handle clicks on the UI element.

@@ -30,11 +30,22 @@ void GridDataChangedNotifier::callGridUpdatedListeners()
   gridDataUpdatedListeners_.call(&GridDataUpdatedListener::entireGridDataUpdatedCallback);
 }
 
-void GridDataChangedNotifier::callGridUpdatedListeners(const Array<GridPoint>& affectedPoints)
+void GridDataChangedNotifier::callGridUpdatedListenersForPartialBrushStroke(
+    const Array<GridPoint>& affectedPoints)
 {
   if (affectedPoints.size() > 0)
   {
-    gridDataUpdatedListeners_.call(&GridDataUpdatedListener::partialGridDataUpdatedCallback,
+    gridDataUpdatedListeners_.call(&GridDataUpdatedListener::partialBrushStrokeCallback,
+                                   affectedPoints);
+  }
+}
+
+void GridDataChangedNotifier::callGridUpdatedListenersForCompleteBrushStroke(
+    const Array<GridPoint>& affectedPoints)
+{
+  if (affectedPoints.size() > 0)
+  {
+    gridDataUpdatedListeners_.call(&GridDataUpdatedListener::completeBrushStrokeCallback,
                                    affectedPoints);
   }
 }

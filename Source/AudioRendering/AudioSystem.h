@@ -18,7 +18,8 @@ class AudioSystem : public GridDataChangedNotifier::GridDataResizedListener,
   // GridDataChangedNotifier methods
   // Called when new gridData is available and needs rerendering
   void entireGridDataUpdatedCallback() override;
-  void partialGridDataUpdatedCallback(const Array<GridPoint>& affectedPoints) override;
+  void partialBrushStrokeCallback(const Array<GridPoint>& affectedPoints) override;
+  void completeBrushStrokeCallback(const Array<GridPoint>& affectedPoints) override;
   void gridDataResizedCallback() override;
 
   bool isPlaying() const;

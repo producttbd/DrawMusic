@@ -21,7 +21,8 @@ class GridDataChangedNotifier
   {
    public:
     virtual void entireGridDataUpdatedCallback() = 0;
-    virtual void partialGridDataUpdatedCallback(const Array<GridPoint>& affectedPoints) = 0;
+    virtual void partialBrushStrokeCallback(const Array<GridPoint>& affectedPoints) = 0;
+    virtual void completeBrushStrokeCallback(const Array<GridPoint>& affectedPoints) = 0;
     virtual ~GridDataUpdatedListener() {}
   };
 
@@ -32,7 +33,8 @@ class GridDataChangedNotifier
   void addGridDataUpdatedListener(GridDataUpdatedListener* listener);
   void removeGridDataUpdatedListener(GridDataUpdatedListener* listener);
   void callGridUpdatedListeners();
-  void callGridUpdatedListeners(const Array<GridPoint>& affectedPoints);
+  void callGridUpdatedListenersForPartialBrushStroke(const Array<GridPoint>& affectedPoints);
+  void callGridUpdatedListenersForCompleteBrushStroke(const Array<GridPoint>& affectedPoints);
 
  private:
   ListenerList<GridDataResizedListener> gridDataResizedListeners_;

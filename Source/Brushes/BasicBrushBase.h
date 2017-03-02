@@ -21,15 +21,14 @@ class BasicBrushBase : public AbstractBrushAction
 
   Array<GridPoint> startStroke(StrokePoint p, GridData& gridData) override;
   Array<GridPoint> continueStroke(StrokePoint p, GridData& gridData) override;
-  Array<GridPoint> finishStroke(StrokePoint p, GridData& gridData) override;
+  Array<GridPoint> finishStroke() override;
 
  protected:
-  virtual void recreateBrush(AbstractBrushControls::ControlSpec specChanged);
-
-  virtual Array<StrokePoint> getIntermediaryPoints(StrokePoint start, StrokePoint end) const;
-  virtual Array<GridPoint> applyBrushToStroke(const Array<StrokePoint>& pointsInStroke,
-                                              GridData& gridData) const;
+  virtual void recreateBrush(AbstractBrushControls::ControlSpec specChanged) {}
   virtual Array<GridPoint> applyBrushToPoint(StrokePoint p, GridData& gridData) const = 0;
+  Array<GridPoint> applyBrushToSegment(StrokePoint start, StrokePoint end,
+                                       GridData& gridData) const;
+  Array<StrokePoint> getIntermediaryPoints(StrokePoint start, StrokePoint end) const;
 
   static inline float clampOutputValue(float value)
   {
@@ -43,7 +42,8 @@ class BasicBrushBase : public AbstractBrushAction
   static constexpr float minIntensityScalar_ = 0.0f;
   static constexpr float maxIntensityScalar_ = 1.0f;
 
-  Array<StrokePoint> pointsInStroke_;
+  Array<GridPoint> allAffectedPoints_;
+  StrokePoint previousPoint_;
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BasicBrushBase)
 };

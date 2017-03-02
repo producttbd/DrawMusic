@@ -16,7 +16,7 @@ class AbstractBrushAction : public AbstractBrushControls::Listener
 
   virtual Array<GridPoint> startStroke(StrokePoint p, GridData& gridData) = 0;
   virtual Array<GridPoint> continueStroke(StrokePoint p, GridData& gridData) = 0;
-  virtual Array<GridPoint> finishStroke(StrokePoint p, GridData& gridData) = 0;
+  virtual Array<GridPoint> finishStroke() = 0;
 
   virtual void drawPreviewInto(Graphics& g, const Rectangle<int>& bounds) const = 0;
 

@@ -54,15 +54,24 @@ void DrawGrid::entireGridDataUpdatedCallback()
   refreshAll();
 }
 
-void DrawGrid::partialGridDataUpdatedCallback(const Array<GridPoint>& affectedPoints)
+void DrawGrid::partialBrushStrokeCallback(const Array<GridPoint>& affectedPoints)
 {
-  gridImageRenderer_.renderSelectPointsToImage(affectedPoints, theImage_);
-  repaint();
+  rerenderPoints(affectedPoints);
+}
+
+void DrawGrid::completeBrushStrokeCallback(const Array<GridPoint>& affectedPoints)
+{
 }
 
 void DrawGrid::gridDataResizedCallback()
 {
   resized();
+}
+
+void DrawGrid::rerenderPoints(const Array<GridPoint>& affectedPoints)
+{
+  gridImageRenderer_.renderSelectPointsToImage(affectedPoints, theImage_);
+  repaint();
 }
 
 void DrawGrid::refreshAll()

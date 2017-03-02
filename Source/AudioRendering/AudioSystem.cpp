@@ -3,7 +3,7 @@
 #include "AudioFileWriter.h"
 
 AudioSystem::AudioSystem(const GridData& gridData,
-                        AudioDataChangedNotifier& audioDataChangedNotifier)
+                         AudioDataChangedNotifier& audioDataChangedNotifier)
     : audioDataChangedNotifier_(audioDataChangedNotifier),
       deviceManager_(),
       audioSourcePlayer_(),
@@ -35,7 +35,13 @@ void AudioSystem::entireGridDataUpdatedCallback()
   gridAudioSource_.rerenderAll();
 }
 
-void AudioSystem::partialGridDataUpdatedCallback(const Array<GridPoint>& affectedPoints)
+void AudioSystem::partialBrushStrokeCallback(const Array<GridPoint>& affectedPoints)
+{
+  // We don't need to render audio of an brush stroke in progress, it would be rendering and
+  // re-rendering too frequently to be useful.
+}
+
+void AudioSystem::completeBrushStrokeCallback(const Array<GridPoint>& affectedPoints)
 {
   gridAudioSource_.rerenderAsNeeded(affectedPoints);
 }
