@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="juga0a" name="DrawMusic" projectType="guiapp" version="0.0.6"
+<JUCERPROJECT id="juga0a" name="DrawMusic" projectType="guiapp" version="0.0.7"
               bundleIdentifier="com.producttbd.drawmusic" includeBinaryInAppConfig="1"
               jucerVersion="4.3.0">
   <MAINGROUP id="BvMvtA" name="DrawMusic">
