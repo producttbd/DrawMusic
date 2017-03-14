@@ -52,7 +52,7 @@ void BrushPalette::openBrushPaletteWindow()
 {
   if (brushPaletteWindow_ == nullptr)
   {
-    brushPaletteWindow_ = new BrushPaletteWindow("brushPalettewindow", brushPaletteWindowContent_);
+    brushPaletteWindow_ = new BrushPaletteWindow(TRANS("Brush Palette"), brushPaletteWindowContent_);
   }
   brushPaletteWindow_->toFront(true);
 }
